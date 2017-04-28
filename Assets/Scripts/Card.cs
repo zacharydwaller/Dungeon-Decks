@@ -15,11 +15,12 @@ public class Card
     {
         Health, Armor
     }
-
+     
     public string name;
     public Color color;
     public Sprite image;
     public Target target;
     public TargetStat targetStat;
     public int effectAmount;
+    public int level;
 }

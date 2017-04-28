@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CardList>
+  <Card>
+    <Name>Dagger</Name>
+    <Color>Grey</Color>
+    <Image>Dagger</Image>
+    <Target>Melee</Target>
+    <TargetStat>Health</TargetStat>
+    <EffectAmount>1</EffectAmount>
+    <Level>0</Level>
+  </Card>
+</CardList>
