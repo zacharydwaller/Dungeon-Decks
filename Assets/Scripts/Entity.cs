@@ -12,6 +12,8 @@ public abstract class Entity : MonoBehaviour
         public int health;
     };
 
+    public int health;
+
     public static int nextId = 0;
 
     public Data data;
@@ -57,11 +59,13 @@ public abstract class Entity : MonoBehaviour
         return false;
     }
 
-    protected void Attack(Vector2 dir, Entity entity)
+    protected void Attack(int damage, Vector2 dir, Entity entity)
     {
-        //entity health -= damage
+        entity.TakeDamage(damage);
         StartCoroutine(AttackAnimation(dir));
     }
+
+    protected abstract void TakeDamage(int amount);
 
     protected IEnumerator SmoothMoveTo(Vector3 dest)
     {

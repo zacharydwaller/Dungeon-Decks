@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    int damage;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        health = 3;
+        damage = 1;
+    }
 
     public override void DoTurn()
     {
@@ -20,10 +29,21 @@ public class Enemy : Entity
             // Hit something
             if(rayHit.transform.tag == "Player")
             {
-                Attack(dir, GameManager.singleton.player);
+                Attack(damage, dir, GameManager.singleton.player);
             }
         }
 
         GameManager.singleton.EndEnemyTurn();
+    }
+
+    protected override void TakeDamage(int amount)
+    {
+        health -= amount;
+
+        if(health <= 0)
+        {
+            GameManager.singleton.killCounter++;
+            Destroy(gameObject);
+        }
     }
 }

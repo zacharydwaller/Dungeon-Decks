@@ -41,4 +41,19 @@ public static class CardDatabase
 
         return null;
     }
+
+    public static Card GetPunchCard()
+    {
+        Card punch = new Card();
+
+        punch.name = "Punch";
+        punch.color = Color.grey;
+        punch.image = Resources.Load<Sprite>("Images/Punch");
+        punch.target = Card.Target.Melee;
+        punch.targetStat = Card.TargetStat.Health;
+        punch.effectAmount = 1;
+        punch.level = 0;
+
+        return punch;
+    }
 }

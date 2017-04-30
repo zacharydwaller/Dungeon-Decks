@@ -12,9 +12,26 @@ public class CardGraphic : MonoBehaviour
     public Image image;
     public Image baseGraphic;
 
+    private Player player;
+    private bool isSelected;
+
+    public bool isPlaceholder;
+
     private void Start()
     {
-        UpdateCardGraphic();
+        player = GameManager.singleton.player;
+    }
+
+    private void Update()
+    {
+        if(player.hand[player.selectedCard] == card)
+        {
+            transform.localScale = new Vector3(1, 1.2f, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     public void UpdateCardGraphic()

@@ -54,7 +54,14 @@ public class GameManager : MonoBehaviour
             if(enemyTurn != enemies.Count)
             {
                 Enemy enemy = (Enemy) enemies[enemyTurn];
-                enemy.DoTurn();
+                if(enemy != null)
+                {
+                    enemy.DoTurn();
+                }
+                else
+                {
+                    enemies.RemoveAt(enemyTurn);
+                }
             }
             else
             {

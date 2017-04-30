@@ -107,7 +107,7 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        Camera.main.transform.position = new Vector3(currentBoard.Width() / 2, currentBoard.Height() / 2, -10);
+        Camera.main.transform.position = new Vector3(currentBoard.Width() / 2, 3.2f, -10);
     }
 }
 
