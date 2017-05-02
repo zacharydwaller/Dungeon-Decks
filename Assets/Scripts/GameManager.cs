@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     //public SortedList<int, List<GameObject>> enemyLists;
     public GameObject enemyRef;
 
+    public GameObject playerUI;
+
     public bool somethingMoving = false;
 
     public bool isPlayerTurn;
@@ -97,5 +99,15 @@ public class GameManager : MonoBehaviour
     public void EndEnemyTurn()
     {
         enemyTurn++;
+    }
+
+    public void EnemyKilled()
+    {
+
+    }
+
+    public void PlayerKilled()
+    {
+
     }
 }
