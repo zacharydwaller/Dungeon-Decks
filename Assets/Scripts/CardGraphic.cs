@@ -89,6 +89,8 @@ public class CardGraphic : MonoBehaviour
 
             text += "DMG";
         }
+
+        effectText.text = text;
     }
 
     
