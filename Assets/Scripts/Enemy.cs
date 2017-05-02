@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    int damage;
+    public int damage;
+    public int scoreValue;
 
     protected override void Start()
     {
@@ -12,6 +13,7 @@ public class Enemy : Entity
 
         health = 3;
         damage = 1;
+        scoreValue = 100;
     }
 
     public override void DoTurn()
@@ -35,6 +37,11 @@ public class Enemy : Entity
             {
                 Attack(damage, dir, GameManager.singleton.player);
             }
+            // Hit card, move anyways
+            else if(rayHit.transform.tag == "Card")
+            {
+                Move(dir);
+            }
         }
 
         GameManager.singleton.EndEnemyTurn();
@@ -46,7 +53,7 @@ public class Enemy : Entity
 
         if(health <= 0)
         {
-            GameManager.singleton.killCounter++;
+            GameManager.singleton.EnemyKilled(this);
             Destroy(gameObject);
         }
     }

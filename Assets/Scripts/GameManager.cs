@@ -101,13 +101,14 @@ public class GameManager : MonoBehaviour
         enemyTurn++;
     }
 
-    public void EnemyKilled()
+    public void EnemyKilled(Enemy enemy)
     {
-
+        killCounter++;
+        player.score += enemy.scoreValue;
     }
 
     public void PlayerKilled()
     {
-
+        // Game over
     }
 }
