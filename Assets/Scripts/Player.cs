@@ -130,14 +130,26 @@ public class Player : Entity
             else
             {
                 RaycastHit2D rayHit;
+                if(CheckMove(input, out rayHit))
+                {
+                    Move(input);
+                }
                 // Hit something
-                if(!Move(input, out rayHit))
+                else
                 {
                     // Hit enemy
                     if(rayHit.transform.tag == "Enemy")
                     {
                         DoCardEffect(input, rayHit.transform.GetComponent<Enemy>());
                     }
+                    // Hit card
+                    // Card case is elseif because don't want to move onto/collect a card
+                    // with an enemy on it
+                    else if(rayHit.transform.tag == "Card")
+                    {
+                        CollectCard(rayHit.transform.GetComponent<CardPickup>());
+                        Move(input);
+                    }   
                 }
             }
 
@@ -170,6 +182,36 @@ public class Player : Entity
         }
 
         DiscardCard(selectedCard);
+    }
+
+    public void CollectCard(CardPickup pickup)
+    {
+        // Try to put card directly in hand
+        if(!PutCardInHand(pickup.card))
+        {
+            // Hand full, put in deck
+            deck.Add(pickup.card);
+        }
+
+        Destroy(pickup.gameObject);
+    }
+
+    /*
+     * Tries to put a card in the hand
+     * Returns - true if card was placed in hand, false if hand full
+     */
+    public bool PutCardInHand(Card card)
+    {
+        for(int i = 0; i < punchIndex; i++)
+        {
+            if(hand[i] == null)
+            {
+                hand[i] = card;
+                return true;
+            }
+        }
+
+        return true;
     }
 
     public void DiscardCard(int num)

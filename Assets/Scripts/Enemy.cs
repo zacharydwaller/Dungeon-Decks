@@ -24,9 +24,13 @@ public class Enemy : Entity
         dir.y = Mathf.Round(dir.y);
 
         RaycastHit2D rayHit;
-        if(!Move(dir, out rayHit))
+        if(CheckMove(dir, out rayHit))
         {
-            // Hit something
+            Move(dir);
+        }
+        else
+        {
+            // Hit player
             if(rayHit.transform.tag == "Player")
             {
                 Attack(damage, dir, GameManager.singleton.player);

@@ -39,7 +39,12 @@ public abstract class Entity : MonoBehaviour
 
     public abstract void DoTurn();
 
-    protected bool Move(Vector2 dir, out RaycastHit2D rayHit)
+    /*
+     * Checks if the entity will collide with something when moving to dir
+     * out Rayhit - hit from raycast
+     * Returns - true if nothing in the way, false if will collide with something
+     */
+    protected bool CheckMove(Vector2 dir, out RaycastHit2D rayHit)
     {
         Vector2 start = transform.position;
         Vector2 dest = start + dir;
@@ -48,15 +53,18 @@ public abstract class Entity : MonoBehaviour
         rayHit = Physics2D.Linecast(start, dest);
         collider.enabled = true;
 
-        // Nothing in the way, move
+        // Nothing in the way
         if(rayHit.transform == null)
         {
-            data.position = dest;
-            StartCoroutine(SmoothMoveTo(dest));
             return true;
         }
 
         return false;
+    }
+
+    protected void Move(Vector3 dir)
+    {
+        StartCoroutine(SmoothMoveTo(transform.position + dir));
     }
 
     protected void Attack(int damage, Vector2 dir, Entity entity)
