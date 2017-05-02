@@ -11,6 +11,7 @@ public class CardGraphic : MonoBehaviour
     public Text effectText;
     public Image image;
     public Image baseGraphic;
+    public Outline selectedOutline;
 
     private Player player;
     private bool isSelected;
@@ -26,11 +27,11 @@ public class CardGraphic : MonoBehaviour
     {
         if(player.hand[player.selectedCard] == card)
         {
-            transform.localScale = new Vector3(1, 1.2f, 1);
+            selectedOutline.enabled = true;
         }
         else
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            selectedOutline.enabled = false;
         }
     }
 
