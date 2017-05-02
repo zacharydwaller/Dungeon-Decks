@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : Entity
 {
     public int armor;
+    public int score;
 
     public int selectedCard;
     public Card[] hand;
@@ -22,6 +23,7 @@ public class Player : Entity
 
         health = 10;
         armor = 0;
+        score = 0;
 
         hand = new Card[5];
         deck = new ArrayList();
@@ -48,9 +50,16 @@ public class Player : Entity
 
     protected override void TakeDamage(int amount)
     {
-        // Health damage rounds up, armor damage rounds down
-        health -= (int) ((amount / 2.0f) + 0.5f);
-        armor -= (int) amount / 2;
+        if(amount == 1)
+        {
+            armor -= 1;
+        }
+        else
+        {
+            // Health damage rounds up, armor damage rounds down
+            health -= (int) ((amount / 2.0f) + 0.5f);
+            armor -= (int) amount / 2;
+        }
 
         // If damage breaks armor, apply rest of damage to health
         if(armor < 0)
