@@ -31,12 +31,6 @@ public class Player : Entity
         // Punch doesn't go into graveyard when used and can't be discarded
         hand[punchIndex] = CardDatabase.GetPunchCard();
 
-        //TODO remove this
-        for(int i = 0; i < punchIndex; i++)
-        {
-            hand[i] = CardDatabase.GetPunchCard();
-        }
-
         selectedCard = punchIndex;
 
         prevInput = Vector2.zero;
@@ -112,12 +106,13 @@ public class Player : Entity
         input.x = Mathf.Round(Input.GetAxisRaw("Horizontal"));
         input.y = Mathf.Round(Input.GetAxisRaw("Vertical"));
 
-        // Check spacebar
+        // Check spacebar, use card if self-target, skip turn otherwise
         if(Input.GetKey(KeyCode.Space))
         {
             if(hand[selectedCard].target == Card.Target.Self)
             {
                 DoCardEffect();
+                
             }
             GameManager.singleton.EndPlayerTurn();
             return;
@@ -129,20 +124,19 @@ public class Player : Entity
             // If selected card is ranged, use it
             if(hand[selectedCard].target == Card.Target.Ranged)
             {
-                DoCardEffect();
+                DoCardEffect(input);
             }
             // Otherwise move/attack
             else
             {
                 RaycastHit2D rayHit;
+                // Hit something
                 if(!Move(input, out rayHit))
                 {
-                    // Hit something
+                    // Hit enemy
                     if(rayHit.transform.tag == "Enemy")
                     {
-                        // Do attack 
-                        Attack(hand[selectedCard].effectAmount, input, rayHit.transform.GetComponent<Enemy>());
-                        DiscardCard(selectedCard);
+                        DoCardEffect(input, rayHit.transform.GetComponent<Enemy>());
                     }
                 }
             }
@@ -151,9 +145,31 @@ public class Player : Entity
         }
     }
 
-    public void DoCardEffect()
+    public void DoCardEffect(Vector2 dir = default(Vector2), Entity enemyHit = null)
     {
+        Card card = hand[selectedCard];
 
+        if(card.target == Card.Target.Self)
+        {
+            if(card.targetStat == Card.TargetStat.Health)
+            {
+                health += card.effectAmount;
+            }
+            if(card.targetStat == Card.TargetStat.Armor)
+            {
+                armor += card.effectAmount;
+            }
+        }
+        else if(card.target == Card.Target.Ranged)
+        {
+            // Do ranged attack
+        }
+        else if(card.target == Card.Target.Melee)
+        {
+            Attack(hand[selectedCard].effectAmount, dir, enemyHit);
+        }
+
+        DiscardCard(selectedCard);
     }
 
     public void DiscardCard(int num)
