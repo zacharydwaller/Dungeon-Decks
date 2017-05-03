@@ -61,11 +61,13 @@ public class Player : Entity
             // Use card if card is self-cast
             if(hand[selectedCard].target == Card.Target.Self)
             {
-                DoCardEffect();
-
+                UseCard();
+            }
+            else
+            {
+                DrawCard();
             }
 
-            DrawCard();
             GameManager.singleton.EndPlayerTurn();
             return;
         }
@@ -73,10 +75,13 @@ public class Player : Entity
         // Check WASD
         if(!isMoving && (input.x != 0 || input.y != 0))
         {
+            bool usedCard = false; // Only draw card if player hasn't used card this turn
+
             // If selected card is ranged, use it
             if(hand[selectedCard].target == Card.Target.Ranged)
             {
-                DoCardEffect(input);
+                UseCard(input);
+                usedCard = true;
             }
             // Otherwise move/attack
             else
@@ -92,7 +97,8 @@ public class Player : Entity
                     // Hit enemy
                     if(rayHit.transform.tag == "Enemy")
                     {
-                        DoCardEffect(input, rayHit.transform.GetComponent<Enemy>());
+                        UseCard(input, rayHit.transform.GetComponent<Enemy>());
+                        usedCard = true;
                     }
                     // Hit card
                     // Card case is elseif because don't want to move onto/collect a card
@@ -110,7 +116,11 @@ public class Player : Entity
                 }
             }
 
-            DrawCard();
+            if(!usedCard)
+            {
+                DrawCard();
+            }
+
             GameManager.singleton.EndPlayerTurn();
         }
     } 
@@ -200,7 +210,7 @@ public class Player : Entity
         }
     }
 
-    public void DoCardEffect(Vector2 dir = default(Vector2), Entity enemyHit = null)
+    public void UseCard(Vector2 dir = default(Vector2), Entity enemyHit = null)
     {
         Card card = hand[selectedCard];
 
@@ -221,7 +231,7 @@ public class Player : Entity
         }
         else if(card.target == Card.Target.Melee)
         {
-            Attack(hand[selectedCard].effectAmount, dir, enemyHit);
+            Attack(card.effectAmount, dir, enemyHit);
         }
 
         DiscardCard(selectedCard);
@@ -274,7 +284,7 @@ public class Player : Entity
             }
         }
 
-        return true;
+        return false;
     }
 
     public void DiscardCard(int num)
@@ -304,6 +314,7 @@ public class Player : Entity
     public void Reshuffle()
     {
         deck.AddRange(graveyard);
+        graveyard.Clear();
 
         for(int i = 0; i < deck.Count; i++)
         {

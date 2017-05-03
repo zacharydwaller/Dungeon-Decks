@@ -11,12 +11,17 @@ public class CardPickup : Entity
     GameObject cgObject;
     bool mouseOver = false;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         data.type = Entity.Type.Card;
         data.card = card;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
     }
 
     private void Update()
@@ -25,6 +30,12 @@ public class CardPickup : Entity
         {
             MoveTooltip();
         }
+    }
+
+    public void Pickup()
+    {
+        GameManager.singleton.UnregisterEntity(this);
+        Destroy(gameObject);
     }
 
     public override void SetData(Data newData)
