@@ -18,30 +18,52 @@ public class Enemy : Entity
     {
         base.Start();
 
-        health = 1;
-        damage = 1;
+        health = 3;
+        damage = 2;
         scoreValue = 100;
     }
 
     public override void DoTurn()
     {
+        if(!GameManager.singleton.player)
+        {
+            GameManager.singleton.EndEnemyTurn();
+        }
+
+        RaycastHit2D rayHit;
         Vector3 target = GameManager.singleton.player.transform.position;
         Vector2 dir = target - transform.position;
         dir.Normalize();
 
         // Ensure diagonals are not possible but also pick most appropriate direction
-        if(Mathf.Abs(dir.x) >= Mathf.Abs(dir.y))
+        if(Mathf.Abs(dir.x) == Mathf.Abs(dir.y))
+        {
+            //Player at direct diagonal, check directions
+            if(CheckMove(new Vector2(dir.x, 0), out rayHit))
+            {
+                dir.x = 1 * Mathf.Sign(dir.x);
+                dir.y = 0;
+            }
+            else
+            {
+                dir.y = 1 * Mathf.Sign(dir.y);
+                dir.x = 0;
+            }
+        }
+        // Player further away in X direction
+        else if(Mathf.Abs(dir.x) >= Mathf.Abs(dir.y))
         {
             dir.y = 0;
             dir.x = Mathf.Round(dir.x);
         }
+        // Player further away in Y direction
         else
         {
             dir.x = 0;
             dir.y = Mathf.Round(dir.y);
         }
 
-        RaycastHit2D rayHit;
+        
         if(CheckMove(dir, out rayHit))
         {
             Move(dir);
