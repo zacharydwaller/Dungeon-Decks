@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardPickup : MonoBehaviour
+public class CardPickup : Entity
 {
     public Card card;
 
@@ -11,8 +11,12 @@ public class CardPickup : MonoBehaviour
     GameObject cgObject;
     bool mouseOver = false;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
+        data.type = Entity.Type.Card;
+        data.card = card;
     }
 
     private void Update()
@@ -21,6 +25,19 @@ public class CardPickup : MonoBehaviour
         {
             MoveTooltip();
         }
+    }
+
+    public override void SetData(Data newData)
+    {
+        base.SetData(newData);
+
+        card = data.card;
+    }
+
+    public void SetCard(Card newCard)
+    {
+        card = newCard;
+        data.card = card;
     }
 
     public void MoveTooltip()
@@ -58,4 +75,7 @@ public class CardPickup : MonoBehaviour
         mouseOver = false;
         Destroy(cgObject);
     }
+
+    public override void DoTurn() { }
+    protected override void TakeDamage(int amount) { }
 }
