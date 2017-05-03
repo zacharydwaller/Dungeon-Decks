@@ -14,17 +14,16 @@ public class GameManager : MonoBehaviour
 
     public GameObject playerRef;
     //public SortedList<int, List<GameObject>> enemyLists;
-    public GameObject enemyRef;
 
     public GameObject playerUI;
 
     public bool somethingMoving = false;
 
     public bool isPlayerTurn;
-    public int enemyTurn;
+    public int entityTurn;
 
     public Player player;
-    public ArrayList enemies;
+    public ArrayList entities;
 
     private void Awake()
     {
@@ -53,16 +52,23 @@ public class GameManager : MonoBehaviour
 
         if(!isPlayerTurn)
         {
-            if(enemyTurn != enemies.Count)
+            if(entityTurn != entities.Count)
             {
-                Enemy enemy = (Enemy) enemies[enemyTurn];
-                if(enemy != null)
+                if(((Entity) entities[entityTurn]).data.type == Entity.Type.Enemy)
                 {
-                    enemy.DoTurn();
+                    Enemy enemy = (Enemy) entities[entityTurn];
+                    if(enemy != null)
+                    {
+                        enemy.DoTurn();
+                    }
+                    else
+                    {
+                        entities.RemoveAt(entityTurn);
+                    }
                 }
                 else
                 {
-                    enemies.RemoveAt(enemyTurn);
+                    entityTurn++;
                 }
             }
             else
@@ -73,32 +79,84 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Init first level
     public void InitLevel()
     {
-        boardManager.LoadStartingBoard();
+        entities = new ArrayList();
+        boardManager.GenerateStartingBoard();
         GameObject playerObj = Instantiate(playerRef, new Vector3(boardManager.currentBoard.Width() / 2, boardManager.currentBoard.Height() / 2, 0), Quaternion.identity);
+
         player = playerObj.GetComponent<Player>();
-
-        enemies = new ArrayList();
-        for(int i = 0; i < 2; i++)
-        {
-            Enemy enemy = Instantiate(enemyRef, boardManager.GetRandomLocation(), Quaternion.identity).GetComponent<Enemy>();
-            enemies.Add(enemy);
-            boardManager.RegisterEntity(enemy);
-        }
-
         isPlayerTurn = true;
+    }
+
+    public void ChangeBoard(Vector2 direction)
+    {
+        Coordinate curCoord = boardManager.currentBoard.coord;
+        Coordinate newCoord = new Coordinate(curCoord.x + (int) direction.x, curCoord.y + (int) direction.y);
+
+        // Delete all entities
+        foreach(Entity ent in entities)
+        {
+            Destroy(ent.gameObject);
+        }
+        entities = new ArrayList();
+
+        // Load new board
+        boardManager.SwitchBoard(newCoord);
+
+        // Put player in correct position
+        if(direction.x == 0)
+        {
+            if(direction.y == 1)
+                player.transform.position = new Vector3(10, 1);
+            else
+                player.transform.position = new Vector3(10, 9);
+        }
+        else
+        {
+            if(direction.x == 1)
+                player.transform.position = new Vector3(1, 5);
+            else
+                player.transform.position = new Vector3(18, 5);
+        }
+    }
+
+    // Called when board manager generates a new room
+    public void BoardGenerated()
+    {
+        boardCounter++;
+        player.Reshuffle();
     }
 
     public void EndPlayerTurn()
     {
         isPlayerTurn = false;
-        enemyTurn = 0;
+        entityTurn = 0;
     }
 
     public void EndEnemyTurn()
     {
-        enemyTurn++;
+        entityTurn++;
+    }
+
+    public void RegisterEntity(Entity entity)
+    {
+        if(!entities.Contains(entity))
+        {
+            entities.Add(entity);
+            boardManager.currentBoard.RegisterEntity(entity);
+        }
+    }
+
+    public void UnregisterEntity(Entity entity)
+    {
+        if(entities.Contains(entity))
+        {
+            Debug.Log("Unregistering entity");
+            entities.Remove(entity);
+            boardManager.currentBoard.UnregisterEntity(entity);
+        }
     }
 
     public void EnemyKilled(Enemy enemy)

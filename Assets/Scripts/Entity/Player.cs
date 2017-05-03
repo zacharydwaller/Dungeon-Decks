@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +24,8 @@ public class Player : Entity
         armor = 0;
         score = 0;
 
+        data.type = Entity.Type.Player;
+
         hand = new Card[5];
         deck = new ArrayList();
         graveyard = new ArrayList();
@@ -47,6 +48,72 @@ public class Player : Entity
             DoTurn();
         }
     }
+
+
+    public override void DoTurn()
+    {
+        Vector2 input;
+        ReadDirectionKeys(out input);
+
+        // Check spacebar
+        if(Input.GetKey(KeyCode.Space))
+        {
+            // Use card if card is self-cast
+            if(hand[selectedCard].target == Card.Target.Self)
+            {
+                DoCardEffect();
+
+            }
+
+            DrawCard();
+            GameManager.singleton.EndPlayerTurn();
+            return;
+        }
+
+        // Check WASD
+        if(!isMoving && (input.x != 0 || input.y != 0))
+        {
+            // If selected card is ranged, use it
+            if(hand[selectedCard].target == Card.Target.Ranged)
+            {
+                DoCardEffect(input);
+            }
+            // Otherwise move/attack
+            else
+            {
+                RaycastHit2D rayHit;
+                if(CheckMove(input, out rayHit))
+                {
+                    Move(input);
+                }
+                // Hit something
+                else
+                {
+                    // Hit enemy
+                    if(rayHit.transform.tag == "Enemy")
+                    {
+                        DoCardEffect(input, rayHit.transform.GetComponent<Enemy>());
+                    }
+                    // Hit card
+                    // Card case is elseif because don't want to move onto/collect a card
+                    // with an enemy on it
+                    else if(rayHit.transform.tag == "Card")
+                    {
+                        CollectCard(rayHit.transform.GetComponent<CardPickup>());
+                        Move(input);
+                    }
+                    // Hit door
+                    else if(rayHit.transform.tag == "Door")
+                    {
+                        GameManager.singleton.ChangeBoard(input);
+                    }
+                }
+            }
+
+            DrawCard();
+            GameManager.singleton.EndPlayerTurn();
+        }
+    } 
 
     protected override void TakeDamage(int amount)
     {
@@ -109,60 +176,27 @@ public class Player : Entity
         }
     }
 
-    public override void DoTurn()
+
+    // Read Direction keys such that diagonals are not possible
+    public void ReadDirectionKeys(out Vector2 output)
     {
-        Vector2 input = new Vector2();
-        input.x = Mathf.Round(Input.GetAxisRaw("Horizontal"));
-        input.y = Mathf.Round(Input.GetAxisRaw("Vertical"));
+        output = new Vector2(0, 0);
 
-        // Check spacebar, use card if self-target, skip turn otherwise
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Keypad8))
         {
-            if(hand[selectedCard].target == Card.Target.Self)
-            {
-                DoCardEffect();
-                
-            }
-            GameManager.singleton.EndPlayerTurn();
-            return;
+            output.y = 1;
         }
-
-        // Check WASD
-        if(!isMoving && (input.x != 0 || input.y != 0))
+        else if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.Keypad2))
         {
-            // If selected card is ranged, use it
-            if(hand[selectedCard].target == Card.Target.Ranged)
-            {
-                DoCardEffect(input);
-            }
-            // Otherwise move/attack
-            else
-            {
-                RaycastHit2D rayHit;
-                if(CheckMove(input, out rayHit))
-                {
-                    Move(input);
-                }
-                // Hit something
-                else
-                {
-                    // Hit enemy
-                    if(rayHit.transform.tag == "Enemy")
-                    {
-                        DoCardEffect(input, rayHit.transform.GetComponent<Enemy>());
-                    }
-                    // Hit card
-                    // Card case is elseif because don't want to move onto/collect a card
-                    // with an enemy on it
-                    else if(rayHit.transform.tag == "Card")
-                    {
-                        CollectCard(rayHit.transform.GetComponent<CardPickup>());
-                        Move(input);
-                    }   
-                }
-            }
-
-            GameManager.singleton.EndPlayerTurn();
+            output.y = -1;
+        }
+        else if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            output.x = -1;
+        }
+        else if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            output.x = 1;
         }
     }
 
@@ -202,7 +236,27 @@ public class Player : Entity
             deck.Add(pickup.card);
         }
 
-        Destroy(pickup.gameObject);
+        pickup.Pickup();
+    }
+
+    public bool DrawCard()
+    {
+        if(deck.Count > 0)
+        {
+            Card card = (Card) deck[0];
+
+            if(PutCardInHand(card))
+            {
+                deck.RemoveAt(0);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     /*
@@ -231,5 +285,36 @@ public class Player : Entity
             hand[num] = null;
             selectedCard = punchIndex;
         }
+    }
+
+    public bool HandFull()
+    {
+        for(int i = 0; i < punchIndex; i++)
+        {
+            if(hand[i] == null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Puts cards from the graveyard back into the deck, and shuffles deck and fills hand
+    public void Reshuffle()
+    {
+        deck.AddRange(graveyard);
+
+        for(int i = 0; i < deck.Count; i++)
+        {
+            Card tmp = (Card) deck[i];
+            int swap = Random.Range(0, deck.Count);
+
+            deck[i] = deck[swap];
+            deck[swap] = tmp;
+        }
+
+        // Fill hand
+        while(DrawCard());
     }
 }

@@ -4,19 +4,29 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
+    public enum Type
+    {
+        Player, Enemy, Card
+    };
+
     public class Data
     {
         public int id;
         public Vector3 position;
+        public Type type;
 
+        // For enemies
         public int health;
-    };
 
-    public int health;
+        // For card pickups
+        public Card card;
+    };
 
     public static int nextId = 0;
 
     public Data data;
+
+    public int health;
 
     public float moveTime = 0.1f;
     public bool isMoving = false;
@@ -25,19 +35,29 @@ public abstract class Entity : MonoBehaviour
     new private Rigidbody2D rigidbody;
     private float inverseMoveTime;
 
+    protected virtual void Awake()
+    {
+        data = new Data();
+        data.id = nextId++;
+        data.position = transform.position;
+    }
+
     protected virtual void Start()
     {
         collider = GetComponent<BoxCollider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
 
-        data = new Data();
-        data.id = nextId++;
-        data.position = transform.position;
-
         inverseMoveTime = 1f / moveTime;
     }
 
     public abstract void DoTurn();
+    protected abstract void TakeDamage(int amount);
+
+    public virtual void SetData(Data newData)
+    {
+        data = newData;
+        transform.position = data.position;
+    }
 
     /*
      * Checks if the entity will collide with something when moving to dir
@@ -64,6 +84,7 @@ public abstract class Entity : MonoBehaviour
 
     protected void Move(Vector3 dir)
     {
+        data.position = transform.position + dir;
         StartCoroutine(SmoothMoveTo(transform.position + dir));
     }
 
@@ -73,7 +94,10 @@ public abstract class Entity : MonoBehaviour
         StartCoroutine(AttackAnimation(dir));
     }
 
-    protected abstract void TakeDamage(int amount);
+    protected virtual void Die()
+    {
+        GameManager.singleton.UnregisterEntity(this);
+    }
 
     protected IEnumerator SmoothMoveTo(Vector3 dest)
     {

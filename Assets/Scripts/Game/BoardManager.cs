@@ -10,22 +10,20 @@ public class BoardManager : MonoBehaviour
     public GameObject wallRef;
     public GameObject doorRef;
 
+    public GameObject enemyRef;
+    public GameObject cardPickupRef;
+
     public Sprite[] floorTiles;
     public Sprite[] wallTiles;
     public Sprite doorTile;
 
-    public Hashtable boardMap;
+    public Dictionary<Coordinate, Board> boardMap;
     public Board currentBoard;
 
     private void Start()
     {
         if(boardMap == null)
-            boardMap = new Hashtable();
-    }
-
-    public void RegisterEntity(Entity entity)
-    {
-        currentBoard.entityData.Add(entity.data);
+            boardMap = new Dictionary<Coordinate, Board>();
     }
 
     public Vector3 GetRandomLocation()
@@ -33,15 +31,18 @@ public class BoardManager : MonoBehaviour
         return currentBoard.GetRandomLocation();
     }
 
-    public void LoadStartingBoard()
+    public void GenerateStartingBoard()
     {
         if(boardMap == null)
-            boardMap = new Hashtable();
+            boardMap = new Dictionary<Coordinate, Board>();
 
-        currentBoard = new Board(wallTiles.Length).GenerateStartingBoard();
-        boardMap.Add(new Coordinate(0,0).GetHashCode(), currentBoard);
+        Coordinate coord = new Coordinate(0, 0);
 
-        SwitchBoard(new Coordinate(0, 0));
+        currentBoard = new Board(coord, wallTiles.Length).GenerateStartingBoard();
+        boardMap.Add(coord, currentBoard);
+
+        DrawBoard();
+        GenerateCards();
     }
 
     public void SwitchBoard(Coordinate coord)
@@ -51,24 +52,34 @@ public class BoardManager : MonoBehaviour
             EraseBoard();
         }
 
-        if(boardMap.ContainsKey(coord.GetHashCode()))
+        if(boardMap.ContainsKey(coord))
         {
-            currentBoard = (Board) boardMap[coord.GetHashCode()];
+            currentBoard = (Board) boardMap[coord];
+            PlaceEntities();
         }
         else
         {
-            currentBoard = new Board(wallTiles.Length);
-            boardMap.Add(coord.GetHashCode(), currentBoard);
+            currentBoard = GenerateBoard(coord);
+            GenerateEntities();
         }
 
         DrawBoard();
+    }
+
+    public Board GenerateBoard(Coordinate coord)
+    {
+        Board newBoard = new Board(coord, wallTiles.Length);
+        boardMap.Add(coord, newBoard);
+        GameManager.singleton.BoardGenerated();
+
+        return newBoard;
     }
 
     public void EraseBoard()
     {
         for(int i = boardTransf.childCount - 1; i >= 0; i--)
         {
-            Destroy(boardTransf.GetChild(i));
+            Destroy(boardTransf.GetChild(i).gameObject);
         }
     }
 
@@ -77,6 +88,7 @@ public class BoardManager : MonoBehaviour
         Board board = currentBoard;
         int tIndex = board.tilesetIndex;
 
+        // Place Tiles
         for(int row = 0; row < board.Height(); row++)
         {
             for(int col = 0; col < board.Width(); col++)
@@ -107,126 +119,66 @@ public class BoardManager : MonoBehaviour
             }
         }
 
+        // Place entities
+        // foreach currentboard.entityData place entity
+
         Camera.main.transform.position = new Vector3(currentBoard.Width() / 2, 3.2f, -10);
     }
-}
 
-public enum Tile
-{
-    Floor, Wall, Door
-}
-
-public class Coordinate
-{
-    int x;
-    int y;
-
-    int row;
-    int col;
-
-    public Coordinate(int x_, int y_)
+    // Called the first time a room is visited
+    public void GenerateEntities()
     {
-        x = col = x_;
-        y = row = y_;
-    }
-}
-
-public class Board
-{
-    public int tilesetIndex;
-
-    private int width;
-    private int height;
-
-    private Tile[] tiles;
-
-    public List<Entity.Data> entityData;
-
-    public Board(int numTilesets)
-    {
-        tilesetIndex = Random.Range(0, numTilesets);
-
-        width = 20;
-        height = 11;
-
-        tiles = new Tile[width * height];
-        entityData = new List<Entity.Data>();
-
-        SetRoomTiles();
+        GenerateCards();
+        GenerateEnemies();
     }
 
-    public Vector3 GetRandomLocation()
+    public void GenerateCards()
     {
-        Vector3 ret = new Vector3();
-
-        do
+        // 2-3 cards
+        int numEntities = Random.Range(2, 4);
+        for(int i = 0; i < numEntities; i++)
         {
-            ret.x = Random.Range(0, width);
-            ret.y = Random.Range(0, height);
-        } while(GetTile((int) ret.y, (int) ret.x) != Tile.Floor);
-
-        return ret;
-    }
-
-    public Board GenerateStartingBoard()
-    {
-        return this;
-    }
-
-    private void SetRoomTiles()
-    {
-        // Top/Bottom wall
-        for(int col = 0; col < width; col++)
-        {
-            SetTile(0, col, Tile.Wall);
-            SetTile(height - 1, col, Tile.Wall);
-
-            if(col == width / 2)
-            {
-                SetTile(0, col, Tile.Door);
-                SetTile(height - 1, col, Tile.Door);
-            }
+            CardPickup card = Instantiate(cardPickupRef, GetRandomLocation(), Quaternion.identity).GetComponent<CardPickup>();
+            GameManager.singleton.RegisterEntity(card);
         }
+    }
 
-        // Left/Right wall
-        for(int row = 0; row < height; row++)
+    public void GenerateEnemies()
+    {
+        // 1-3 enemies
+        int numEntities = Random.Range(1, 4);
+        for(int i = 0; i < numEntities; i++)
         {
-            SetTile(row, 0, Tile.Wall);
-            SetTile(row, width - 1, Tile.Wall);
+            Enemy enemy = Instantiate(enemyRef, GetRandomLocation(), Quaternion.identity).GetComponent<Enemy>();
+            GameManager.singleton.RegisterEntity(enemy);
+        }
+    }
 
-            if(row == height / 2)
+    // Called after visiting a room after initially generating
+    public void PlaceEntities()
+    {
+        GameManager.singleton.entities = new ArrayList();
+
+        foreach(Entity.Data entData in currentBoard.entityData.Values)
+        {
+            Entity newEnt = null;
+
+            if(entData.type == Entity.Type.Card)
             {
-                SetTile(row, 0, Tile.Door);
-                SetTile(row, width - 1, Tile.Door);
+                newEnt = Instantiate(cardPickupRef).GetComponent<Entity>();
+            }
+            else if(entData.type == Entity.Type.Enemy)
+            {
+                newEnt = Instantiate(enemyRef).GetComponent<Entity>();
+            }
+
+            if(newEnt)
+            {
+                Debug.Log("Placing entity");
+                // Set data places them in the correct position
+                newEnt.SetData(entData);
+                GameManager.singleton.entities.Add(newEnt);
             }
         }
     }
-
-    public Tile SetTile(int row, int col, Tile newValue)
-    {
-        if(row < height && col < width)
-        {
-            tiles[(row * width) + col] = newValue;
-            return newValue;
-        }
-        else
-        {
-            return Tile.Wall;
-        }
-    }
-
-    public Tile GetTile(int row, int col)
-    {
-        if(row < height && col < width)
-        {
-            return tiles[(row * width) + col];
-        }
-        else
-        {
-            return Tile.Wall;
-        }
-    }
-
-    public int Width() { return width; }
-    public int Height() { return height; }
 }
