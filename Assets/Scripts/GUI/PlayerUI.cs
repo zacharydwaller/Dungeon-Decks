@@ -7,6 +7,8 @@ public class PlayerUI : MonoBehaviour
 {
     public Text hpText;
     public Text apText;
+    public Text deckText;
+    public Text graveyardText;
     public Text scoreText;
 
     Player player;
@@ -15,6 +17,8 @@ public class PlayerUI : MonoBehaviour
     {
         hpText.text = "0";
         apText.text = "0";
+        deckText.text = "0";
+        graveyardText.text = "0";
         scoreText.text = "0";
     }
 
@@ -24,6 +28,8 @@ public class PlayerUI : MonoBehaviour
         {
             hpText.text = player.health.ToString();
             apText.text = player.armor.ToString();
+            deckText.text = player.deck.Count.ToString();
+            graveyardText.text = player.graveyard.Count.ToString();
             scoreText.text = player.score.ToString();
         }
         else
