@@ -56,7 +56,7 @@ public class Player : Entity
         ReadDirectionKeys(out input);
 
         // Check spacebar
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             // Use card if card is self-cast
             if(hand[selectedCard].target == Card.Target.Self)
