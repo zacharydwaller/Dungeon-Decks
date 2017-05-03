@@ -151,6 +151,18 @@ public class Player : Entity
         }
     }
 
+    public void SelectCard(Card card)
+    {
+        for(int i = 0; i <= punchIndex; i++)
+        {
+            if(hand[i] == card)
+            {
+                selectedCard = i;
+                return;
+            }
+        }
+    }
+
     public void CheckSelectCard()
     {
         int num =-1;

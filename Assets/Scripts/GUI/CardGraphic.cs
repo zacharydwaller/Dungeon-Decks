@@ -35,6 +35,11 @@ public class CardGraphic : MonoBehaviour
         }
     }
 
+    public void SelectCard()
+    {
+        player.SelectCard(card);
+    }
+
     public void UpdateCardGraphic()
     {
         SetName();
@@ -93,8 +98,4 @@ public class CardGraphic : MonoBehaviour
 
         effectText.text = text;
     }
-
-    
-
-    
 }
