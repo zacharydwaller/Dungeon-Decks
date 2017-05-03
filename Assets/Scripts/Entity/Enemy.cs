@@ -12,7 +12,7 @@ public class Enemy : Entity
         base.Start();
 
         health = 3;
-        damage = 1;
+        damage = 2;
         scoreValue = 100;
     }
 
