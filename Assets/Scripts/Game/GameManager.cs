@@ -153,7 +153,6 @@ public class GameManager : MonoBehaviour
     {
         if(entities.Contains(entity))
         {
-            Debug.Log("Unregistering entity");
             entities.Remove(entity);
             boardManager.currentBoard.UnregisterEntity(entity);
         }

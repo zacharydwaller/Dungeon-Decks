@@ -174,10 +174,9 @@ public class BoardManager : MonoBehaviour
 
             if(newEnt)
             {
-                Debug.Log("Placing entity");
                 // Set data places them in the correct position
                 newEnt.SetData(entData);
-                GameManager.singleton.entities.Add(newEnt);
+                GameManager.singleton.RegisterEntity(newEnt);
             }
         }
     }
