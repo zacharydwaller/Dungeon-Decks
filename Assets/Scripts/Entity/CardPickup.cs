@@ -35,6 +35,12 @@ public class CardPickup : Entity
     public void Pickup()
     {
         GameManager.singleton.UnregisterEntity(this);
+
+        if(cgObject)
+        {
+            Destroy(cgObject);
+        }
+
         Destroy(gameObject);
     }
 
