@@ -95,7 +95,12 @@ public class Player : Entity
                     if(rayHit.transform.tag == "Enemy")
                     {
                         UseCard(input);
-                        usedCard = true;
+
+                        // still draw card if punched
+                        if(selectedCard != punchIndex)
+                        {
+                            usedCard = true;
+                        }
                     }
                     // Hit card, pick up card
                     else if(rayHit.transform.tag == "Card")
@@ -307,5 +312,6 @@ public class Player : Entity
 
         // Fill hand
         while(DrawCard());
+
     }
 }

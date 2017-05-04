@@ -35,13 +35,25 @@ public class UIManager : MonoBehaviour
             if(placeEmpty && playerHand[i] != null)
             {
                 AddCardToHand(i);
-                continue;
             }
             // Removed card
-            if(!placeEmpty && playerHand[i] == null)
+            else if(!placeEmpty && playerHand[i] == null)
             {
                 RemoveCardFromHand(i);
-                continue;
+            }
+
+            // Ensure card in correct slot
+            if(hand[i].transform.GetSiblingIndex() != i)
+            {
+                hand[i].transform.SetSiblingIndex(i);
+            }
+
+            // Ensure card graphic correct
+            CardGraphic cg = hand[i].GetComponent<CardGraphic>();
+            if(cg != null && cg.card != playerHand[i])
+            {
+                cg.card = playerHand[i];
+                cg.UpdateCardGraphic();
             }
         }
     }
