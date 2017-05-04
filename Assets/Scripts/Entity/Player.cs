@@ -15,8 +15,6 @@ public class Player : Entity
 
     private int punchIndex = 4;
 
-    Vector2 prevInput;
-
     protected override void Start()
     {
         base.Start();
@@ -36,8 +34,6 @@ public class Player : Entity
         hand[punchIndex] = punchCard;
 
         selectedCard = punchIndex;
-
-        prevInput = Vector2.zero;
     }
 
     private void Update()
