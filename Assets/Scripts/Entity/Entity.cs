@@ -18,8 +18,7 @@ public abstract class Entity : MonoBehaviour
         // For enemies
         public int health;
 
-        // For card pickups
-        public CardInfo card;
+        public DBItem info;
     };
 
     public static int nextId = 0;

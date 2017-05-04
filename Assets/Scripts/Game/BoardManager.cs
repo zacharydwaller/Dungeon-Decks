@@ -151,7 +151,9 @@ public class BoardManager : MonoBehaviour
         int numEntities = Random.Range(1, 4);
         for(int i = 0; i < numEntities; i++)
         {
+            GameManager gm = GameManager.singleton;
             Enemy enemy = Instantiate(enemyRef, GetRandomLocation(), Quaternion.identity).GetComponent<Enemy>();
+            enemy.SetEnemy((EnemyInfo) gm.enemyDatabase.GetRandomItemOfLevel(gm.boardCounter));
             GameManager.singleton.RegisterEntity(enemy);
         }
     }

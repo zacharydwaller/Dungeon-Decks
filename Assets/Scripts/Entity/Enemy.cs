@@ -11,7 +11,6 @@ public class Enemy : Entity
         base.Awake();
 
         data.type = Entity.Type.Enemy;
-        SetEnemy(info);
     }
 
     protected override void Start()
@@ -24,6 +23,7 @@ public class Enemy : Entity
     public void SetEnemy(EnemyInfo newInfo)
     {
         info = newInfo;
+        data.info = info;
         GetComponent<SpriteRenderer>().sprite = info.sprite;
         health = info.maxHealth;
     }
@@ -114,5 +114,9 @@ public class Enemy : Entity
         base.SetData(newData);
 
         health = data.health;
+
+        info = (EnemyInfo) data.info;
+        GetComponent<SpriteRenderer>().sprite = info.sprite;
+        health = info.maxHealth;
     }
 }

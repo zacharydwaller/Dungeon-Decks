@@ -16,7 +16,7 @@ public class CardPickup : Entity
         base.Awake();
 
         data.type = Entity.Type.Card;
-        data.card = card;
+        data.info = card;
     }
 
     protected override void Start()
@@ -48,13 +48,13 @@ public class CardPickup : Entity
     {
         base.SetData(newData);
 
-        card = data.card;
+        card = (CardInfo) data.info;
     }
 
     public void SetCard(CardInfo newCard)
     {
         card = newCard;
-        data.card = card;
+        data.info = card;
     }
 
     public void MoveTooltip()
