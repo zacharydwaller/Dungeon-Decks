@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "Database/Card")]
-public class CardInfo : ScriptableObject
+public class CardInfo : DBItem
 {
     public string cardName;
     public Color color;
