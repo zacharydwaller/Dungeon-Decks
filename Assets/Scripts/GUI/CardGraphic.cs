@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class CardGraphic : MonoBehaviour
 {
-    public Card card;
+    public CardInfo card;
+    [HideInInspector]
+    public int handIndex = -1;
 
     public Text nameText;
     public Text effectText;
@@ -14,18 +16,17 @@ public class CardGraphic : MonoBehaviour
     public Outline selectedOutline;
 
     private Player player;
-    private bool isSelected;
-
+    
     public bool isPlaceholder;
 
     private void Start()
     {
         player = GameManager.singleton.player;
     }
-
+    
     private void Update()
     {
-        if(player.hand[player.selectedCard] == card)
+        if(player.selectedCard == handIndex)
         {
             selectedOutline.enabled = true;
         }
@@ -37,65 +38,14 @@ public class CardGraphic : MonoBehaviour
 
     public void SelectCard()
     {
-        player.SelectCard(card);
+        player.SelectCard(handIndex);
     }
 
     public void UpdateCardGraphic()
     {
-        SetName();
-        SetColor();
-        SetImage();
-        SetEffectText();
-    }
-
-    public void SetName()
-    {
-        nameText.text = card.name;
-    }
-
-    public void SetColor()
-    {
+        nameText.text = card.cardName;
         baseGraphic.color = card.color;
-    }
-
-    public void SetImage()
-    {
         image.sprite = card.image;
-    }
-
-    public void SetEffectText()
-    {
-        string text = string.Empty;
-
-        // Self target cards
-        // +X HP, +X AP
-        if(card.target == Card.Target.Self)
-        {
-            text += "+" + card.effectAmount;
-
-            if(card.targetStat == Card.TargetStat.Health)
-            {
-                text += "HP";
-            }
-            else
-            {
-                text += "AP";
-            }
-        }
-        // Enemy target cards
-        // 3 DMG, 3 R-DMG
-        else
-        {
-            text += card.effectAmount + " ";
-
-            if(card.target == Card.Target.Ranged)
-            {
-                text += "R-";
-            }
-
-            text += "DMG";
-        }
-
-        effectText.text = text;
+        effectText.text = card.effect.description;
     }
 }

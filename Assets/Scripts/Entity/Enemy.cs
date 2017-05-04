@@ -4,23 +4,28 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    public int damage;
-    public int scoreValue;
+    public EnemyInfo info;
 
     protected override void Awake()
-    {
+    { 
         base.Awake();
 
         data.type = Entity.Type.Enemy;
+        SetEnemy(info);
     }
 
     protected override void Start()
     {
         base.Start();
 
-        health = 3;
-        damage = 2;
-        scoreValue = 100;
+        health = info.maxHealth;
+    }
+
+    public void SetEnemy(EnemyInfo newInfo)
+    {
+        info = newInfo;
+        GetComponent<SpriteRenderer>().sprite = info.sprite;
+        health = info.maxHealth;
     }
 
     public override void DoTurn()
@@ -73,7 +78,7 @@ public class Enemy : Entity
             // Hit player
             if(rayHit.transform.tag == "Player")
             {
-                Attack(damage, dir, GameManager.singleton.player);
+                info.attackEffect.DoEffect(gameObject, dir);
             }
             // Hit card, move anyways
             else if(rayHit.transform.tag == "Card")
@@ -85,7 +90,7 @@ public class Enemy : Entity
         GameManager.singleton.EndEnemyTurn();
     }
 
-    protected override void TakeDamage(int amount)
+    public override void TakeDamage(int amount)
     {
         health -= amount;
         data.health = health;

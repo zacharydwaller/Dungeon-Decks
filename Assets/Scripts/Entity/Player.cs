@@ -7,8 +7,9 @@ public class Player : Entity
     public int armor;
     public int score;
 
+    public CardInfo punchCard;
     public int selectedCard;
-    public Card[] hand;
+    public CardInfo[] hand;
     public ArrayList deck;
     public ArrayList graveyard;
 
@@ -26,13 +27,13 @@ public class Player : Entity
 
         data.type = Entity.Type.Player;
 
-        hand = new Card[5];
+        hand = new CardInfo[5];
         deck = new ArrayList();
         graveyard = new ArrayList();
 
         // Player will always have punch in hand[4]
         // Punch doesn't go into graveyard when used and can't be discarded
-        hand[punchIndex] = CardDatabase.GetPunchCard();
+        hand[punchIndex] = punchCard;
 
         selectedCard = punchIndex;
 
@@ -59,7 +60,7 @@ public class Player : Entity
         if(Input.GetKeyDown(KeyCode.Space))
         {
             // Use card if card is self-cast
-            if(hand[selectedCard].target == Card.Target.Self)
+            if(hand[selectedCard].isSelfCast)
             {
                 UseCard();
             }
@@ -77,8 +78,8 @@ public class Player : Entity
         {
             bool usedCard = false; // Only draw card if player hasn't used card this turn
 
-            // If selected card is ranged, use it
-            if(hand[selectedCard].target == Card.Target.Ranged)
+            // If player holding shift, use card
+            if(Input.GetKey(KeyCode.LeftShift))
             {
                 UseCard(input);
                 usedCard = true;
@@ -94,21 +95,19 @@ public class Player : Entity
                 // Hit something
                 else
                 {
-                    // Hit enemy
+                    // Hit enemy, use card on him
                     if(rayHit.transform.tag == "Enemy")
                     {
-                        UseCard(input, rayHit.transform.GetComponent<Enemy>());
+                        UseCard(input);
                         usedCard = true;
                     }
-                    // Hit card
-                    // Card case is elseif because don't want to move onto/collect a card
-                    // with an enemy on it
+                    // Hit card, pick up card
                     else if(rayHit.transform.tag == "Card")
                     {
                         CollectCard(rayHit.transform.GetComponent<CardPickup>());
                         Move(input);
                     }
-                    // Hit door
+                    // Hit door, go through door
                     else if(rayHit.transform.tag == "Door")
                     {
                         GameManager.singleton.ChangeBoard(input);
@@ -125,7 +124,7 @@ public class Player : Entity
         }
     } 
 
-    protected override void TakeDamage(int amount)
+    public override void TakeDamage(int amount)
     {
         if(amount == 1)
         {
@@ -151,16 +150,10 @@ public class Player : Entity
         }
     }
 
-    public void SelectCard(Card card)
+    public void SelectCard(int num)
     {
-        for(int i = 0; i <= punchIndex; i++)
-        {
-            if(hand[i] == card)
-            {
-                selectedCard = i;
-                return;
-            }
-        }
+        if(num < 0 || num > punchIndex) return;
+        selectedCard = num;
     }
 
     public void CheckSelectCard()
@@ -189,12 +182,12 @@ public class Player : Entity
             {
                 DiscardCard(num);
 
-                selectedCard = punchIndex;
+                SelectCard(punchIndex);
             }
         }
         else
         {
-            selectedCard = num;
+            SelectCard(num);
         }
     }
 
@@ -222,30 +215,9 @@ public class Player : Entity
         }
     }
 
-    public void UseCard(Vector2 dir = default(Vector2), Entity enemyHit = null)
+    public void UseCard(Vector2 dir = default(Vector2))
     {
-        Card card = hand[selectedCard];
-
-        if(card.target == Card.Target.Self)
-        {
-            if(card.targetStat == Card.TargetStat.Health)
-            {
-                health += card.effectAmount;
-            }
-            if(card.targetStat == Card.TargetStat.Armor)
-            {
-                armor += card.effectAmount;
-            }
-        }
-        else if(card.target == Card.Target.Ranged)
-        {
-            // Do ranged attack
-        }
-        else if(card.target == Card.Target.Melee)
-        {
-            Attack(card.effectAmount, dir, enemyHit);
-        }
-
+        hand[selectedCard].DoEffect(gameObject, dir);
         DiscardCard(selectedCard);
     }
 
@@ -265,7 +237,7 @@ public class Player : Entity
     {
         if(deck.Count > 0)
         {
-            Card card = (Card) deck[0];
+            CardInfo card = (CardInfo) deck[0];
 
             if(PutCardInHand(card))
             {
@@ -285,7 +257,7 @@ public class Player : Entity
      * Tries to put a card in the hand
      * Returns - true if card was placed in hand, false if hand full
      */
-    public bool PutCardInHand(Card card)
+    public bool PutCardInHand(CardInfo card)
     {
         for(int i = 0; i < punchIndex; i++)
         {
@@ -330,7 +302,7 @@ public class Player : Entity
 
         for(int i = 0; i < deck.Count; i++)
         {
-            Card tmp = (Card) deck[i];
+            CardInfo tmp = (CardInfo) deck[i];
             int swap = Random.Range(0, deck.Count);
 
             deck[i] = deck[swap];

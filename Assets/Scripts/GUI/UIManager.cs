@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateHand()
     {
-        Card[] playerHand = GameManager.singleton.player.hand;
+        CardInfo[] playerHand = GameManager.singleton.player.hand;
         if(playerHand == null) return;
 
         for(int i = 0; i < 5; i++)
@@ -54,6 +54,7 @@ public class UIManager : MonoBehaviour
 
         newCard.transform.SetParent(handPanel.transform, false);
         cardGraphic.card = GameManager.singleton.player.hand[num];
+        cardGraphic.handIndex = num;
         cardGraphic.UpdateCardGraphic();
 
         newCard.transform.SetSiblingIndex(num);

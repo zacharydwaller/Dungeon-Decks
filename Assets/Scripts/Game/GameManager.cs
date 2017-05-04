@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager singleton;
     [HideInInspector]
     public BoardManager boardManager;
+    [HideInInspector]
+    public CardDatabase cardDatabase;
 
     public int boardCounter; // Incremented every board generation, used for generating higher level monsters
     public int killCounter; // Incremented every monster kill, used for generating higher level cards
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         boardManager = GetComponent<BoardManager>();
+        cardDatabase = GetComponent<CardDatabase>();
     }
 
     private void Start()
@@ -161,7 +164,7 @@ public class GameManager : MonoBehaviour
     public void EnemyKilled(Enemy enemy)
     {
         killCounter++;
-        player.score += enemy.scoreValue;
+        player.score += enemy.info.scoreValue;
     }
 
     public void PlayerKilled()

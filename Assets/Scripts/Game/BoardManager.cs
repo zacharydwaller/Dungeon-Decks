@@ -42,7 +42,7 @@ public class BoardManager : MonoBehaviour
         boardMap.Add(coord, currentBoard);
 
         DrawBoard();
-        GenerateCards();
+        GenerateCards(1, 1);
     }
 
     public void SwitchBoard(Coordinate coord)
@@ -132,13 +132,15 @@ public class BoardManager : MonoBehaviour
         GenerateEnemies();
     }
 
-    public void GenerateCards()
+    public void GenerateCards(int min = 1, int max = 2)
     {
         // 2-3 cards
-        int numEntities = Random.Range(2, 4);
+        int numEntities = Random.Range(min, max + 1);
         for(int i = 0; i < numEntities; i++)
         {
+            GameManager gm = GameManager.singleton;
             CardPickup card = Instantiate(cardPickupRef, GetRandomLocation(), Quaternion.identity).GetComponent<CardPickup>();
+            card.SetCard(gm.cardDatabase.GetRandomCardOfLevel(gm.killCounter, 3));
             GameManager.singleton.RegisterEntity(card);
         }
     }

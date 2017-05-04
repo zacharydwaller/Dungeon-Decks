@@ -19,7 +19,7 @@ public abstract class Entity : MonoBehaviour
         public int health;
 
         // For card pickups
-        public Card card;
+        public CardInfo card;
     };
 
     public static int nextId = 0;
@@ -51,7 +51,7 @@ public abstract class Entity : MonoBehaviour
     }
 
     public abstract void DoTurn();
-    protected abstract void TakeDamage(int amount);
+    public abstract void TakeDamage(int amount);
 
     public virtual void SetData(Data newData)
     {
@@ -88,9 +88,8 @@ public abstract class Entity : MonoBehaviour
         StartCoroutine(SmoothMoveTo(transform.position + dir));
     }
 
-    protected void Attack(int damage, Vector2 dir, Entity entity)
+    public void DoAttackAnimation(Vector2 dir)
     {
-        entity.TakeDamage(damage);
         StartCoroutine(AttackAnimation(dir));
     }
 

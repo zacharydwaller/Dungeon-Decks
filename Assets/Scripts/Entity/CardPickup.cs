@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CardPickup : Entity
 {
-    public Card card;
+    public CardInfo card;
 
     public GameObject cardGraphicRef;
 
@@ -45,7 +45,7 @@ public class CardPickup : Entity
         card = data.card;
     }
 
-    public void SetCard(Card newCard)
+    public void SetCard(CardInfo newCard)
     {
         card = newCard;
         data.card = card;
@@ -88,5 +88,5 @@ public class CardPickup : Entity
     }
 
     public override void DoTurn() { }
-    protected override void TakeDamage(int amount) { }
+    public override void TakeDamage(int amount) { }
 }
