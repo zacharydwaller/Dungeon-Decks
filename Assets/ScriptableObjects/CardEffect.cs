@@ -8,4 +8,5 @@ public abstract class CardEffect : ScriptableObject
     public string description;
 
     public abstract void DoEffect(GameObject user, Vector2 direction = default(Vector2));
+    public abstract int GetEffectAmount();
 }

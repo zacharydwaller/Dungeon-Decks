@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,5 +11,10 @@ public class ArmorIncrease : CardEffect
     public override void DoEffect(GameObject user, Vector2 direction = default(Vector2))
     {
         user.GetComponent<Player>().armor += amount;
+    }
+
+    public override int GetEffectAmount()
+    {
+        return amount;
     }
 }

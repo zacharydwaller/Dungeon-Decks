@@ -50,10 +50,9 @@ public class UIManager : MonoBehaviour
 
             // Ensure card graphic correct
             CardGraphic cg = hand[i].GetComponent<CardGraphic>();
-            if(cg != null && cg.card != playerHand[i])
+            if(cg != null && cg.GetCard() != playerHand[i])
             {
-                cg.card = playerHand[i];
-                cg.UpdateCardGraphic();
+                cg.SetItem((CardInfo) playerHand[i]);
             }
         }
     }
@@ -65,9 +64,8 @@ public class UIManager : MonoBehaviour
         CardGraphic cardGraphic = newCard.GetComponent<CardGraphic>();
 
         newCard.transform.SetParent(handPanel.transform, false);
-        cardGraphic.card = GameManager.singleton.player.hand[num];
         cardGraphic.handIndex = num;
-        cardGraphic.UpdateCardGraphic();
+        cardGraphic.SetItem((CardInfo) GameManager.singleton.player.hand[num]);
 
         newCard.transform.SetSiblingIndex(num);
         Destroy(oldCard);

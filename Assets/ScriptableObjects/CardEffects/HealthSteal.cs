@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,5 +31,10 @@ public class HealthSteal : CardEffect
                 ent.TakeDamage(damage);
             }
         }
+    }
+
+    public override int GetEffectAmount()
+    {
+        return damage;
     }
 }

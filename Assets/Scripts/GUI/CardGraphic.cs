@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardGraphic : MonoBehaviour
+public class CardGraphic : Tooltip
 {
-    public CardInfo card;
     [HideInInspector]
     public int handIndex = -1;
+
+    CardInfo card;
 
     public Text nameText;
     public Text effectText;
@@ -41,8 +42,16 @@ public class CardGraphic : MonoBehaviour
         player.SelectCard(handIndex);
     }
 
-    public void UpdateCardGraphic()
+    public void UpdateGraphic()
     {
+        SetItem(card);
+    }
+
+    public CardInfo GetCard() { return card; }
+
+    public override void SetItem(object newCard)
+    {
+        card = (CardInfo) newCard;
         nameText.text = card.cardName;
         baseGraphic.color = card.color;
         image.sprite = card.image;

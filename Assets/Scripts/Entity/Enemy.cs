@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TooltipCreator))]
 public class Enemy : Entity
 {
     public EnemyInfo info;
+
+    TooltipCreator tooltipCreator;
 
     protected override void Awake()
     { 
         base.Awake();
 
         data.type = Entity.Type.Enemy;
+
+        tooltipCreator = GetComponent<TooltipCreator>();
     }
 
     protected override void Start()
@@ -26,6 +31,7 @@ public class Enemy : Entity
         data.info = info;
         GetComponent<SpriteRenderer>().sprite = info.sprite;
         health = info.maxHealth;
+        tooltipCreator.SetItem(this);
     }
 
     public override void DoTurn()
