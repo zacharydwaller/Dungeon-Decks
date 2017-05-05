@@ -41,6 +41,8 @@ public class Enemy : Entity
             GameManager.singleton.EndEnemyTurn();
         }
 
+        if(GameManager.singleton.player == null) return;
+
         RaycastHit2D rayHit;
         Vector3 target = GameManager.singleton.player.transform.position;
         Vector2 dir = target - transform.position;

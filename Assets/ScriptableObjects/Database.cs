@@ -21,28 +21,13 @@ public class Database : ScriptableObject
         for(int i = level; i >= level - levelsDown; i--)
         {
             if(i < 0) break;
-            if(itemLists[i] == null)
+            if(itemLists[i].items.Length == 0)
             {
                 levelsDown++;
                 continue;
             }
 
             items.AddRange(itemLists[i].items);
-        }
-
-        // If no cards were found, keep decreasing level until we find a populated card list
-        if(items.Count == 0)
-        {
-            level -= (levelsDown + 1);
-
-            while(items.Count == 0 && level >= 0)
-            {
-                items.AddRange(itemLists[level].items);
-                level--;
-            }
-
-            // If no cards were found
-            if(items.Count == 0) return null;
         }
 
         int rand = Random.Range(0, items.Count);

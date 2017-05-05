@@ -22,8 +22,11 @@ public class EnemyTooltip : Tooltip
     public override void SetItem(object newEnemy)
     {
         enemy = (Enemy) newEnemy;
-        nameText.text = enemy.info.enemyName;
-        hpText.text = enemy.health.ToString();
-        damageText.text = enemy.info.attackEffect.GetEffectAmount().ToString();
+        if(enemy)
+        {
+            nameText.text = enemy.info.enemyName;
+            hpText.text = enemy.health.ToString();
+            damageText.text = enemy.info.attackEffect.GetEffectAmount().ToString();
+        }
     }
 }
