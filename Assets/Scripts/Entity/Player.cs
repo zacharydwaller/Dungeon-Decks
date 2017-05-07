@@ -49,6 +49,7 @@ public class Player : Entity
 
     public override void DoTurn()
     {
+        bool playerActed = false;
         Vector2 input;
         ReadDirectionKeys(out input);
 
@@ -56,29 +57,23 @@ public class Player : Entity
         if(CheckSelectCard() && hand[selectedCard].isSelfCast)
         {
             UseCard();
-            DrawCard();
-            GameManager.singleton.EndPlayerTurn();
-            return;
+            playerActed = true;
         }
-
-        // Check spacebar
-        if(Input.GetKeyDown(KeyCode.Space))
+        // Check spacebar, use card if card is self-cast, skip turn otherwise
+        else if(Input.GetKeyDown(KeyCode.Space))
         {
-            // Use card if card is self-cast
             if(hand[selectedCard].isSelfCast)
             {
                 UseCard();
             }
 
-            DrawCard();
-            GameManager.singleton.EndPlayerTurn();
-            return;
+            playerActed = true;
         }
-
         // Check WASD
-        if(!isMoving && (input.x != 0 || input.y != 0))
+        else if(!isMoving && (input.x != 0 || input.y != 0))
         {
             // If player holding shift, use card
+            // This will be used for ranged attacks
             if(Input.GetKey(KeyCode.LeftShift))
             {
                 UseCard(input);
@@ -87,9 +82,17 @@ public class Player : Entity
             else
             {
                 RaycastHit2D rayHit;
+
+                // Nothing hit by raycast, move
                 if(CheckMove(input, out rayHit))
                 {
                     Move(input);
+
+                    // Use card if self-cast
+                    if(hand[selectedCard].isSelfCast)
+                    {
+                        UseCard();
+                    }
                 }
                 // Hit something
                 else
@@ -113,6 +116,11 @@ public class Player : Entity
                 }
             }
 
+            playerActed = true;
+        }
+
+        if(playerActed)
+        {
             DrawCard();
             GameManager.singleton.EndPlayerTurn();
         }
