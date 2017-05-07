@@ -25,6 +25,17 @@ public class Enemy : Entity
         health = info.maxHealth;
     }
 
+    public override void SetData(Data newData)
+    {
+        base.SetData(newData);
+
+        health = data.health;
+
+        info = (EnemyInfo) data.info;
+        GetComponent<SpriteRenderer>().sprite = info.sprite;
+        tooltipCreator.SetItem(this);
+    }
+
     public void SetEnemy(EnemyInfo newInfo)
     {
         info = newInfo;
@@ -115,16 +126,5 @@ public class Enemy : Entity
 
         GameManager.singleton.EnemyKilled(this);
         Destroy(gameObject);
-    }
-
-    public override void SetData(Data newData)
-    {
-        base.SetData(newData);
-
-        health = data.health;
-
-        info = (EnemyInfo) data.info;
-        GetComponent<SpriteRenderer>().sprite = info.sprite;
-        health = info.maxHealth;
     }
 }
