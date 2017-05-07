@@ -38,11 +38,11 @@ public class Player : Entity
 
     private void Update()
     {
-        CheckSelectCard();
+        //CheckSelectCard();
 
         if(GameManager.singleton.isPlayerTurn)
         {
-            DoTurn();
+            DoTurn(); 
         }
     }
 
@@ -52,6 +52,15 @@ public class Player : Entity
         Vector2 input;
         ReadDirectionKeys(out input);
 
+        // Use card if player selects already selected card
+        if(CheckSelectCard() && hand[selectedCard].isSelfCast)
+        {
+            UseCard();
+            DrawCard();
+            GameManager.singleton.EndPlayerTurn();
+            return;
+        }
+
         // Check spacebar
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -60,11 +69,8 @@ public class Player : Entity
             {
                 UseCard();
             }
-            else
-            {
-                DrawCard();
-            }
 
+            DrawCard();
             GameManager.singleton.EndPlayerTurn();
             return;
         }
@@ -72,13 +78,10 @@ public class Player : Entity
         // Check WASD
         if(!isMoving && (input.x != 0 || input.y != 0))
         {
-            bool usedCard = false; // Only draw card if player hasn't used card this turn
-
             // If player holding shift, use card
             if(Input.GetKey(KeyCode.LeftShift))
             {
                 UseCard(input);
-                usedCard = true;
             }
             // Otherwise move/attack
             else
@@ -95,12 +98,6 @@ public class Player : Entity
                     if(rayHit.transform.tag == "Enemy")
                     {
                         UseCard(input);
-
-                        // still draw card if punched
-                        if(selectedCard != punchIndex)
-                        {
-                            usedCard = true;
-                        }
                     }
                     // Hit card, pick up card
                     else if(rayHit.transform.tag == "Card")
@@ -116,11 +113,7 @@ public class Player : Entity
                 }
             }
 
-            if(!usedCard)
-            {
-                DrawCard();
-            }
-
+            DrawCard();
             GameManager.singleton.EndPlayerTurn();
         }
     } 
@@ -157,7 +150,8 @@ public class Player : Entity
         selectedCard = num;
     }
 
-    public void CheckSelectCard()
+    // Returns true if player selected already selected card
+    public bool CheckSelectCard()
     {
         int num =-1;
 
@@ -173,7 +167,7 @@ public class Player : Entity
             num = 4;
 
         // Player didn't press number or card doesn't exist
-        if(num < 0 || hand[num] == null) return;
+        if(num < 0 || hand[num] == null) return false;
 
         // If player holding shift, discard card instead of select
         if(Input.GetKey(KeyCode.LeftShift))
@@ -186,9 +180,13 @@ public class Player : Entity
                 SelectCard(punchIndex);
             }
         }
-        else
+        else if(num == selectedCard)
+        {
+            return true;
+        }
         {
             SelectCard(num);
+            return false;
         }
     }
 
