@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     public Player player;
     public ArrayList entities;
 
+    [HideInInspector]
+    public bool isPaused = false;
+
     private void Awake()
     {
         if(singleton == null)
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(isPaused) return;
         if(somethingMoving) return;
 
         if(!isPlayerTurn)
@@ -174,5 +178,17 @@ public class GameManager : MonoBehaviour
         uiManager.ShowGameOverUI();
         Destroy(player.gameObject);
         player = null;
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+        uiManager.ShowPauseUI();
+    }
+
+    public void UnPause()
+    {
+        isPaused = false;
+        uiManager.HidePauseUI();
     }
 }

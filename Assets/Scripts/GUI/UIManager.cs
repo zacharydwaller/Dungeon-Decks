@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("Game Over UI")]
+    [Header("UI Elements")]
+    public GameObject pauseUI;
     public GameObject gameOverUI;
-    public Text scoreText;
+    public Text gameOverScoreText;
 
     [Header("Hand Panel")]
     public GameObject handPanel;
@@ -18,6 +19,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        pauseUI.SetActive(false);
         gameOverUI.SetActive(false);
 
         hand = new GameObject[5];
@@ -110,6 +112,16 @@ public class UIManager : MonoBehaviour
     public void ShowGameOverUI()
     {
         gameOverUI.SetActive(true);
-        scoreText.text = GameManager.singleton.player.score.ToString();
+        gameOverScoreText.text = GameManager.singleton.player.score.ToString();
+    }
+
+    public void ShowPauseUI()
+    {
+        pauseUI.SetActive(true);
+    }
+
+    public void HidePauseUI()
+    {
+        pauseUI.SetActive(false);
     }
 }

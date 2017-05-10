@@ -39,6 +39,21 @@ public class Player : Entity
     private void Update()
     {
         //CheckSelectCard();
+        if(GameManager.singleton.isPaused)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameManager.singleton.UnPause();
+            }
+            else
+            {
+                return;
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.singleton.Pause();
+        }
 
         if(GameManager.singleton.isPlayerTurn)
         {
