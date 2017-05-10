@@ -148,7 +148,7 @@ public class Player : Entity
 
         if(health <= 0)
         {
-            Destroy(gameObject);
+            GameManager.singleton.PlayerKilled();
         }
     }
 
@@ -187,11 +187,14 @@ public class Player : Entity
 
                 SelectCard(punchIndex);
             }
+
+            return false;
         }
         else if(num == selectedCard)
         {
             return true;
         }
+        else
         {
             SelectCard(num);
             return false;

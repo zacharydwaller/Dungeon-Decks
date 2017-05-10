@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public BoardManager boardManager;
 
+    public UIManager uiManager;
+
     public Database cardDatabase;
     public Database enemyDatabase;
 
@@ -169,6 +171,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayerKilled()
     {
-        // Game over
+        uiManager.ShowGameOverUI();
+        Destroy(player.gameObject);
+        player = null;
     }
 }

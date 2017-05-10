@@ -1,24 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Game Over UI")]
+    public GameObject gameOverUI;
+    public Text scoreText;
+
     [Header("Hand Panel")]
     public GameObject handPanel;
     public GameObject placeholderRef;
     public GameObject cardRef;
     public GameObject[] hand;
 
+
     private void Start()
     {
+        gameOverUI.SetActive(false);
+
         hand = new GameObject[5];
         AddPlaceholders();
     }
 
     private void Update()
     {
-        UpdateHand();
+        if(GameManager.singleton.player != null)
+        {
+            UpdateHand();
+        }
     }
 
     private void UpdateHand()
@@ -94,5 +105,11 @@ public class UIManager : MonoBehaviour
             placeholder.transform.SetParent(handPanel.transform, false);
             hand[i] = placeholder;
         }
+    }
+
+    public void ShowGameOverUI()
+    {
+        gameOverUI.SetActive(true);
+        scoreText.text = GameManager.singleton.player.score.ToString();
     }
 }
