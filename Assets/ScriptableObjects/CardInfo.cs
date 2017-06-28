@@ -14,7 +14,9 @@ public class CardInfo : DBItem
     public string descOverride;
     public bool isConsumable;
 
+    // Ranged or self cast cards with multiple effects must have ranged/selfcast effect first in effect list
     public bool isSelfCast { get { return effects[0].isSelfCast; } }
+    public bool isRanged { get { return effects[0].isRanged; } }
 
     public string description
     {

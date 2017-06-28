@@ -38,7 +38,6 @@ public class Player : Entity
 
     private void Update()
     {
-        //CheckSelectCard();
         if(GameManager.singleton.isPaused)
         {
             if(Input.GetKeyDown(KeyCode.Escape))
@@ -54,6 +53,8 @@ public class Player : Entity
         {
             GameManager.singleton.Pause();
         }
+
+        CheckSelectCard();
 
         if(GameManager.singleton.isPlayerTurn)
         {
@@ -89,17 +90,26 @@ public class Player : Entity
         {
             // If player holding shift, use card
             // This will be used for ranged attacks
-            if(Input.GetKey(KeyCode.LeftShift))
+            if(Input.GetKey(KeyCode.LeftShift) && hand[selectedCard].isRanged)
             {
-                UseCard(input);
+                Collider2D collider = GetComponent<Collider2D>();
+
+                collider.enabled = false;
+                RaycastHit2D rayLOS = Physics2D.Raycast(transform.position, input);
+                collider.enabled = true;
+
+                if(rayLOS.transform != null && rayLOS.transform.GetComponent<Enemy>())
+                {
+                    UseCard(input);
+                }
             }
             // Otherwise move/attack
             else
             {
-                RaycastHit2D rayHit;
+                RaycastHit2D rayMove;
 
                 // Nothing hit by raycast, move
-                if(CheckMove(input, out rayHit))
+                if(CheckMove(input, out rayMove))
                 {
                     Move(input);
 
@@ -113,18 +123,18 @@ public class Player : Entity
                 else
                 {
                     // Hit enemy, use card on him
-                    if(rayHit.transform.tag == "Enemy")
+                    if(rayMove.transform.tag == "Enemy")
                     {
                         UseCard(input);
                     }
                     // Hit card, pick up card
-                    else if(rayHit.transform.tag == "Card")
+                    else if(rayMove.transform.tag == "Card")
                     {
-                        CollectCard(rayHit.transform.GetComponent<CardPickup>());
+                        CollectCard(rayMove.transform.GetComponent<CardPickup>());
                         Move(input);
                     }
                     // Hit door, go through door
-                    else if(rayHit.transform.tag == "Door")
+                    else if(rayMove.transform.tag == "Door")
                     {
                         GameManager.singleton.ChangeBoard(input);
                     }
