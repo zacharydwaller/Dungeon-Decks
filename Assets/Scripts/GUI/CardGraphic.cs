@@ -15,6 +15,7 @@ public class CardGraphic : Tooltip
     public Image image;
     public Image baseGraphic;
     public Outline selectedOutline;
+    public Text consumableText;
 
     private Player player;
     
@@ -55,6 +56,8 @@ public class CardGraphic : Tooltip
         nameText.text = card.cardName;
         baseGraphic.color = card.color;
         image.sprite = card.image;
-        effectText.text = card.effect.description;
+        effectText.text = card.description;
+
+        consumableText.enabled = card.isConsumable;
     }
 }

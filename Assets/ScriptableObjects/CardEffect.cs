@@ -5,8 +5,7 @@ using UnityEngine;
 public abstract class CardEffect : ScriptableObject
 {
     public bool isSelfCast;
-    public string description;
+    public string rawDescription;
 
-    public abstract void DoEffect(GameObject user, Vector2 direction = default(Vector2));
-    public abstract int GetEffectAmount();
+    public abstract void DoEffect(GameObject user, int magnitude, Vector2 direction = default(Vector2));
 }

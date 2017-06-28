@@ -97,7 +97,7 @@ public class Enemy : Entity
             // Hit player
             if(rayHit.transform.tag == "Player")
             {
-                info.attackEffect.DoEffect(gameObject, dir);
+                info.attackEffect.DoEffect(gameObject, info.damage, dir);
             }
             // Hit card, move anyways
             else if(rayHit.transform.tag == "Card")

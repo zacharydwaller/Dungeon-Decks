@@ -140,7 +140,7 @@ public class BoardManager : MonoBehaviour
         {
             GameManager gm = GameManager.singleton;
             CardPickup card = Instantiate(cardPickupRef, GetRandomLocation(), Quaternion.identity).GetComponent<CardPickup>();
-            card.SetCard((CardInfo) gm.cardDatabase.GetRandomItemOfLevel(gm.killCounter));
+            card.SetCard((CardInfo) gm.cardDatabase.GetItemOfTier(gm.itemTier));
             GameManager.singleton.RegisterEntity(card);
         }
     }
@@ -153,7 +153,7 @@ public class BoardManager : MonoBehaviour
         {
             GameManager gm = GameManager.singleton;
             Enemy enemy = Instantiate(enemyRef, GetRandomLocation(), Quaternion.identity).GetComponent<Enemy>();
-            enemy.SetEnemy((EnemyInfo) gm.enemyDatabase.GetRandomItemOfLevel(gm.boardCounter));
+            enemy.SetEnemy((EnemyInfo) gm.enemyDatabase.GetItemOfTier(gm.enemyTier));
             GameManager.singleton.RegisterEntity(enemy);
         }
     }

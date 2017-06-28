@@ -26,7 +26,7 @@ public class EnemyTooltip : Tooltip
         {
             nameText.text = enemy.info.enemyName;
             hpText.text = enemy.health.ToString();
-            damageText.text = enemy.info.attackEffect.GetEffectAmount().ToString();
+            damageText.text = enemy.info.damage.ToString();
         }
     }
 }

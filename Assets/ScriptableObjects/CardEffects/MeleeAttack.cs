@@ -6,10 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Database/CardEffect/MeleeAttack")]
 public class MeleeAttack : CardEffect
 {
-    public int damage;
-
-    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2))
+    public override void DoEffect(GameObject user, int damage, Vector2 direction = default(Vector2))
     {
+        if(direction == default(Vector2)) return;
+
         Collider2D collider = user.GetComponent<Collider2D>();
         RaycastHit2D rayHit;
         Vector2 start = user.transform.position;
@@ -29,10 +29,5 @@ public class MeleeAttack : CardEffect
                 ent.TakeDamage(damage);
             }
         }
-    }
-
-    public override int GetEffectAmount()
-    {
-        return damage;
     }
 }

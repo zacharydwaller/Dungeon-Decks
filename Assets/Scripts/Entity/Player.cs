@@ -242,8 +242,16 @@ public class Player : Entity
 
     public void UseCard(Vector2 dir = default(Vector2))
     {
-        hand[selectedCard].DoEffect(gameObject, dir);
-        DiscardCard(selectedCard);
+        hand[selectedCard].DoEffects(gameObject, dir);
+
+        if(hand[selectedCard].isConsumable)
+        {
+            BanishCard(selectedCard);
+        }
+        else
+        {
+            DiscardCard(selectedCard);
+        }
     }
 
     public void CollectCard(CardPickup pickup)
@@ -301,6 +309,15 @@ public class Player : Entity
         if(num != punchIndex)
         {
             graveyard.Add(hand[num]);
+            hand[num] = null;
+            selectedCard = punchIndex;
+        }
+    }
+
+    public void BanishCard(int num)
+    {
+        if(num != punchIndex)
+        {
             hand[num] = null;
             selectedCard = punchIndex;
         }

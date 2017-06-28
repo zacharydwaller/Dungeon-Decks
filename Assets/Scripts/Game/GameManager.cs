@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public int boardCounter; // Incremented every board generation, used for generating higher level monsters
     public int killCounter; // Incremented every monster kill, used for generating higher level cards
 
+    public int enemyTier { get { return boardCounter / 2; } }
+    public int itemTier { get { return killCounter / 4; } }
+
     public GameObject playerRef;
     //public SortedList<int, List<GameObject>> enemyLists;
 
@@ -43,8 +46,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        DontDestroyOnLoad(gameObject);
 
         boardManager = GetComponent<BoardManager>();
     }
