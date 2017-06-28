@@ -27,7 +27,7 @@ public class HealthSteal : CardEffect
             {
                 Entity userEnt = user.GetComponent<Entity>();
                 userEnt.DoAttackAnimation(direction);
-                userEnt.health += damage;
+                userEnt.health += Mathf.Min(damage, ent.health);
                 ent.TakeDamage(damage);
             }
         }
