@@ -9,7 +9,8 @@ public class EnemyInfo : DBItem
     public Sprite sprite;
     public int maxHealth;
     public int damage;
-    public int scoreValue;
+
+    public int scoreValue { get { return maxHealth + damage; } }
 
     public CardEffect attackEffect;
 }
