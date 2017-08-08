@@ -71,6 +71,7 @@ public class Player : Entity
     public override void DoTurn()
     {
         base.DoTurn();
+        if(health <= 0) return;
 
         bool playerActed = false;
         Vector2 input;
@@ -299,7 +300,7 @@ public class Player : Entity
             bonusMag = dmgBonus;
         }
 
-        hand[selectedCard].DoEffects(gameObject, bonusMag, dir);
+        hand[selectedCard].DoEffects(gameObject, dir, bonusMag);
 
         if(hand[selectedCard].isConsumable)
         {
