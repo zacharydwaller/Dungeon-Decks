@@ -34,11 +34,13 @@ public class CardInfo : DBItem
             {
                 string ret = string.Empty;
 
-                for(int i = 0; i < effects.Length; i++)
+                for(int i = 0; i < effects.Length - 1; i++)
                 {
                     ret = ret + EffectDesc(i) + "\n";
                 }
-                ret.TrimEnd('\n');
+                ret = ret + EffectDesc(effects.Length - 1);
+
+                //ret.Trim('\n') not working
 
                 return ret;
             }
