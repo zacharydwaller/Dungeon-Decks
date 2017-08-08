@@ -11,6 +11,7 @@ public class CardInfo : DBItem
     public Sprite image;
     public CardEffect[] effects;
     public int[] magnitudes;
+    public int[] secondaries;
     public string descOverride;
     public bool isConsumable;
 
@@ -24,7 +25,7 @@ public class CardInfo : DBItem
         {
             if(descOverride != string.Empty)
             {
-                return descOverride.Replace("%m", GetMagnitude(0).ToString());
+                return ReplaceTokens(descOverride, 0);
             }
             else if(effects.Length == 1)
             {
@@ -47,17 +48,34 @@ public class CardInfo : DBItem
         }
     }
 
-    public void DoEffects(GameObject user, int bonusMag = 0, Vector2 direction = default(Vector2))
+    public void DoEffects(GameObject user, Vector2 direction = default(Vector2), int bonusMag = 0)
     {
         for(int i = 0; i < effects.Length; i++)
         {
-            effects[i].DoEffect(user, magnitudes[i] + bonusMag, direction);
+            effects[i].DoEffect(user, direction, GetMagnitude(i) + bonusMag, GetSecondary(i));
         }
     }
 
     private string EffectDesc(int index)
     {
-        return effects[index].rawDescription.Replace("%m", GetMagnitude(index).ToString());
+        return ReplaceTokens(effects[index].rawDescription, index);
+    }
+
+    private string ReplaceTokens(string input, int index)
+    {
+        string ret = input;
+
+        if(magnitudes.Length > index)
+        {
+            ret = ret.Replace("%m", GetMagnitude(index).ToString());
+        }
+
+        if(secondaries.Length > index)
+        {
+            ret = ret.Replace("%s", GetSecondary(index).ToString());
+        }
+
+        return ret;
     }
 
     private int GetMagnitude(int index)
@@ -69,6 +87,18 @@ public class CardInfo : DBItem
         else
         {
             return magnitudes[index];
+        }
+    }
+
+    private int GetSecondary(int index)
+    {
+        if(index < secondaries.Length)
+        {
+            return secondaries[index];
+        }
+        else
+        {
+            return 0;
         }
     }
 }

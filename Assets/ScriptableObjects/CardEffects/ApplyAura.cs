@@ -3,21 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Database/CardEffect/MeleeAttack")]
-public class MeleeAttack : CardEffect
+[CreateAssetMenu(menuName = "Database/CardEffect/ApplyAura")]
+public class ApplyAura : CardEffect
 {
-    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), int damage = 0, int ignore = 0)
+    public AuraEffect auraEffect;
+
+    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), int magnitude = 0, int duration = 0)
     {
         if(direction == default(Vector2)) return;
 
         Collider2D collider = user.GetComponent<Collider2D>();
         RaycastHit2D rayHit;
         Vector2 start = user.transform.position;
-        Vector2 dest = start + direction;
 
         collider.enabled = false;
-        rayHit = Physics2D.Linecast(start, dest);
+        GameManager.singleton.DisableCardColliders();
+
+        rayHit = Physics2D.Raycast(start, direction);
+
         collider.enabled = true;
+        GameManager.singleton.EnableCardColliders();
 
         if(rayHit.transform != null)
         {
@@ -25,8 +30,10 @@ public class MeleeAttack : CardEffect
 
             if(ent)
             {
+                Aura aura = new Aura(ent, auraEffect, magnitude, duration);
+
                 user.GetComponent<Entity>().DoAttackAnimation(direction);
-                ent.TakeDamage(damage);
+                ent.ApplyAura(aura);
             }
         }
     }

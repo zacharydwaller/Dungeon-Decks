@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Aura : MonoBehaviour
+public class Aura
 {
     public AuraEffect effect;
 
-    GameObject owner;
+    Entity owner;
     public int magnitude;
     public int duration;
 
     public int durationRemaining;
 
-    private void Start()
+    public Aura(Entity newOwner, AuraEffect newEffect, int newMagnitude, int newDuration)
     {
-        durationRemaining = duration;
+        owner = newOwner;
+        effect = newEffect;
+        magnitude = newMagnitude;
+        duration = durationRemaining = newDuration;
     }
 
     // Returns true if finished

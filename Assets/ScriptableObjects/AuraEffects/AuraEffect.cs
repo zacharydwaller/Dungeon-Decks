@@ -4,7 +4,5 @@ using UnityEngine;
 
 public abstract class AuraEffect : ScriptableObject
 {
-    public string rawDescription;
-
-    public abstract void Tick(GameObject owner, int magnitude, int duration);
+    public abstract void Tick(Entity owner, int magnitude, int duration);
 }

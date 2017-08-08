@@ -13,7 +13,7 @@ public class StatIncrease : CardEffect
 
     public Stat stat;
 
-    public override void DoEffect(GameObject user, int amount, Vector2 direction = default(Vector2))
+    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), int amount = 0, int ignore = 0)
     {
         switch(stat)
         {
