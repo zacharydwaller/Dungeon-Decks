@@ -47,6 +47,8 @@ public class Enemy : Entity
 
     public override void DoTurn()
     {
+        base.DoTurn();
+
         if(!GameManager.singleton.player)
         {
             GameManager.singleton.EndEnemyTurn();

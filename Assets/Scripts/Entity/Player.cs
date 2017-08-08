@@ -66,6 +66,8 @@ public class Player : Entity
 
     public override void DoTurn()
     {
+        base.DoTurn();
+
         bool playerActed = false;
         Vector2 input;
         ReadDirectionKeys(out input);

@@ -27,6 +27,8 @@ public abstract class Entity : MonoBehaviour
 
     public int health;
 
+    public ArrayList auras;
+
     public float moveTime = 0.1f;
     public bool isMoving = false;
 
@@ -46,11 +48,29 @@ public abstract class Entity : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
 
+        auras = new ArrayList();
+
         inverseMoveTime = 1f / moveTime;
     }
 
-    public abstract void DoTurn();
+
+    public virtual void DoTurn()
+    {
+        TickAuras();
+    }
+
     public abstract void TakeDamage(int amount);
+
+    public void TickAuras()
+    {
+        foreach(Aura aura in auras)
+        {
+            if(aura.Tick())
+            {
+                auras.Remove(aura);
+            }
+        }
+    }
 
     public virtual void SetData(Data newData)
     {
