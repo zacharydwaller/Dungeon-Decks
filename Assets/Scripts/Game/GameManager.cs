@@ -17,8 +17,14 @@ public class GameManager : MonoBehaviour
     public int boardCounter; // Incremented every board generation, used for generating higher level monsters
     public int killCounter; // Incremented every monster kill, used for generating higher level cards
 
-    public int enemyTier { get { return boardCounter / 2; } }
-    public int itemTier { get { return killCounter / 4; } }
+    public Vector2 enemyTierDelayRange;
+    public Vector2 itemTierDelayRange;
+
+    public int enemyTierDelay;
+    public int itemTierDelay;
+
+    public int enemyTier = 0;
+    public int itemTier = 0;
 
     public GameObject playerRef;
     //public SortedList<int, List<GameObject>> enemyLists;
@@ -32,6 +38,9 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public ArrayList entities;
+
+    [HideInInspector]
+    public ContactFilter2D defaultCF;
 
     [HideInInspector]
     public bool isPaused = false;
@@ -52,6 +61,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        itemTierDelay = (int) itemTierDelayRange.x;
+        enemyTierDelay = (int) enemyTierDelayRange.y;
+
+        defaultCF.SetLayerMask(LayerMask.NameToLayer("Default"));
+
         InitLevel();
     }
 
@@ -136,6 +150,13 @@ public class GameManager : MonoBehaviour
     public void BoardGenerated()
     {
         boardCounter++;
+
+        if(boardCounter >= enemyTierDelay)
+        {
+            enemyTierDelay += Mathf.RoundToInt(Random.Range(enemyTierDelayRange.x, enemyTierDelayRange.y));
+            enemyTier++;
+        }
+
         player.Reshuffle();
     }
 
@@ -168,9 +189,38 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void EnableCardColliders()
+    {
+        foreach(Entity ent in entities)
+        {
+            if(ent.tag == "Card")
+            {
+                ent.GetComponent<Collider2D>().enabled = true;
+            }
+        }
+    }
+
+    public void DisableCardColliders()
+    {
+        foreach(Entity ent in entities)
+        {
+            if(ent.tag == "Card")
+            {
+                ent.GetComponent<Collider2D>().enabled = false;
+            }
+        }
+    }
+
     public void EnemyKilled(Enemy enemy)
     {
         killCounter++;
+
+        if(killCounter >= itemTierDelay)
+        {
+            itemTierDelay += Mathf.RoundToInt(Random.Range(itemTierDelayRange.x, itemTierDelayRange.y));
+            itemTier++;
+        }
+
         player.score += enemy.info.scoreValue;
     }
 

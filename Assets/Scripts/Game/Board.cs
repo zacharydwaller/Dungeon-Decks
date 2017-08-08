@@ -51,14 +51,14 @@ public class Board
         }
     }
 
-    public Vector3 GetRandomLocation()
+    public Vector3 GetRandomLocation(int padding = 0)
     {
         Vector3 ret = new Vector3();
 
         do
         {
-            ret.x = Random.Range(0, width);
-            ret.y = Random.Range(0, height);
+            ret.x = Random.Range(0 + padding, width - padding);
+            ret.y = Random.Range(0 + padding, height - padding);
         } while(GetTile((int) ret.y, (int) ret.x) != Tile.Floor);
 
         return ret;

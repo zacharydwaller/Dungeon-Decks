@@ -73,7 +73,7 @@ public abstract class Entity : MonoBehaviour
         collider.enabled = true;
 
         // Nothing in the way
-        if(rayHit.transform == null)
+        if(rayHit.transform == null || rayHit.transform.tag == "Card")
         {
             return true;
         }

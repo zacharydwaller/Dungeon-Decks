@@ -14,6 +14,7 @@ public class Player : Entity
     public ArrayList graveyard;
 
     private int punchIndex = 4;
+    private bool justChangedRoom = false;
 
     protected override void Start()
     {
@@ -88,23 +89,30 @@ public class Player : Entity
         // Check WASD
         else if(!isMoving && (input.x != 0 || input.y != 0))
         {
-            // If player holding shift, use card
-            // This will be used for ranged attacks
-            if(Input.GetKey(KeyCode.LeftShift) && hand[selectedCard].isRanged)
+            bool rangedCardUsed = false;
+
+            // If player holding shift and card is ranged attack, use card
+            if(hand[selectedCard].isRanged)
             {
                 Collider2D collider = GetComponent<Collider2D>();
 
                 collider.enabled = false;
+                GameManager.singleton.DisableCardColliders();
+
                 RaycastHit2D rayLOS = Physics2D.Raycast(transform.position, input);
+
                 collider.enabled = true;
+                GameManager.singleton.EnableCardColliders();
 
                 if(rayLOS.transform != null && rayLOS.transform.GetComponent<Enemy>())
                 {
                     UseCard(input);
+                    rangedCardUsed = true;
                 }
             }
+
             // Otherwise move/attack
-            else
+            if(!rangedCardUsed)
             {
                 RaycastHit2D rayMove;
 
@@ -127,21 +135,21 @@ public class Player : Entity
                     {
                         UseCard(input);
                     }
-                    // Hit card, pick up card
-                    else if(rayMove.transform.tag == "Card")
-                    {
-                        CollectCard(rayMove.transform.GetComponent<CardPickup>());
-                        Move(input);
-                    }
                     // Hit door, go through door
                     else if(rayMove.transform.tag == "Door")
                     {
                         GameManager.singleton.ChangeBoard(input);
+                        justChangedRoom = true;
                     }
                 }
             }
 
             playerActed = true;
+        }
+
+        if(justChangedRoom)
+        {
+            playerActed = false;
         }
 
         if(playerActed)
@@ -215,6 +223,18 @@ public class Player : Entity
 
             return false;
         }
+        // If player pressed X, banish card
+        else if(Input.GetKey(KeyCode.X))
+        {
+            // Don't banish Punch
+            if(num != punchIndex)
+            {
+                BanishCard(num);
+                SelectCard(punchIndex);
+            }
+
+            return false;
+        }
         else if(num == selectedCard)
         {
             return true;
@@ -247,6 +267,18 @@ public class Player : Entity
         else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.Keypad6))
         {
             output.x = 1;
+        }
+
+        if(justChangedRoom)
+        {
+            if(output.sqrMagnitude == 0)
+            {
+                justChangedRoom = false;
+            }
+            else
+            {
+                output = Vector2.zero;
+            }
         }
     }
 
@@ -364,5 +396,13 @@ public class Player : Entity
         // Fill hand
         while(DrawCard());
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Card")
+        {
+            CollectCard(other.GetComponent<CardPickup>());
+        }
     }
 }

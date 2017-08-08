@@ -26,9 +26,9 @@ public class BoardManager : MonoBehaviour
             boardMap = new Dictionary<Coordinate, Board>();
     }
 
-    public Vector3 GetRandomLocation()
+    public Vector3 GetRandomLocation(int padding = 0)
     {
-        return currentBoard.GetRandomLocation();
+        return currentBoard.GetRandomLocation(padding);
     }
 
     public void GenerateStartingBoard()
@@ -139,7 +139,7 @@ public class BoardManager : MonoBehaviour
         for(int i = 0; i < numEntities; i++)
         {
             GameManager gm = GameManager.singleton;
-            CardPickup card = Instantiate(cardPickupRef, GetRandomLocation(), Quaternion.identity).GetComponent<CardPickup>();
+            CardPickup card = Instantiate(cardPickupRef, GetRandomLocation(2), Quaternion.identity).GetComponent<CardPickup>();
             card.SetCard((CardInfo) gm.cardDatabase.GetItemOfTier(gm.itemTier));
             GameManager.singleton.RegisterEntity(card);
         }
@@ -152,7 +152,7 @@ public class BoardManager : MonoBehaviour
         for(int i = 0; i < numEntities; i++)
         {
             GameManager gm = GameManager.singleton;
-            Enemy enemy = Instantiate(enemyRef, GetRandomLocation(), Quaternion.identity).GetComponent<Enemy>();
+            Enemy enemy = Instantiate(enemyRef, GetRandomLocation(3), Quaternion.identity).GetComponent<Enemy>();
             enemy.SetEnemy((EnemyInfo) gm.enemyDatabase.GetItemOfTier(gm.enemyTier));
             GameManager.singleton.RegisterEntity(enemy);
         }

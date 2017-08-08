@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 5df9d00d3600684498e283315e140f23
+timeCreated: 1502140873
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 48
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SDS_6x6
+  fontNames:
+  - SDS_6x6
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

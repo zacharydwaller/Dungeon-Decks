@@ -62,16 +62,37 @@ public class Enemy : Entity
         // Ensure diagonals are not possible but also pick most appropriate direction
         if(Mathf.Abs(dir.x) == Mathf.Abs(dir.y))
         {
-            //Player at direct diagonal, check directions
-            if(CheckMove(new Vector2(dir.x, 0), out rayHit))
+            bool horz = false;
+
+            //Player at direct diagonal, move random
+            if(Random.Range(0f, 1f) < 0.5f)
             {
-                dir.x = 1 * Mathf.Sign(dir.x);
+                // Random checked, try to move horizontally
+                if(CheckMove(new Vector2(dir.x, 0), out rayHit))
+                {
+                    horz = true;
+                }
+                // else horizontal blocked, move verticaly
+            }
+            else
+            {
+                // Random checked, try to move vertically
+                if(CheckMove(new Vector2(0, dir.y), out rayHit) == false)
+                {
+                    // Vertical blocked, move horizontally
+                    horz = true;
+                }
+            }
+
+            if(horz)
+            {
+                dir.x = Mathf.Sign(dir.x);
                 dir.y = 0;
             }
             else
             {
-                dir.y = 1 * Mathf.Sign(dir.y);
                 dir.x = 0;
+                dir.y = Mathf.Sign(dir.y);
             }
         }
         // Player further away in X direction
@@ -98,11 +119,6 @@ public class Enemy : Entity
             if(rayHit.transform.tag == "Player")
             {
                 info.attackEffect.DoEffect(gameObject, info.damage, dir);
-            }
-            // Hit card, move anyways
-            else if(rayHit.transform.tag == "Card")
-            {
-                Move(dir);
             }
         }
 
