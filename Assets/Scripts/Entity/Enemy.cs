@@ -60,14 +60,13 @@ public class Enemy : Entity
         RaycastHit2D rayHit;
         Vector3 target = GameManager.singleton.player.transform.position;
         Vector2 dir = target - transform.position;
-        dir.Normalize();
 
         // Ensure diagonals are not possible but also pick most appropriate direction
-        if(Mathf.Abs(dir.x) == Mathf.Abs(dir.y))
+        // Unless one direction is incredibly larger than other, move randomly
+        if((dir.x != 0 && dir.y != 0) && Mathf.Abs((dir.x * dir.x) - (dir.y * dir.y)) < 10)
         {
             bool horz = false;
 
-            //Player at direct diagonal, move random
             if(Random.Range(0f, 1f) < 0.5f)
             {
                 // Random checked, try to move horizontally
@@ -80,7 +79,11 @@ public class Enemy : Entity
             else
             {
                 // Random checked, try to move vertically
-                if(CheckMove(new Vector2(0, dir.y), out rayHit) == false)
+                if(CheckMove(new Vector2(0, dir.y), out rayHit))
+                {
+                    horz = false;
+                }
+                else
                 {
                     // Vertical blocked, move horizontally
                     horz = true;
@@ -89,28 +92,25 @@ public class Enemy : Entity
 
             if(horz)
             {
-                dir.x = Mathf.Sign(dir.x);
                 dir.y = 0;
             }
             else
             {
                 dir.x = 0;
-                dir.y = Mathf.Sign(dir.y);
             }
         }
         // Player further away in X direction
         else if(Mathf.Abs(dir.x) >= Mathf.Abs(dir.y))
         {
             dir.y = 0;
-            dir.x = Mathf.Round(dir.x);
         }
         // Player further away in Y direction
         else
         {
             dir.x = 0;
-            dir.y = Mathf.Round(dir.y);
         }
 
+        dir.Normalize();
         
         if(CheckMove(dir, out rayHit))
         {
