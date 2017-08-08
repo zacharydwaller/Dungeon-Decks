@@ -7,8 +7,11 @@ public class PlayerUI : MonoBehaviour
 {
     public Text hpText;
     public Text apText;
+    public Text dmgText;
+    public Text drText;
     public Text deckText;
     public Text graveyardText;
+
     public Text scoreText;
 
     public Slider healthSlider;
@@ -18,25 +21,29 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
-        hpText.text = "0";
-        apText.text = "0";
-        deckText.text = "0";
-        graveyardText.text = "0";
-        scoreText.text = "0";
+        hpText.text         = "0";
+        apText.text         = "0";
+        dmgText.text        = "0";
+        drText.text         = "0";
+        deckText.text       = "0";
+        graveyardText.text  = "0";
+        scoreText.text      = "0";
 
-        healthSlider.maxValue = 0;
-        armorSlider.maxValue = 0;
+        healthSlider.maxValue   = 0;
+        armorSlider.maxValue    = 0;
     }
 
     private void Update()
     {
         if(player)
         {
-            hpText.text = player.health.ToString();
-            apText.text = player.armor.ToString();
-            deckText.text = player.deck.Count.ToString();
+            hpText.text        = player.health.ToString();
+            apText.text        = player.armor.ToString();
+            dmgText.text       = player.dmgBonus.ToString();
+            drText.text        = player.dmgReduction.ToString();
+            deckText.text      = player.deck.Count.ToString();
             graveyardText.text = player.graveyard.Count.ToString();
-            scoreText.text = player.score.ToString();
+            scoreText.text     = player.score.ToString();
 
             UpdateSlider(healthSlider, player.health);
             UpdateSlider(armorSlider, player.armor);
@@ -49,22 +56,21 @@ public class PlayerUI : MonoBehaviour
             else
             {
                 hpText.text = "0";
+                UpdateSlider(healthSlider, 0);
             }
         }
     }
 
     private void UpdateSlider(Slider slider, int stat)
     {
-        int _stat = stat;
-
-        if(slider.value != _stat)
+        if(slider.value != stat)
         {
-            if(_stat > slider.maxValue)
+            if(stat > slider.maxValue)
             {
-                slider.maxValue = _stat;
+                slider.maxValue = stat;
             }
 
-            slider.value = _stat;
+            slider.value = stat;
         }
     }
 }
