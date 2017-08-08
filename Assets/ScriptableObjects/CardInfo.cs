@@ -62,13 +62,13 @@ public class CardInfo : DBItem
 
     private int GetMagnitude(int index)
     {
-        if(effects[index].isSelfCast)
+        if(!effects[index].isSelfCast && GameManager.singleton.player != null)
         {
-            return magnitudes[index];
+            return magnitudes[index] + GameManager.singleton.player.dmgBonus;
         }
         else
         {
-            return magnitudes[index] + GameManager.singleton.player.dmgBonus;
+            return magnitudes[index];
         }
     }
 }
