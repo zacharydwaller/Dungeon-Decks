@@ -40,9 +40,6 @@ public class GameManager : MonoBehaviour
     public ArrayList entities;
 
     [HideInInspector]
-    public ContactFilter2D defaultCF;
-
-    [HideInInspector]
     public bool isPaused = false;
 
     private void Awake()
@@ -63,8 +60,6 @@ public class GameManager : MonoBehaviour
     {
         itemTierDelay = (int) itemTierDelayRange.x;
         enemyTierDelay = (int) enemyTierDelayRange.y;
-
-        defaultCF.SetLayerMask(LayerMask.NameToLayer("Default"));
 
         InitLevel();
     }
