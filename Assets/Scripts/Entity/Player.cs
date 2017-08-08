@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : Entity
 {
     public int armor;
+    public int dmgBonus;
+    public int dmgReduction;
     public int score;
 
     public CardInfo punchCard;
@@ -163,6 +165,8 @@ public class Player : Entity
 
     public override void TakeDamage(int amount)
     {
+        amount = Mathf.Clamp(amount - dmgReduction, 1, amount);
+
         if(amount == 1)
         {
             armor -= 1;
@@ -286,7 +290,14 @@ public class Player : Entity
 
     public void UseCard(Vector2 dir = default(Vector2))
     {
-        hand[selectedCard].DoEffects(gameObject, dir);
+        int bonusMag = 0;
+
+        if(hand[selectedCard].isSelfCast == false)
+        {
+            bonusMag = dmgBonus;
+        }
+
+        hand[selectedCard].DoEffects(gameObject, bonusMag, dir);
 
         if(hand[selectedCard].isConsumable)
         {

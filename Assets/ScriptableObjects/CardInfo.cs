@@ -47,11 +47,11 @@ public class CardInfo : DBItem
         }
     }
 
-    public void DoEffects(GameObject user, Vector2 direction = default(Vector2))
+    public void DoEffects(GameObject user, int bonusMag = 0, Vector2 direction = default(Vector2))
     {
         for(int i = 0; i < effects.Length; i++)
         {
-            effects[i].DoEffect(user, magnitudes[i], direction);
+            effects[i].DoEffect(user, magnitudes[i] + bonusMag, direction);
         }
     }
 
