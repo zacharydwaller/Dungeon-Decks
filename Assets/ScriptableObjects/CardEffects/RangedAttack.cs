@@ -19,12 +19,8 @@ public class RangedAttack : CardEffect
 
         rayHit = Physics2D.Raycast(start, direction);
 
-        Debug.Log(rayHit.transform);
-
         collider.enabled = true;
         GameManager.singleton.EnableCardColliders();
-
-        Debug.Log(rayHit.transform);
 
         if(rayHit.transform != null)
         {
