@@ -24,6 +24,8 @@ public class Player : Entity
 
         health = 10;
         armor = 0;
+        dmgBonus = 0;
+        dmgReduction = 0;
         score = 0;
 
         data.type = Entity.Type.Player;
@@ -397,6 +399,7 @@ public class Player : Entity
         deck.AddRange(graveyard);
         graveyard.Clear();
 
+        // Shuffle deck
         for(int i = 0; i < deck.Count; i++)
         {
             CardInfo tmp = (CardInfo) deck[i];
