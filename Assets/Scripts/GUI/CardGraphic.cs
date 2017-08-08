@@ -18,6 +18,9 @@ public class CardGraphic : Tooltip
     public Text consumableText;
 
     private Player player;
+
+    private float updateDelay = 0.33f;
+    private float nextUpdate = 0;
     
     public bool isPlaceholder;
 
@@ -35,6 +38,12 @@ public class CardGraphic : Tooltip
         else
         {
             selectedOutline.enabled = false;
+        }
+
+        if(Time.time >= nextUpdate)
+        {
+            UpdateGraphic();
+            nextUpdate = Time.time + updateDelay;
         }
     }
 

@@ -24,7 +24,7 @@ public class CardInfo : DBItem
         {
             if(descOverride != string.Empty)
             {
-                return descOverride.Replace("%m", magnitudes[0].ToString());
+                return descOverride.Replace("%m", GetMagnitude(0).ToString());
             }
             else if(effects.Length == 1)
             {
@@ -57,6 +57,18 @@ public class CardInfo : DBItem
 
     private string EffectDesc(int index)
     {
-        return effects[index].rawDescription.Replace("%m", magnitudes[index].ToString());
+        return effects[index].rawDescription.Replace("%m", GetMagnitude(index).ToString());
+    }
+
+    private int GetMagnitude(int index)
+    {
+        if(effects[index].isSelfCast)
+        {
+            return magnitudes[index];
+        }
+        else
+        {
+            return magnitudes[index] + GameManager.singleton.player.dmgBonus;
+        }
     }
 }
