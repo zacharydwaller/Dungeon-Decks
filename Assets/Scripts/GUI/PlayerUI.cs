@@ -11,6 +11,9 @@ public class PlayerUI : MonoBehaviour
     public Text graveyardText;
     public Text scoreText;
 
+    public Slider healthSlider;
+    public Slider armorSlider;
+
     Player player;
 
     private void Start()
@@ -20,6 +23,9 @@ public class PlayerUI : MonoBehaviour
         deckText.text = "0";
         graveyardText.text = "0";
         scoreText.text = "0";
+
+        healthSlider.maxValue = 0;
+        armorSlider.maxValue = 0;
     }
 
     private void Update()
@@ -31,6 +37,9 @@ public class PlayerUI : MonoBehaviour
             deckText.text = player.deck.Count.ToString();
             graveyardText.text = player.graveyard.Count.ToString();
             scoreText.text = player.score.ToString();
+
+            UpdateSlider(healthSlider, player.health);
+            UpdateSlider(armorSlider, player.armor);
         }
         else
         {
@@ -41,6 +50,21 @@ public class PlayerUI : MonoBehaviour
             {
                 hpText.text = "0";
             }
+        }
+    }
+
+    private void UpdateSlider(Slider slider, int stat)
+    {
+        int _stat = stat;
+
+        if(slider.value != _stat)
+        {
+            if(_stat > slider.maxValue)
+            {
+                slider.maxValue = _stat;
+            }
+
+            slider.value = _stat;
         }
     }
 }
