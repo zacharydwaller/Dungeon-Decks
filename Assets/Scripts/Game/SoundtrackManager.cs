@@ -42,8 +42,6 @@ public class SoundtrackManager : MonoBehaviour
             currentSong = Random.Range(0, songs.Length);
         } while(currentSong == oldSong);
 
-        Debug.Log("Cur: " + currentSong + " Prev: " + oldSong);
-
         loopsRemaining = GetNumLoops();
         audioSource.clip = songs[currentSong];
         audioSource.Play();
