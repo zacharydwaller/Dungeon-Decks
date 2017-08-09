@@ -121,6 +121,7 @@ public class Enemy : Entity
             // Hit player
             if(rayHit.transform.tag == "Player")
             {
+                DoAttackAnimation(dir);
                 info.attackEffect.DoEffect(gameObject, dir, info.magnitude, info.secondary);
             }
         }
