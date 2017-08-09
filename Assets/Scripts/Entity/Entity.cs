@@ -55,11 +55,7 @@ public abstract class Entity : MonoBehaviour
     }
 
 
-    public virtual void DoTurn()
-    {
-        TickAuras();
-    }
-
+    public abstract void DoTurn();
     public abstract void TakeDamage(int amount);
 
     public void ApplyAura(Aura newAura)
@@ -71,6 +67,7 @@ public abstract class Entity : MonoBehaviour
     {
         foreach(Aura aura in auras.ToArray())
         {
+            // Aura.Tick() returns true when finished
             if(aura != null && aura.Tick())
             {
                 auras.Remove(aura);

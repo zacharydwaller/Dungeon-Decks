@@ -14,5 +14,6 @@ MonoBehaviour:
   enemyName: Skeleton
   sprite: {fileID: 21300032, guid: 71c6a7b94f7c1f44a812204eb609ba30, type: 3}
   maxHealth: 7
-  damage: 3
+  magnitude: 3
+  secondary: 0
   attackEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}

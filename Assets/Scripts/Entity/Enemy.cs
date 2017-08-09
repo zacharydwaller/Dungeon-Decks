@@ -47,7 +47,7 @@ public class Enemy : Entity
 
     public override void DoTurn()
     {
-        base.DoTurn();
+        TickAuras();
         if(health <= 0) return;
 
         if(!GameManager.singleton.player)
@@ -121,7 +121,7 @@ public class Enemy : Entity
             // Hit player
             if(rayHit.transform.tag == "Player")
             {
-                info.attackEffect.DoEffect(gameObject, dir, info.damage);
+                info.attackEffect.DoEffect(gameObject, dir, info.magnitude, info.secondary);
             }
         }
 

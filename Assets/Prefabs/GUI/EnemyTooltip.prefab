@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.747, g: 0.25490198, b: 0.25490198, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -430,7 +430,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -405.5, y: 21.7}
-  m_SizeDelta: {x: 212, y: 120.78}
+  m_SizeDelta: {x: 212, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224853109120564294
 RectTransform:

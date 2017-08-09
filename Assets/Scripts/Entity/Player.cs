@@ -70,7 +70,6 @@ public class Player : Entity
 
     public override void DoTurn()
     {
-        base.DoTurn();
         if(health <= 0) return;
 
         bool playerActed = false;
@@ -162,6 +161,7 @@ public class Player : Entity
         if(playerActed)
         {
             DrawCard();
+            TickAuras();
             GameManager.singleton.EndPlayerTurn();
         }
     } 

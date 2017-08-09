@@ -14,5 +14,6 @@ MonoBehaviour:
   enemyName: Blob
   sprite: {fileID: 21300006, guid: 4059ae4c703ffb04e9add74bf278a9b8, type: 3}
   maxHealth: 1
-  damage: 2
+  magnitude: 2
+  secondary: 0
   attackEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}

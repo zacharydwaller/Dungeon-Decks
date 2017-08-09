@@ -7,7 +7,7 @@ using UnityEngine;
 public class ApplyAura : CardEffect
 {
     public AuraEffect auraEffect;
-
+    
     public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), int magnitude = 0, int duration = 0)
     {
         if(direction == default(Vector2)) return;

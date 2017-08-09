@@ -14,5 +14,6 @@ MonoBehaviour:
   enemyName: Drake
   sprite: {fileID: 21300040, guid: 1773772e8a6d6f24eaa6bc427eca2213, type: 3}
   maxHealth: 20
-  damage: 7
+  magnitude: 19
+  secondary: 0
   attackEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}

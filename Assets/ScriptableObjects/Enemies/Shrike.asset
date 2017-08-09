@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Shrike
   sprite: {fileID: 21300088, guid: f8bd570a5fb6ff34bafadf7abc46c74b, type: 3}
-  maxHealth: 5
-  damage: 4
-  attackEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}
+  maxHealth: 3
+  magnitude: 8
+  secondary: 4
+  attackEffect: {fileID: 11400000, guid: 14e26aeefedbff7429207b3a156c3631, type: 2}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Orc
   sprite: {fileID: 21300006, guid: 45bcfe1b9c82aea48ac6d496c8b82e70, type: 3}
-  maxHealth: 20
-  damage: 5
+  maxHealth: 17
+  magnitude: 3
+  secondary: 0
   attackEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}

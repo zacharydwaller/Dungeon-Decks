@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Wasp
   sprite: {fileID: 21300080, guid: 42d09340f51147541afb6efe730ae722, type: 3}
-  maxHealth: 1
-  damage: 5
+  maxHealth: 2
+  magnitude: 5
+  secondary: 0
   attackEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}

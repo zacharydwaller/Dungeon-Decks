@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     private void Update()
     {
+        /*
         GameObject player = GameManager.singleton.player.gameObject;
 
         if(player)
@@ -14,5 +15,6 @@ public class CameraController : MonoBehaviour
             newPos.z = -10;
             //transform.position = newPos;
         }
+        */
     }
 }

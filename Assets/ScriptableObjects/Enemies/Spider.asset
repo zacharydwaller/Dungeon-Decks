@@ -14,5 +14,6 @@ MonoBehaviour:
   enemyName: Spider
   sprite: {fileID: 21300032, guid: 42d09340f51147541afb6efe730ae722, type: 3}
   maxHealth: 1
-  damage: 3
-  attackEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}
+  magnitude: 3
+  secondary: 3
+  attackEffect: {fileID: 11400000, guid: 14e26aeefedbff7429207b3a156c3631, type: 2}

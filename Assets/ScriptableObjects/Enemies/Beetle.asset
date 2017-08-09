@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Beetle
   sprite: {fileID: 21300090, guid: 42d09340f51147541afb6efe730ae722, type: 3}
-  maxHealth: 3
-  damage: 1
+  maxHealth: 4
+  magnitude: 2
+  secondary: 0
   attackEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}

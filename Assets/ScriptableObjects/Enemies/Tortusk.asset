@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Turtusk
   sprite: {fileID: 21300008, guid: d826d3a5768c9e542a5a3ad2bdb3702a, type: 3}
-  maxHealth: 9
-  damage: 4
+  maxHealth: 10
+  magnitude: 4
+  secondary: 0
   attackEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}

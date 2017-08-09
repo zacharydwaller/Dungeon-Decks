@@ -11,4 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23261464932f34742bafe84c530f4f95, type: 3}
   m_Name: DoT
   m_EditorClassIdentifier: 
+  tooltipDescription: '%r DMG for %d turns'
   isHarmful: 1
+  icon: {fileID: 21300012, guid: c9d8733b8886ba24ea030a063bfd467b, type: 3}
