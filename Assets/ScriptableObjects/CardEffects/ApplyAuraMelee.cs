@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Database/CardEffect/ApplyAura")]
-public class ApplyAura : CardEffect
+[CreateAssetMenu(menuName = "Database/CardEffect/ApplyAuraMelee")]
+public class ApplyAuraMelee : CardEffect
 {
     public AuraEffect auraEffect;
     
@@ -15,14 +15,11 @@ public class ApplyAura : CardEffect
         Collider2D collider = user.GetComponent<Collider2D>();
         RaycastHit2D rayHit;
         Vector2 start = user.transform.position;
+        Vector2 dest = start + direction;
 
         collider.enabled = false;
-        GameManager.singleton.DisableCardColliders();
-
-        rayHit = Physics2D.Raycast(start, direction);
-
+        rayHit = Physics2D.Linecast(start, dest);
         collider.enabled = true;
-        GameManager.singleton.EnableCardColliders();
 
         if(rayHit.transform != null)
         {
