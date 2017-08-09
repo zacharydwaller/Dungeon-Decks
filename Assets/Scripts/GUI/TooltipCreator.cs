@@ -31,19 +31,43 @@ public class TooltipCreator : MonoBehaviour
     private void MoveTooltip()
     {
         RectTransform rect = tooltipObj.GetComponent<RectTransform>();
+
+        Vector2 anchorMin = rect.anchorMin;
+        Vector2 anchorMax = rect.anchorMax;
+        Vector2 pivot = rect.pivot;
+
+
         if(Camera.main.pixelHeight - Input.mousePosition.y < rect.sizeDelta.y)
         {
 
-            rect.anchorMin = new Vector2(0, 1);
-            rect.anchorMax = new Vector2(0, 1);
-            rect.pivot = new Vector2(0, 1);
+            anchorMin.y = 1;
+            anchorMax.y = 1;
+            pivot.y = 1;
         }
         else
         {
-            rect.anchorMin = new Vector2(0, 0);
-            rect.anchorMax = new Vector2(0, 0);
-            rect.pivot = new Vector2(0, 0);
+            anchorMin.y = 0;
+            anchorMax.y = 0;
+            pivot.y = 0;
         }
+
+        if(Camera.main.pixelWidth - Input.mousePosition.x < rect.sizeDelta.x)
+        {
+
+            anchorMin.x = 1;
+            anchorMax.x = 1;
+            pivot.x = 1;
+        }
+        else
+        {
+            anchorMin.x = 0;
+            anchorMax.x = 0;
+            pivot.x = 0;
+        }
+
+        rect.anchorMax = anchorMax;
+        rect.anchorMin = anchorMin;
+        rect.pivot = pivot;
 
         tooltipObj.transform.position = Input.mousePosition;
     }
