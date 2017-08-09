@@ -16,6 +16,10 @@ public class UIManager : MonoBehaviour
     public GameObject cardRef;
     public GameObject[] hand;
 
+    private CanvasScaler cScalar;
+
+    private float currentWidth;
+    private float defaultWidth = 1280;
 
     private void Start()
     {
@@ -24,10 +28,19 @@ public class UIManager : MonoBehaviour
 
         hand = new GameObject[5];
         AddPlaceholders();
+
+        cScalar = GetComponent<CanvasScaler>();
+
+        FixUIScale();
     }
 
     private void Update()
     {
+        if(Screen.width != currentWidth)
+        {
+            FixUIScale();
+        }
+
         if(GameManager.singleton.player != null)
         {
             UpdateHand();
@@ -123,5 +136,13 @@ public class UIManager : MonoBehaviour
     public void HidePauseUI()
     {
         pauseUI.SetActive(false);
+    }
+
+    private void FixUIScale()
+    {
+        float ratio = Screen.width / defaultWidth;
+
+        cScalar.scaleFactor = ratio;
+        currentWidth = Screen.width;
     }
 }
