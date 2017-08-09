@@ -31,8 +31,6 @@ public class ApplyAura : CardEffect
             if(ent)
             {
                 Aura aura = new Aura(ent, auraEffect, magnitude, duration);
-
-                user.GetComponent<Entity>().DoAttackAnimation(direction);
                 ent.ApplyAura(aura);
             }
         }

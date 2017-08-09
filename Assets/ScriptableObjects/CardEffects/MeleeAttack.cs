@@ -25,7 +25,6 @@ public class MeleeAttack : CardEffect
 
             if(ent)
             {
-                user.GetComponent<Entity>().DoAttackAnimation(direction);
                 ent.TakeDamage(damage);
             }
         }
