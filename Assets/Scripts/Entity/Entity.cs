@@ -41,7 +41,7 @@ public abstract class Entity : MonoBehaviour
     {
         data = new Data();
         data.id = nextId++;
-        data.position = transform.position;
+        data.position = base.transform.position;
     }
 
     protected virtual void Start()
@@ -83,7 +83,7 @@ public abstract class Entity : MonoBehaviour
     public virtual void SetData(Data newData)
     {
         data = newData;
-        transform.position = data.position;
+        base.transform.position = data.position;
     }
 
     /*
@@ -93,7 +93,7 @@ public abstract class Entity : MonoBehaviour
      */
     protected bool CheckMove(Vector2 dir, out RaycastHit2D rayHit)
     {
-        Vector2 start = transform.position;
+        Vector2 start = base.transform.position;
         Vector2 dest = start + dir;
 
         collider.enabled = false;
@@ -111,8 +111,8 @@ public abstract class Entity : MonoBehaviour
 
     protected void Move(Vector3 dir)
     {
-        data.position = transform.position + dir;
-        StartCoroutine(SmoothMoveTo(transform.position + dir));
+        data.position = base.transform.position + dir;
+        StartCoroutine(SmoothMoveTo(base.transform.position + dir));
     }
 
     public void DoAttackAnimation(Vector2 dir)
@@ -127,7 +127,7 @@ public abstract class Entity : MonoBehaviour
 
     protected IEnumerator SmoothMoveTo(Vector3 dest)
     {
-        float sqrDistance = (transform.position - dest).sqrMagnitude;
+        float sqrDistance = (base.transform.position - dest).sqrMagnitude;
 
         isMoving = true;
         GameManager.singleton.somethingMoving = true;
@@ -135,8 +135,7 @@ public abstract class Entity : MonoBehaviour
         {
             Vector3 newPosition = Vector3.MoveTowards(rigidbody.position, dest, inverseMoveTime * Time.deltaTime);
             rigidbody.MovePosition(newPosition);
-
-            sqrDistance = (transform.position - dest).sqrMagnitude;
+            sqrDistance = (base.transform.position - dest).sqrMagnitude;
 
             yield return null;
         }
@@ -149,14 +148,14 @@ public abstract class Entity : MonoBehaviour
     {
         Vector3 start = transform.position;
         Vector3 dest = start + dir * 0.5f;
-        float sqrDistance = (transform.position - dest).sqrMagnitude;
+        float sqrDistance = (start - dest).sqrMagnitude;
 
         isMoving = true;
         GameManager.singleton.somethingMoving = true;
         while(sqrDistance > float.Epsilon)
         {
-            Vector3 newPosition = Vector3.MoveTowards(rigidbody.position, dest, inverseMoveTime * Time.deltaTime);
-            rigidbody.MovePosition(newPosition);
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, dest, inverseMoveTime * Time.deltaTime);
+            transform.position = newPosition;
 
             sqrDistance = (transform.position - dest).sqrMagnitude;
 
@@ -166,8 +165,8 @@ public abstract class Entity : MonoBehaviour
         sqrDistance = (transform.position - start).sqrMagnitude;
         while(sqrDistance > float.Epsilon)
         {
-            Vector3 newPosition = Vector3.MoveTowards(rigidbody.position, start, inverseMoveTime * Time.deltaTime);
-            rigidbody.MovePosition(newPosition);
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, start, inverseMoveTime * Time.deltaTime);
+            transform.position = newPosition;
 
             sqrDistance = (transform.position - start).sqrMagnitude;
 
