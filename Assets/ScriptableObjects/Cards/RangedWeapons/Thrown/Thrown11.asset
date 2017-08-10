@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
   m_Name: Thrown11
   m_EditorClassIdentifier: 
-  cardName: Balanced Throwing Dagger
+  cardName: Throwing Dagger
   color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   image: {fileID: 21300006, guid: 50abcbb2625113e44ac9a1bc45b09080, type: 3}
   effects:
