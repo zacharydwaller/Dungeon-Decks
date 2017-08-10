@@ -9,14 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: Drain15
+  m_Name: Drain8
   m_EditorClassIdentifier: 
-  cardName: Lich's Blade
+  cardName: Sword of Undeath
   color: {r: 0.5, g: 0.2867647, b: 0.2867647, a: 1}
-  image: {fileID: 21300024, guid: 5470be09022e22e4e88e5b8dccfd9cc6, type: 3}
+  image: {fileID: 21300002, guid: a921d99a555490e49bb073f25081ac45, type: 3}
   effects:
   - {fileID: 11400000, guid: ba2390117bcbb7e41883d0a8f0ba3a21, type: 2}
-  magnitudes: 0f000000
+  magnitudes: 08000000
   secondaries: 
   descOverride: 
   bonusTypes: 02000000
