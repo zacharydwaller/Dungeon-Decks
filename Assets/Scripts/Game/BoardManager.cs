@@ -150,7 +150,7 @@ public class BoardManager : MonoBehaviour
             CardPickup card = Instantiate(cardPickupRef, GetRandomLocation(2), Quaternion.identity).GetComponent<CardPickup>();
             CardInfo newCard;
 
-            int maxIterations = gm.cardDatabase.tiers[gm.itemTier].items.Length * 2;
+            int maxIterations = max * 2;
             int iteration = 0;
             do
             {
