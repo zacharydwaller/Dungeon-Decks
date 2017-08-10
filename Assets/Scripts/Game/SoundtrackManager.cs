@@ -7,6 +7,8 @@ public class SoundtrackManager : MonoBehaviour
     public AudioClip[] songs;
     public float minLength;
 
+    private bool shuffle;
+
     private int currentSong = -1;
     private int loopsRemaining;
 
@@ -15,20 +17,38 @@ public class SoundtrackManager : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        if(songs.Length > 1)
+        {
+            shuffle = true;
+            audioSource.loop = false;
+        }
+        else
+        {
+            shuffle = false;
+            currentSong = 0;
+
+            audioSource.loop = true;
+            audioSource.clip = songs[0];
+            audioSource.Play();
+        }
     }
 
     private void Update()
     {
-        if(!audioSource.isPlaying)
+        if(shuffle)
         {
-            if(loopsRemaining > 0)
+            if(!audioSource.isPlaying)
             {
-                loopsRemaining--;
-                audioSource.Play();
-            }
-            else
-            {
-                PlayNextSong();
+                if(loopsRemaining > 0)
+                {
+                    loopsRemaining--;
+                    audioSource.Play();
+                }
+                else
+                {
+                    PlayNextSong();
+                }
             }
         }
     }
