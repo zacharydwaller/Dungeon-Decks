@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool isPaused = false;
 
+    private bool winUIShown = false;
+
     private void Awake()
     {
         if(singleton == null)
@@ -217,6 +219,13 @@ public class GameManager : MonoBehaviour
         }
 
         player.score += enemy.info.scoreValue;
+
+        if(enemy.info.enemyName == "Dragon" && !winUIShown)
+        {
+            Pause();
+            uiManager.ShowWinUI();
+            winUIShown = true;
+        }
     }
 
     public void PlayerKilled()

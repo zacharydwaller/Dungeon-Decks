@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     [Header("UI Elements")]
     public GameObject pauseUI;
     public GameObject gameOverUI;
+    public GameObject winUI;
     public Text gameOverScoreText;
 
     [Header("Hand Panel")]
@@ -25,6 +26,7 @@ public class UIManager : MonoBehaviour
     {
         pauseUI.SetActive(false);
         gameOverUI.SetActive(false);
+        winUI.SetActive(false);
 
         hand = new GameObject[5];
         AddPlaceholders();
@@ -120,6 +122,11 @@ public class UIManager : MonoBehaviour
             placeholder.transform.SetParent(handPanel.transform, false);
             hand[i] = placeholder;
         }
+    }
+
+    public void ShowWinUI()
+    {
+        winUI.SetActive(true);
     }
 
     public void ShowGameOverUI()
