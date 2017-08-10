@@ -9,14 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: Punch
+  m_Name: Sword2
   m_EditorClassIdentifier: 
-  cardName: Punch
+  cardName: Short Sword
   color: {r: 0.4509804, g: 0.4509804, b: 0.4509804, a: 1}
-  image: {fileID: 21300002, guid: 533b7967cf3ab2a4ca3a73da77c28b2c, type: 3}
+  image: {fileID: 21300006, guid: a921d99a555490e49bb073f25081ac45, type: 3}
   effects:
   - {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}
-  magnitudes: 01000000
+  magnitudes: 02000000
   secondaries: 
   descOverride: 
   isConsumable: 0

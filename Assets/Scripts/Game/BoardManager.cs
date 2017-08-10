@@ -20,10 +20,14 @@ public class BoardManager : MonoBehaviour
     public Dictionary<Coordinate, Board> boardMap;
     public Board currentBoard;
 
+    private CardInfo prevCard;
+
     private void Start()
     {
         if(boardMap == null)
             boardMap = new Dictionary<Coordinate, Board>();
+
+        prevCard = null;
     }
 
     public Vector3 GetRandomLocation(int padding = 0)
@@ -132,23 +136,42 @@ public class BoardManager : MonoBehaviour
         GenerateEnemies();
     }
 
-    public void GenerateCards(int min = 1, int max = 2)
+    public void GenerateCards(int min = 2, int max = 3)
     {
         // 2-3 cards
         int numEntities = Random.Range(min, max + 1);
+        GameManager gm = GameManager.singleton;
+
+        List<CardInfo> prevCards = new List<CardInfo>();
+        prevCards.Add(prevCard);
+
         for(int i = 0; i < numEntities; i++)
         {
-            GameManager gm = GameManager.singleton;
             CardPickup card = Instantiate(cardPickupRef, GetRandomLocation(2), Quaternion.identity).GetComponent<CardPickup>();
-            card.SetCard((CardInfo) gm.cardDatabase.GetItemOfTier(gm.itemTier));
+            CardInfo newCard;
+
+            int maxIterations = gm.cardDatabase.tiers[gm.itemTier].items.Length * 2;
+            int iteration = 0;
+            do
+            {
+                newCard = (CardInfo) gm.cardDatabase.GetItemOfTier(gm.itemTier);
+
+                iteration++;
+            } while(prevCards.Contains(newCard) && iteration < maxIterations);
+
+            prevCards.Add(newCard);
+            prevCard = newCard;
+
+            card.SetCard(newCard);
+
             GameManager.singleton.RegisterEntity(card);
         }
     }
 
-    public void GenerateEnemies()
+    public void GenerateEnemies(int min = 3, int max = 4)
     {
-        // 1-3 enemies
-        int numEntities = Random.Range(1, 4);
+        // 3-4 enemies
+        int numEntities = Random.Range(min, max + 1);
         for(int i = 0; i < numEntities; i++)
         {
             GameManager gm = GameManager.singleton;
