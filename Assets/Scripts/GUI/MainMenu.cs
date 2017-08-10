@@ -6,6 +6,7 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject mainMenuUI;
     public GameObject instructionsUI;
+    public GameObject creditsUI;
 
 
     private void Start()
@@ -15,13 +16,29 @@ public class MainMenu : MonoBehaviour
 
     public void ShowMainMenu()
     {
-        instructionsUI.SetActive(false);
-        mainMenuUI.SetActive(true);
+        SwitchToPanel(mainMenuUI);
     }
 
     public void ShowInstructions()
     {
-        instructionsUI.SetActive(true);
+        SwitchToPanel(instructionsUI);
+    }
+
+    public void ShowCredits()
+    {
+        SwitchToPanel(creditsUI);
+    }
+
+    public void HideAllPanels()
+    {
         mainMenuUI.SetActive(false);
+        instructionsUI.SetActive(false);
+        creditsUI.SetActive(false);
+    }
+
+    public void SwitchToPanel(GameObject panel)
+    {
+        HideAllPanels();
+        panel.SetActive(true);
     }
 }
