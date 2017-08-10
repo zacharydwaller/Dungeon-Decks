@@ -11,6 +11,7 @@ public abstract class CardEffect : ScriptableObject
      * Description Tags
      * %m - Magnitude
      * %s - Secondary Magnitude
+     * %r - Ratio, Magnitude / Secondary
      */
     public string rawDescription;
 

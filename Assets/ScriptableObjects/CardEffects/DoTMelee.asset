@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelfCast: 0
   isRanged: 0
-  rawDescription: '%m DMG/%s Turns'
+  rawDescription: '%r DMG for %s Turns'
   auraEffect: {fileID: 11400000, guid: 57c9124d124821949b084f34c5af3142, type: 2}
