@@ -9,14 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: Heal12
+  m_Name: Health3
   m_EditorClassIdentifier: 
-  cardName: Revitalize
-  color: {r: 0.09803922, g: 0.5882353, b: 0.09803922, a: 1}
-  image: {fileID: 21300126, guid: 17cc7e27a9f36c544b20ab4d048b5fde, type: 3}
+  cardName: Diluted Potion
+  color: {r: 0.051254336, g: 0.5808823, b: 0.098738216, a: 1}
+  image: {fileID: 21300002, guid: 956c7cb63db6dd340bf033ae13e4c95e, type: 3}
   effects:
   - {fileID: 11400000, guid: cae64db97419c674f9bfa8b66b081004, type: 2}
-  magnitudes: 0c000000
+  magnitudes: 03000000
   secondaries: 
   descOverride: 
-  isConsumable: 0
+  bonusTypes: 03000000
+  isConsumable: 1

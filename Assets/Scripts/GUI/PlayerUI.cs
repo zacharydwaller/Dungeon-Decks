@@ -7,8 +7,12 @@ public class PlayerUI : MonoBehaviour
 {
     public Text hpText;
     public Text apText;
-    public Text dmgText;
+
+    public Text strText;
     public Text drText;
+    public Text magText;
+    public Text alcText;
+
     public Text deckText;
     public Text graveyardText;
 
@@ -30,8 +34,12 @@ public class PlayerUI : MonoBehaviour
     {
         hpText.text         = "0";
         apText.text         = "0";
-        dmgText.text        = "0";
+
+        strText.text        = "0";
         drText.text         = "0";
+        magText.text        = "0";
+        alcText.text        = "0";
+
         deckText.text       = "0";
         graveyardText.text  = "0";
         scoreText.text      = "0";
@@ -49,13 +57,17 @@ public class PlayerUI : MonoBehaviour
 
         if(player)
         {
-            hpText.text        = player.health.ToString();
-            apText.text        = player.armor.ToString();
-            dmgText.text       = player.dmgBonus.ToString();
-            drText.text        = player.dmgReduction.ToString();
-            deckText.text      = player.deck.Count.ToString();
-            graveyardText.text = player.graveyard.Count.ToString();
-            scoreText.text     = player.score.ToString();
+            hpText.text         = player.health.ToString();
+            apText.text         = player.armor.ToString();
+
+            strText.text        = player.strength.ToString();
+            drText.text         = player.dmgReduction.ToString();
+            magText.text        = player.magic.ToString();
+            alcText.text        = player.alchemy.ToString();
+
+            deckText.text       = player.deck.Count.ToString();
+            graveyardText.text  = player.graveyard.Count.ToString();
+            scoreText.text      = player.score.ToString();
 
             UpdateSlider(healthSlider, player.health);
             UpdateSlider(armorSlider, player.armor);

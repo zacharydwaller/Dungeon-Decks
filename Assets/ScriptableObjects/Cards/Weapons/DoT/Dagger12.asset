@@ -20,4 +20,5 @@ MonoBehaviour:
   magnitudes: 0300000009000000
   secondaries: 0000000003000000
   descOverride: 
+  bonusTypes: 0100000001000000
   isConsumable: 0

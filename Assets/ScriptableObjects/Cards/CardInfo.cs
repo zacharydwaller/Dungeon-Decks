@@ -6,6 +6,11 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "Database/Card")]
 public class CardInfo : DBItem
 {
+    public enum BonusType
+    {
+        None, Strength, Magic, Alchemy
+    }
+
     public string cardName;
     public Color color;
     public Sprite image;
@@ -13,6 +18,7 @@ public class CardInfo : DBItem
     public int[] magnitudes;
     public int[] secondaries;
     public string descOverride;
+    public BonusType[] bonusTypes;
     public bool isConsumable;
 
     // Ranged or self cast cards with multiple effects must have ranged/selfcast effect first in effect list
@@ -86,14 +92,29 @@ public class CardInfo : DBItem
 
     private int GetMagnitude(int index)
     {
-        if(!effects[index].isSelfCast && GameManager.singleton.player != null)
+        Player player = GameManager.singleton.player;
+
+        if(player != null && bonusTypes.Length > index)
         {
-            return magnitudes[index] + GameManager.singleton.player.dmgBonus;
+            if(bonusTypes[index] == BonusType.None)
+            {
+                return magnitudes[index];
+            }
+            else if(bonusTypes[index] == BonusType.Magic)
+            {
+                return magnitudes[index] + player.magic;
+            }
+            else if(bonusTypes[index] == BonusType.Strength)
+            {
+                return magnitudes[index] + player.strength;
+            }
+            else if(bonusTypes[index] == BonusType.Alchemy)
+            {
+                return magnitudes[index] + player.alchemy;
+            }
         }
-        else
-        {
-            return magnitudes[index];
-        }
+
+        return magnitudes[index];
     }
 
     private int GetSecondary(int index)

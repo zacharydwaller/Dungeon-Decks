@@ -9,14 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: Armor6
+  m_Name: Armor8
   m_EditorClassIdentifier: 
-  cardName: Helmet
+  cardName: Platemail
   color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-  image: {fileID: 21300010, guid: 36ef1b50b1a41034cb26b35ee65edde1, type: 3}
+  image: {fileID: 21300084, guid: 53fdb3f247e1e614b9b457bd58df510d, type: 3}
   effects:
   - {fileID: 11400000, guid: f115ed8770bcfb54e86829ab8b264e46, type: 2}
-  magnitudes: 06000000
+  magnitudes: 08000000
   secondaries: 
   descOverride: 
+  bonusTypes: 01000000
   isConsumable: 1

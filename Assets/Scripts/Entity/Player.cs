@@ -5,7 +5,9 @@ using UnityEngine;
 public class Player : Entity
 {
     public int armor;
-    public int dmgBonus;
+    public int strength;
+    public int magic;
+    public int alchemy;
     public int dmgReduction;
     public int score;
 
@@ -24,7 +26,9 @@ public class Player : Entity
 
         health = 10;
         armor = 0;
-        dmgBonus = 0;
+        strength = 0;
+        magic = 0;
+        alchemy = 0;
         dmgReduction = 0;
         score = 0;
 

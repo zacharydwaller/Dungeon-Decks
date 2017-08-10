@@ -8,7 +8,7 @@ public class StatIncrease : CardEffect
 {
     public enum Stat
     {
-        HP, AP, DMG, DR
+        HP, AP, Str, Mag, Alc, DR
     }
 
     public Stat stat;
@@ -23,8 +23,14 @@ public class StatIncrease : CardEffect
             case Stat.AP:
                 user.GetComponent<Player>().armor += amount;
                 break;
-            case Stat.DMG:
-                user.GetComponent<Player>().dmgBonus += amount;
+            case Stat.Str:
+                user.GetComponent<Player>().strength += amount;
+                break;
+            case Stat.Mag:
+                user.GetComponent<Player>().magic += amount;
+                break;
+            case Stat.Alc:
+                user.GetComponent<Player>().alchemy += amount;
                 break;
             case Stat.DR:
                 user.GetComponent<Player>().dmgReduction += amount;
