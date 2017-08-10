@@ -293,14 +293,7 @@ public class Player : Entity
 
     public void UseCard(Vector2 dir = default(Vector2))
     {
-        int bonusMag = 0;
-
-        if(hand[selectedCard].isSelfCast == false)
-        {
-            bonusMag = dmgBonus;
-        }
-
-        hand[selectedCard].DoEffects(gameObject, dir, bonusMag);
+        hand[selectedCard].DoEffects(gameObject, dir);
 
         if(hand[selectedCard].isConsumable)
         {

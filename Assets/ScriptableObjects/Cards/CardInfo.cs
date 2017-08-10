@@ -48,7 +48,7 @@ public class CardInfo : DBItem
         }
     }
 
-    public void DoEffects(GameObject user, Vector2 direction = default(Vector2), int bonusMag = 0)
+    public void DoEffects(GameObject user, Vector2 direction = default(Vector2))
     {
         if(!effects[0].isSelfCast && direction != Vector2.zero)
         {
@@ -57,7 +57,7 @@ public class CardInfo : DBItem
 
         for(int i = 0; i < effects.Length; i++)
         {
-            effects[i].DoEffect(user, direction, GetMagnitude(i) + bonusMag, GetSecondary(i));
+            effects[i].DoEffect(user, direction, GetMagnitude(i), GetSecondary(i));
         }
     }
 
