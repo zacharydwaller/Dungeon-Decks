@@ -9,15 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: StrPotion1
+  m_Name: ALC1
   m_EditorClassIdentifier: 
-  cardName: Strength Potion
+  cardName: Book of Alchemy
   color: {r: 0.051254336, g: 0.5808823, b: 0.098738216, a: 1}
-  image: {fileID: 21300028, guid: 956c7cb63db6dd340bf033ae13e4c95e, type: 3}
+  image: {fileID: 21300028, guid: 17cc7e27a9f36c544b20ab4d048b5fde, type: 3}
   effects:
-  - {fileID: 11400000, guid: 8708c0b001951ed49bdc52d3f9cfd985, type: 2}
+  - {fileID: 11400000, guid: b174f23f6352afd45b63560a2ea6afde, type: 2}
   magnitudes: 01000000
   secondaries: 
   descOverride: 
-  type: 0
+  bonusTypes: 
   isConsumable: 1

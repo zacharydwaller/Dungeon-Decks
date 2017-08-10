@@ -2102,7 +2102,7 @@ MonoBehaviour:
   enemyDatabase: {fileID: 11400000, guid: ed77080a962e03a459cdee170aa83b79, type: 2}
   boardCounter: 0
   killCounter: 0
-  enemyTierDelayRange: {x: 3, y: 3}
+  enemyTierDelayRange: {x: 4, y: 4}
   itemTierDelayRange: {x: 6, y: 6}
   enemyTierDelay: 0
   itemTierDelay: 0

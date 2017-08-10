@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82dfa2a992c21094ea62e2e5bf349fb2, type: 3}
-  m_Name: DMGIncrease
+  m_Name: MagIncrease
   m_EditorClassIdentifier: 
   isSelfCast: 1
   isRanged: 0
-  rawDescription: '%m +DMG'
-  stat: 2
+  rawDescription: +%m MAG
+  stat: 3
