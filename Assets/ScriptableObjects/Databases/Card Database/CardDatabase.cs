@@ -20,7 +20,6 @@ public class CardDatabase : ScriptableObject
     public CardInfo GetCardOfTier(int tier)
     {
         Player player = GameManager.singleton.player;
-        List<CardInfo> cards = new List<CardInfo>();
         int poolRoll, cardRoll;
         StatType pool;
 
