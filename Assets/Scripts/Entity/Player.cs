@@ -15,6 +15,9 @@ public class Player : Entity
     public StatType offStat;
     public StatType[] otherStats;
 
+    public int bonusDmgBlock        { get { return (strength / 2) + (dexterity / 4) + (magic / 4) + (enhancement / 2); } }
+    public int bonusAPSave          { get { return (strength / 4) + (dexterity / 2) + (magic / 2) + (enhancement / 4); } }
+
     public CardInfo punchCard;
     public int selectedCard;
     public CardInfo[] hand;
@@ -183,20 +186,15 @@ public class Player : Entity
 
     public override void TakeDamage(int amount)
     {
-        int DR = Mathf.RoundToInt(enhancement * 0.5f);
+        int dmgBlocked, apBroken, dmgTaken;
 
-        amount = Mathf.Max(1, amount - DR);
+        dmgBlocked = Mathf.Min(amount, Mathf.Min(armor, (amount / 2) + bonusDmgBlock));
+        apBroken = Mathf.Max(0, dmgBlocked - bonusAPSave);
 
-        if(amount == 1)
-        {
-            armor -= 1;
-        }
-        else
-        {
-            // Health damage rounds up, armor damage rounds down
-            health -= (int) ((amount / 2.0f) + 0.5f);
-            armor -= (int) amount / 2;
-        }
+        dmgTaken = amount - dmgBlocked;
+
+        health -= dmgTaken;
+        armor -= apBroken;
 
         // If damage breaks armor, apply rest of damage to health
         if(armor < 0)

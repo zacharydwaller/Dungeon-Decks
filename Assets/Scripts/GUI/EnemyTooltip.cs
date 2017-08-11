@@ -36,14 +36,8 @@ public class EnemyTooltip : Tooltip
         string ret;
         int damage =  enemy.info.magnitude;
         int duration = Mathf.Max(1, enemy.info.secondary);
-        int dr = 0;
 
-        if(player)
-        {
-            dr = player.enhancement;
-        }
-
-        damage = (damage / duration) - dr;
+        damage = (damage / duration);
 
         ret = damage.ToString();
 

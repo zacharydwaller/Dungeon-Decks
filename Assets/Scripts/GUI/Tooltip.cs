@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class Tooltip : MonoBehaviour
 {
-    public abstract void SetItem(object newItem);
+    public abstract void SetItem(object newItem = null);
 }

@@ -17,7 +17,7 @@ public class AuraTooltip : Tooltip
         }
     }
 
-    public override void SetItem(object newAura)
+    public override void SetItem(object newAura = null)
     {
         aura = (Aura) newAura;
         if(aura != null)

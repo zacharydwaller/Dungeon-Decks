@@ -77,7 +77,14 @@ public class TooltipCreator : MonoBehaviour
         mouseOver = true;
         tooltipObj = Instantiate(tooltipRef, GameObject.FindGameObjectWithTag("Canvas").transform);
 
-        tooltipObj.GetComponent<Tooltip>().SetItem(item);
+        if(item != null)
+        {
+            tooltipObj.GetComponent<Tooltip>().SetItem(item);
+        }
+        else
+        {
+            tooltipObj.GetComponent<Tooltip>().SetItem();
+        }
     }
 
     private void OnMouseExit()
