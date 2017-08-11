@@ -2573,16 +2573,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardManager: {fileID: 0}
   uiManager: {fileID: 1354777316}
-  cardDatabase: {fileID: 11400000, guid: 62d06673e8132f341abcdd45ff7cd3e9, type: 2}
+  cardDatabase: {fileID: 11400000, guid: d589c345d392465489eee9bfd0d0cd2b, type: 2}
   enemyDatabase: {fileID: 11400000, guid: ed77080a962e03a459cdee170aa83b79, type: 2}
   boardCounter: 0
   killCounter: 0
   enemyTierDelayRange: {x: 4, y: 4}
-  itemTierDelayRange: {x: 6, y: 6}
+  cardTierDelayRange: {x: 6, y: 6}
   enemyTierDelay: 0
-  itemTierDelay: 0
+  cardTierDelay: 0
   enemyTier: 0
-  itemTier: 0
+  cardTier: 0
   playerRef: {fileID: 1396861231011984, guid: 50cb1ea6d39f77c4b9d63c744734b559, type: 2}
   playerUI: {fileID: 1150329069}
   somethingMoving: 0

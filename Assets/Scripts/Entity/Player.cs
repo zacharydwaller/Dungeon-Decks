@@ -7,9 +7,13 @@ public class Player : Entity
     public int armor;
     public int strength;
     public int magic;
-    public int alchemy;
-    public int dmgReduction;
+    public int dexterity;
+    public int enhancement;
     public int score;
+
+    public StatType mainStat;
+    public StatType offStat;
+    public StatType[] otherStats;
 
     public CardInfo punchCard;
     public int selectedCard;
@@ -20,17 +24,24 @@ public class Player : Entity
     private int punchIndex = 4;
     private bool justChangedRoom = false;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         health = 10;
         armor = 0;
         strength = 0;
         magic = 0;
-        alchemy = 0;
-        dmgReduction = 0;
+        dexterity = 0;
+        enhancement = 0;
         score = 0;
+
+        mainStat = StatType.Strength;
+        offStat = StatType.Enhancement;
+
+        otherStats = new StatType[2];
+        otherStats[0] = StatType.Dexterity;
+        otherStats[1] = StatType.Magic;
 
         data.type = Entity.Type.Player;
 
@@ -172,7 +183,9 @@ public class Player : Entity
 
     public override void TakeDamage(int amount)
     {
-        amount = Mathf.Clamp(amount - dmgReduction, 1, amount);
+        int DR = Mathf.RoundToInt(enhancement * 0.5f);
+
+        amount = Mathf.Max(1, amount - DR);
 
         if(amount == 1)
         {

@@ -110,7 +110,7 @@ public class CardInfo : DBItem
             }
             else if(bonusTypes[index] == BonusType.Alchemy)
             {
-                return magnitudes[index] + player.alchemy;
+                return magnitudes[index] + player.dexterity;
             }
         }
 

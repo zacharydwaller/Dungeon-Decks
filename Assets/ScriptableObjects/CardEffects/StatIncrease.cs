@@ -30,10 +30,10 @@ public class StatIncrease : CardEffect
                 user.GetComponent<Player>().magic += amount;
                 break;
             case Stat.Alc:
-                user.GetComponent<Player>().alchemy += amount;
+                user.GetComponent<Player>().dexterity += amount;
                 break;
             case Stat.DR:
-                user.GetComponent<Player>().dmgReduction += amount;
+                user.GetComponent<Player>().enhancement += amount;
                 break;
         }
         

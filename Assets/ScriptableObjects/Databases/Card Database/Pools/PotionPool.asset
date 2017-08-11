@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13771eb47e2cc28408fcc60d51f9e7b4, type: 3}
+  m_Name: PotionPool
+  m_EditorClassIdentifier: 
+  tiers:
+  - cards:
+    - {fileID: 11400000, guid: 05d30d4d6131e3545a92e35cf10d9753, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: fce5909b2355a6e498637e8f38f5009f, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 62bdce2bc3692534daaecd7c0b0100b6, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 76d0d006f4a47c34ca3a6addf22e8376, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: b131e2053e24e3c45ab429d5fb483309, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 51c4bf28176b88e4e8ccd4078f232487, type: 2}

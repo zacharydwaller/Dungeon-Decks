@@ -154,8 +154,7 @@ public class BoardManager : MonoBehaviour
             int iteration = 0;
             do
             {
-                newCard = (CardInfo) gm.cardDatabase.GetItemOfTier(gm.itemTier);
-
+                newCard = gm.cardDatabase.GetCardOfTier(gm.cardTier);
                 iteration++;
             } while(prevCards.Contains(newCard) && iteration < maxIterations);
 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13771eb47e2cc28408fcc60d51f9e7b4, type: 3}
+  m_Name: RelicPool
+  m_EditorClassIdentifier: 
+  tiers:
+  - cards:
+    - {fileID: 11400000, guid: 4c3e04410ab22c043a25a1527c01b555, type: 2}
+    - {fileID: 11400000, guid: f0575858d4de94a4ca4022e4ffee704c, type: 2}
+    - {fileID: 11400000, guid: 21c4a6c55972b874caf9a8b2eea0835b, type: 2}
+    - {fileID: 11400000, guid: f9f23ff0c32a50c4bbe253ef22ddeba4, type: 2}

@@ -16,6 +16,7 @@ public class CardGraphic : Tooltip
     public Image baseGraphic;
     public Outline selectedOutline;
     public Text consumableText;
+    public Text rangedText;
 
     private Player player;
 
@@ -68,5 +69,6 @@ public class CardGraphic : Tooltip
         effectText.text = card.description;
 
         consumableText.enabled = card.isConsumable;
+        rangedText.enabled = card.isRanged;
     }
 }

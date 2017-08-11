@@ -61,9 +61,9 @@ public class PlayerUI : MonoBehaviour
             apText.text         = player.armor.ToString();
 
             strText.text        = player.strength.ToString();
-            drText.text         = player.dmgReduction.ToString();
+            drText.text         = player.enhancement.ToString();
             magText.text        = player.magic.ToString();
-            alcText.text        = player.alchemy.ToString();
+            alcText.text        = player.dexterity.ToString();
 
             deckText.text       = player.deck.Count.ToString();
             graveyardText.text  = player.graveyard.Count.ToString();

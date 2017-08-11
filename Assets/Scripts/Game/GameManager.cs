@@ -11,23 +11,22 @@ public class GameManager : MonoBehaviour
 
     public UIManager uiManager;
 
-    public Database cardDatabase;
+    public CardDatabase cardDatabase;
     public Database enemyDatabase;
 
     public int boardCounter; // Incremented every board generation, used for generating higher level monsters
     public int killCounter; // Incremented every monster kill, used for generating higher level cards
 
     public Vector2 enemyTierDelayRange;
-    public Vector2 itemTierDelayRange;
+    public Vector2 cardTierDelayRange;
 
     public int enemyTierDelay;
-    public int itemTierDelay;
+    public int cardTierDelay;
 
     public int enemyTier = 0;
-    public int itemTier = 0;
+    public int cardTier = 0;
 
     public GameObject playerRef;
-    //public SortedList<int, List<GameObject>> enemyLists;
 
     public GameObject playerUI;
 
@@ -60,8 +59,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        itemTierDelay = (int) itemTierDelayRange.x;
+        cardTierDelay = (int) cardTierDelayRange.x;
         enemyTierDelay = (int) enemyTierDelayRange.y;
+
+        GameObject playerObj = Instantiate(playerRef);
+        player = playerObj.GetComponent<Player>();
 
         InitLevel();
     }
@@ -105,9 +107,9 @@ public class GameManager : MonoBehaviour
     {
         entities = new ArrayList();
         boardManager.GenerateStartingBoard();
-        GameObject playerObj = Instantiate(playerRef, new Vector3(boardManager.currentBoard.Width() / 2, boardManager.currentBoard.Height() / 2, 0), Quaternion.identity);
 
-        player = playerObj.GetComponent<Player>();
+        player.GetComponent<Transform>().position = new Vector3(boardManager.currentBoard.Width() / 2, boardManager.currentBoard.Height() / 2, 0);
+
         isPlayerTurn = true;
     }
 
@@ -212,10 +214,10 @@ public class GameManager : MonoBehaviour
     {
         killCounter++;
 
-        if(killCounter >= itemTierDelay)
+        if(killCounter >= cardTierDelay)
         {
-            itemTierDelay += Mathf.RoundToInt(Random.Range(itemTierDelayRange.x, itemTierDelayRange.y));
-            itemTier++;
+            cardTierDelay += Mathf.RoundToInt(Random.Range(cardTierDelayRange.x, cardTierDelayRange.y));
+            cardTier++;
         }
 
         player.score += enemy.info.scoreValue;

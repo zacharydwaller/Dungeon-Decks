@@ -40,7 +40,7 @@ public class EnemyTooltip : Tooltip
 
         if(player)
         {
-            dr = player.dmgReduction;
+            dr = player.enhancement;
         }
 
         damage = (damage / duration) - dr;
