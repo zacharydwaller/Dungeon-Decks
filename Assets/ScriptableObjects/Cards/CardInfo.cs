@@ -8,7 +8,9 @@ public class CardInfo : DBItem
 {
     public enum BonusType
     {
-        None, Strength, Magic, Alchemy
+        Str, Mag, Dex, Enh,
+        StrMag, StrDex, StrEnh,
+        MagDex, MagEnh, DexEnh
     }
 
     public string cardName;
@@ -96,21 +98,28 @@ public class CardInfo : DBItem
 
         if(player != null && bonusTypes.Length > index)
         {
-            if(bonusTypes[index] == BonusType.None)
+            switch(bonusTypes[index])
             {
-                return magnitudes[index];
-            }
-            else if(bonusTypes[index] == BonusType.Magic)
-            {
-                return magnitudes[index] + player.magic;
-            }
-            else if(bonusTypes[index] == BonusType.Strength)
-            {
-                return magnitudes[index] + player.strength;
-            }
-            else if(bonusTypes[index] == BonusType.Alchemy)
-            {
-                return magnitudes[index] + player.dexterity;
+                case BonusType.Str:
+                    return magnitudes[index] + player.strength;
+                case BonusType.Mag:
+                    return magnitudes[index] + player.magic;
+                case BonusType.Dex:
+                    return magnitudes[index] + player.dexterity;
+                case BonusType.Enh:
+                    return magnitudes[index] + player.enhancement;
+                case BonusType.StrMag:
+                    return magnitudes[index] + (player.strength + player.magic) / 2;
+                case BonusType.StrDex:
+                    return magnitudes[index] + (player.strength + player.dexterity) / 2;
+                case BonusType.StrEnh:
+                    return magnitudes[index] + (player.strength + player.enhancement) / 2;
+                case BonusType.MagDex:
+                    return magnitudes[index] + (player.magic + player.dexterity) / 2;
+                case BonusType.MagEnh:
+                    return magnitudes[index] + (player.magic + player.enhancement) / 2;
+                case BonusType.DexEnh:
+                    return magnitudes[index] + (player.dexterity + player.enhancement) / 2;
             }
         }
 
