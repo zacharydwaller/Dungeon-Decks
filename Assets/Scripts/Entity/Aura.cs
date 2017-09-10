@@ -6,7 +6,7 @@ public class Aura
 {
     public AuraEffect effect;
 
-    Entity owner;
+    public Entity owner;
     public int magnitude;
     public int duration;
 
@@ -18,17 +18,29 @@ public class Aura
         effect = newEffect;
         magnitude = newMagnitude;
         duration = durationRemaining = newDuration;
+
+        effect.aura = this;
     }
 
     // Returns true if finished
     public bool Tick()
     {
-        effect.Tick(owner, magnitude, duration, durationRemaining);
+        effect.Tick();
 
         durationRemaining--;
 
         if(durationRemaining == 0) return true;
         else return false;
+    }
+
+    public void OnAdd()
+    {
+        effect.OnAdd();
+    }
+
+    public void OnRemove()
+    {
+        effect.OnRemove();
     }
 
     public string GetTooltipDescription()

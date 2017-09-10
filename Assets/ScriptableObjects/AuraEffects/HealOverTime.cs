@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Database/AuraEffect/HoT")]
 public class HealOverTime : AuraEffect
 {
-    public override void Tick(Entity owner, int magnitude, int duration, int durationRemaining)
+    public override void Tick()
     {
-        int tickMagnitude = Mathf.RoundToInt((float) magnitude / duration);
+        int tickMagnitude = Mathf.RoundToInt((float) aura.magnitude / aura.duration);
 
-        owner.health += tickMagnitude;
+        aura.owner.health += tickMagnitude;
     }
 }

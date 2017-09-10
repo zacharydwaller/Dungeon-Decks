@@ -17,7 +17,9 @@ public abstract class AuraEffect : ScriptableObject
     public bool isHarmful;
 
     public Sprite icon;
+    public Aura aura;
 
-    public abstract void Tick(Entity owner, int magnitude, int duration, int durationRemaining);
-
+    public abstract void Tick();
+    public virtual void OnAdd() { }
+    public virtual void OnRemove() { }
 }

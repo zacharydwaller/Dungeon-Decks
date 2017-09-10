@@ -61,6 +61,7 @@ public abstract class Entity : MonoBehaviour
     public void ApplyAura(Aura newAura)
     {
         auras.Add(newAura);
+        newAura.OnAdd();
     }
 
     public void TickAuras()
@@ -70,6 +71,7 @@ public abstract class Entity : MonoBehaviour
             // Aura.Tick() returns true when finished
             if(aura != null && aura.Tick())
             {
+                aura.OnRemove();
                 auras.Remove(aura);
             }
 
@@ -80,7 +82,7 @@ public abstract class Entity : MonoBehaviour
     public virtual void SetData(Data newData)
     {
         data = newData;
-        base.transform.position = data.position;
+        transform.position = data.position;
     }
 
     /*
