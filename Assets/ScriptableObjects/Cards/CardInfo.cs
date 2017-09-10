@@ -6,13 +6,6 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "Database/Card")]
 public class CardInfo : DBItem
 {
-    public enum BonusType
-    {
-        Str, Mag, Dex, Enh,
-        StrMag, StrDex, StrEnh,
-        MagDex, MagEnh, DexEnh
-    }
-
     public string cardName;
     public Color color;
     public Sprite image;
@@ -20,7 +13,7 @@ public class CardInfo : DBItem
     public int[] magnitudes;
     public int[] secondaries;
     public string descOverride;
-    public BonusType[] bonusTypes;
+    public Bonuses[] bonusesList;
     public bool isConsumable;
 
     // Ranged or self cast cards with multiple effects must have ranged/selfcast effect first in effect list
@@ -86,7 +79,7 @@ public class CardInfo : DBItem
         if(secondaries.Length > index)
         {
             ret = ret.Replace("%s", GetSecondary(index).ToString());
-            ret = ret.Replace("%r", Mathf.Floor(GetMagnitude(index) / Mathf.Max(1, GetSecondary(index))).ToString());
+            ret = ret.Replace("%r", Mathf.RoundToInt(GetMagnitude(index) / Mathf.Max(1, GetSecondary(index))).ToString());
         }
 
         return ret;
@@ -96,31 +89,33 @@ public class CardInfo : DBItem
     {
         Player player = GameManager.singleton.player;
 
-        if(player != null && bonusTypes.Length > index)
+        if(player != null && bonusesList.Length > index)
         {
-            switch(bonusTypes[index])
+            int bonusMag = 0;
+
+            foreach(Bonus bonus in bonusesList[index].bonuses)
             {
-                case BonusType.Str:
-                    return magnitudes[index] + player.strength;
-                case BonusType.Mag:
-                    return magnitudes[index] + player.magic;
-                case BonusType.Dex:
-                    return magnitudes[index] + player.dexterity;
-                case BonusType.Enh:
-                    return magnitudes[index] + player.enhancement;
-                case BonusType.StrMag:
-                    return magnitudes[index] + (player.strength + player.magic) / 2;
-                case BonusType.StrDex:
-                    return magnitudes[index] + (player.strength + player.dexterity) / 2;
-                case BonusType.StrEnh:
-                    return magnitudes[index] + (player.strength + player.enhancement) / 2;
-                case BonusType.MagDex:
-                    return magnitudes[index] + (player.magic + player.dexterity) / 2;
-                case BonusType.MagEnh:
-                    return magnitudes[index] + (player.magic + player.enhancement) / 2;
-                case BonusType.DexEnh:
-                    return magnitudes[index] + (player.dexterity + player.enhancement) / 2;
+                switch(bonus.type)
+                {
+                    case BonusType.Str:
+                        bonusMag += Mathf.RoundToInt(player.strength * bonus.weight);
+                        break;
+                    case BonusType.Mag:
+                        bonusMag += Mathf.RoundToInt(player.magic * bonus.weight);
+                        break;
+                    case BonusType.Dex:
+                        bonusMag += Mathf.RoundToInt(player.dexterity * bonus.weight);
+                        break;
+                    case BonusType.Enh:
+                        bonusMag += Mathf.RoundToInt(player.enhancement * bonus.weight);
+                        break;
+                    case BonusType.Potion:
+                        bonusMag += Mathf.RoundToInt(player.bonusPotion * bonus.weight);
+                        break;
+                }
             }
+
+            return magnitudes[index] + bonusMag;
         }
 
         return magnitudes[index];
@@ -137,4 +132,22 @@ public class CardInfo : DBItem
             return 0;
         }
     }
+}
+
+[System.Serializable]
+public class Bonuses
+{
+    public Bonus[] bonuses;
+}
+
+[System.Serializable]
+public class Bonus
+{
+    public BonusType type;
+    public float weight;
+}
+
+public enum BonusType
+{
+    Str, Mag, Dex, Enh, Potion
 }

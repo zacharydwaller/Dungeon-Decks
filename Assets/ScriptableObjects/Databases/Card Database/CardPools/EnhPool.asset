@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13771eb47e2cc28408fcc60d51f9e7b4, type: 3}
+  m_Name: EnhPool
+  m_EditorClassIdentifier: 
+  tiers:
+  - cards:
+    - {fileID: 11400000, guid: 82aa7b2df0c975245be1b1cd5eccd3b9, type: 2}
+    - {fileID: 11400000, guid: 1e4e78a350e22df43940df038a2c5473, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 82aa7b2df0c975245be1b1cd5eccd3b9, type: 2}
+    - {fileID: 11400000, guid: 1e4e78a350e22df43940df038a2c5473, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: bbb4957d197007b4bb9986c839c95955, type: 2}
+    - {fileID: 11400000, guid: 38fffa1a490dfee44865e0624b523c42, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: bbb4957d197007b4bb9986c839c95955, type: 2}
+    - {fileID: 11400000, guid: 38fffa1a490dfee44865e0624b523c42, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 4446c63e578b32f40b263c0df1931659, type: 2}
+    - {fileID: 11400000, guid: f05f0db7126ef384f9ede62b86a15be2, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 71f45ba0b96678f479c487f7bba16d1d, type: 2}
+    - {fileID: 11400000, guid: f05f0db7126ef384f9ede62b86a15be2, type: 2}

@@ -18,6 +18,6 @@ public abstract class AuraEffect : ScriptableObject
 
     public Sprite icon;
 
-    public abstract void Tick(Entity owner, int magnitude, int duration);
+    public abstract void Tick(Entity owner, int magnitude, int duration, int durationRemaining);
 
 }

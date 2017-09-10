@@ -32,7 +32,6 @@ public class EnemyTooltip : Tooltip
 
     public string GetDamageText()
     {
-        Player player = GameManager.singleton.player;
         string ret;
         int damage =  enemy.info.magnitude;
         int duration = Mathf.Max(1, enemy.info.secondary);

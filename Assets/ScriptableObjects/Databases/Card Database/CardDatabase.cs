@@ -5,107 +5,137 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Database/CardDB/Database")]
 public class CardDatabase : ScriptableObject
 {
-    public CardPool[] cardPools;
+    public CardPool primaryPool;
+    public CardPool secondaryPool;
+    public CardPool mixedPool;
+    public CardPool potionPool;
+    public CardPool relicPool;
+
+    public CardPool[] statPools;
+
+
 
     /* Gets a card of a selected tier
      * Card Choice is weighted by item type and main/off stat
-     * Main Stat:   50%
-     * Off Stat:    20%
+     * Spec:        70%
      * Potions:     20%
-     * Other Stats: 0%
      * Relics:      10%
      * 
-     * Type of Relic chosen is weighted 60/30/10 for Main/Off/Other stats
+     * Type of Spec card chosen is weighted 40/40/20 for Primary/Secondary/Mixed Decks
+     * Type of Relic chosen is weighted 45/45/10 for Primary/Secondary/Other stats
      */
     public CardInfo GetCardOfTier(int tier)
     {
         Player player = GameManager.singleton.player;
         int poolRoll, cardRoll;
-        StatType pool;
+        CardPool pool;
 
-        tier = Mathf.Min(tier, cardPools[0].tiers.Length - 1);
+        tier = Mathf.Min(tier, statPools[0].tiers.Length - 1);
 
         poolRoll = Random.Range(0, 100);
 
-        // Main Stat
-        if(poolRoll < 50)
+        // Spec
+        if(poolRoll < 70)
         {
-            pool = player.mainStat;
-        }
-        // Off Stat
-        else if(poolRoll < 70)
-        {
-            pool = player.offStat;
+            poolRoll = Random.Range(0, 100);
+
+            // Primary
+            if(poolRoll < 40)
+            {
+                pool = primaryPool;
+            }
+            else if(poolRoll < 80)
+            {
+                pool = secondaryPool;
+            }
+            else
+            {
+                pool = mixedPool;
+            }
         }
         // Potion
         else if(poolRoll < 90)
         {
-            pool = player.otherStats[0];
+            pool = potionPool;
         }
-        /*
-        // Other Stat
-        else if(poolRoll < 90)
-        {
-            pool = player.otherStats[1];
-        }
-        */
         // Relic
         else
         {
+            StatType stat;
             poolRoll = Random.Range(0, 100);
+            pool = relicPool;
+
             // Main Stat
-            if(poolRoll < 60)
+            if(poolRoll < 45)
             {
-                pool = player.mainStat;
+               stat = player.primaryStats[0];
             }
             // Off Stat
             else if(poolRoll < 90)
             {
-                pool = player.offStat;
+                stat = player.primaryStats[1];
             }
             // Other Stat 1
             else if(poolRoll < 95)
             {
-                pool = player.otherStats[0];
+                stat = player.otherStats[0];
             }
             // Other Stat 2
             else
             {
-                pool = player.otherStats[1];
+                stat = player.otherStats[1];
             }
 
-            return GetCard(CardType.Relic, 0, (int) pool);
+            return relicPool.GetCard(0, (int) stat);
         }
 
-        cardRoll = Random.Range(0, GetCards((CardType) pool, tier).Length);
-        CardInfo ret = GetCard((CardType) pool, tier, cardRoll);
+        cardRoll = Random.Range(0, pool.NumCards(tier));
+        CardInfo ret = pool.GetCard(tier, cardRoll);
 
-        //Debug.Log("Roll: " + poolRoll.ToString() + ". Card: " + ret.cardName);
+        Debug.Log("Roll: " + poolRoll.ToString() + ". Card: " + ret.cardName);
         return ret;
     }
 
-    public CardPool GetPool(CardType type)
+    public void LoadSpecPool(StatType stat1, StatType stat2)
     {
-        return cardPools[(int) type];
-    }
+        primaryPool = statPools[(int) stat1];
+        secondaryPool = statPools[(int) stat2];
 
-    public CardTier[] GetTiers(CardType type)
-    {
-        return cardPools[(int) type].tiers;
-    }
-
-    public CardTier GetTier(CardType type, int tier)
-    {
-        return cardPools[(int) type].tiers[tier];
-    }
-
-    public CardInfo[] GetCards(CardType type, int tier)
-    {
-        return cardPools[(int) type].tiers[tier].cards;
-    }
-
-    public CardInfo GetCard(CardType type, int tier, int index)
-    {
-        return cardPools[(int) type].tiers[tier].cards[index];
+        // StrMag
+        if((stat1 == StatType.Strength && stat2 == StatType.Magic) ||
+           (stat2 == StatType.Strength && stat1 == StatType.Magic))
+        {
+            mixedPool = statPools[(int) CardPool.Type.StrMag];
+        }
+        // StrDex
+        if((stat1 == StatType.Strength && stat2 == StatType.Dexterity) ||
+           (stat2 == StatType.Strength && stat1 == StatType.Dexterity))
+        {
+            mixedPool = statPools[(int) CardPool.Type.StrDex];
+        }
+        // StrEnh
+        if((stat1 == StatType.Strength && stat2 == StatType.Enhancement) ||
+           (stat2 == StatType.Strength && stat1 == StatType.Enhancement))
+        {
+            mixedPool = statPools[(int) CardPool.Type.StrEnh];
+        }
+        // MagDex
+        if((stat1 == StatType.Magic && stat2 == StatType.Dexterity) ||
+           (stat2 == StatType.Magic && stat1 == StatType.Dexterity))
+        {
+            mixedPool = statPools[(int) CardPool.Type.MagDex];
+        }
+        // MagEnh
+        if((stat1 == StatType.Magic && stat2 == StatType.Enhancement) ||
+           (stat2 == StatType.Magic && stat1 == StatType.Enhancement))
+        {
+            mixedPool = statPools[(int) CardPool.Type.MagEnh];
+        }
+        // DexEnh
+        if((stat1 == StatType.Dexterity && stat2 == StatType.Enhancement) ||
+           (stat2 == StatType.Dexterity && stat1 == StatType.Enhancement))
+        {
+            mixedPool = statPools[(int) CardPool.Type.DexEnh];
+        }
     }
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13771eb47e2cc28408fcc60d51f9e7b4, type: 3}
+  m_Name: StrMagPool
+  m_EditorClassIdentifier: 
+  tiers:
+  - cards:
+    - {fileID: 11400000, guid: 857c2dc8273a6da4682b19c8eff425cd, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 857c2dc8273a6da4682b19c8eff425cd, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: b7cf131462adef149bd035e810fb95f8, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: b7cf131462adef149bd035e810fb95f8, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 14d6d0576a70c3448b98e153d00ef36d, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 14d6d0576a70c3448b98e153d00ef36d, type: 2}

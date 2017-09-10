@@ -1249,7 +1249,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 467496623}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2203,7 +2203,7 @@ GameObject:
   - component: {fileID: 854230265}
   - component: {fileID: 854230264}
   m_Layer: 5
-  m_Name: DMGText
+  m_Name: STRText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2619,9 +2619,9 @@ MonoBehaviour:
   hpText: {fileID: 1064821962}
   apText: {fileID: 803007710}
   strText: {fileID: 854230264}
-  drText: {fileID: 1597967790}
-  magText: {fileID: 2125327873}
-  alcText: {fileID: 1291025721}
+  magText: {fileID: 1597967790}
+  dexText: {fileID: 2125327873}
+  enhText: {fileID: 1291025721}
   deckText: {fileID: 2083417068}
   graveyardText: {fileID: 1576439138}
   scoreText: {fileID: 1286816157}
@@ -3401,7 +3401,7 @@ GameObject:
   - component: {fileID: 1291025722}
   - component: {fileID: 1291025721}
   m_Layer: 5
-  m_Name: 'ENHText:'
+  m_Name: ENHText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

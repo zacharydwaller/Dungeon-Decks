@@ -9,9 +9,9 @@ public class PlayerUI : MonoBehaviour
     public Text apText;
 
     public Text strText;
-    public Text drText;
     public Text magText;
-    public Text alcText;
+    public Text dexText;
+    public Text enhText;
 
     public Text deckText;
     public Text graveyardText;
@@ -36,9 +36,9 @@ public class PlayerUI : MonoBehaviour
         apText.text         = "0";
 
         strText.text        = "0";
-        drText.text         = "0";
-        magText.text        = "0";
-        alcText.text        = "0";
+        magText.text         = "0";
+        dexText.text        = "0";
+        enhText.text        = "0";
 
         deckText.text       = "0";
         graveyardText.text  = "0";
@@ -61,9 +61,9 @@ public class PlayerUI : MonoBehaviour
             apText.text         = player.armor.ToString();
 
             strText.text        = player.strength.ToString();
-            drText.text         = player.enhancement.ToString();
             magText.text        = player.magic.ToString();
-            alcText.text        = player.dexterity.ToString();
+            dexText.text        = player.dexterity.ToString();
+            enhText.text        = player.enhancement.ToString();
 
             deckText.text       = player.deck.Count.ToString();
             graveyardText.text  = player.graveyard.Count.ToString();

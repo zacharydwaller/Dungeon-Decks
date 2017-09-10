@@ -11,12 +11,13 @@ public class Player : Entity
     public int enhancement;
     public int score;
 
-    public StatType mainStat;
-    public StatType offStat;
+    public StatType[] primaryStats;
     public StatType[] otherStats;
 
-    public int bonusDmgBlock        { get { return (strength / 2) + (dexterity / 4) + (magic / 4) + (enhancement / 2); } }
-    public int bonusAPSave          { get { return (strength / 4) + (dexterity / 2) + (magic / 2) + (enhancement / 4); } }
+    public int bonusDmgBlock    { get { return strength; } }
+    public int bonusAPSave      { get { return dexterity; } }
+    public int bonusDR          { get { return enhancement / 2; } }
+    public int bonusPotion      { get { return magic; } }
 
     public CardInfo punchCard;
     public int selectedCard;
@@ -39,12 +40,15 @@ public class Player : Entity
         enhancement = 0;
         score = 0;
 
-        mainStat = StatType.Strength;
-        offStat = StatType.Enhancement;
+        primaryStats = new StatType[2];
+        primaryStats[0] = StatType.Strength;
+        primaryStats[1] = StatType.Enhancement;
 
         otherStats = new StatType[2];
         otherStats[0] = StatType.Dexterity;
         otherStats[1] = StatType.Magic;
+
+        GameManager.singleton.cardDatabase.LoadSpecPool(primaryStats[0], primaryStats[1]);
 
         data.type = Entity.Type.Player;
 
@@ -186,22 +190,15 @@ public class Player : Entity
 
     public override void TakeDamage(int amount)
     {
-        int dmgBlocked, apBroken, dmgTaken;
+        int apBlocked, apBroken, dmgTaken;
 
-        dmgBlocked = Mathf.Min(amount, Mathf.Min(armor, (amount / 2) + bonusDmgBlock));
-        apBroken = Mathf.Max(0, dmgBlocked - bonusAPSave);
+        apBlocked = Mathf.Min(amount, Mathf.Min(armor, (amount / 2) + bonusDmgBlock));
+        apBroken = apBlocked - bonusAPSave;
 
-        dmgTaken = amount - dmgBlocked;
+        dmgTaken = amount - apBlocked;
 
-        health -= dmgTaken;
         armor -= apBroken;
-
-        // If damage breaks armor, apply rest of damage to health
-        if(armor < 0)
-        {
-            health += armor;
-            armor = 0;
-        }
+        health -= (dmgTaken - bonusDR);
 
         if(health <= 0)
         {

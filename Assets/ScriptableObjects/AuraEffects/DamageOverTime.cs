@@ -5,8 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Database/AuraEffect/DoT")]
 public class DamageOverTime : AuraEffect
 {
-    public override void Tick(Entity owner, int magnitude, int duration)
+    public override void Tick(Entity owner, int magnitude, int duration, int durationRemaining)
     {
-        owner.TakeDamage(Mathf.RoundToInt(magnitude / duration));
+        int tickMagnitude = Mathf.RoundToInt((float) magnitude / duration);
+
+        owner.TakeDamage(tickMagnitude);
     }
 }

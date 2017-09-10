@@ -23,7 +23,7 @@ public class Aura
     // Returns true if finished
     public bool Tick()
     {
-        effect.Tick(owner, magnitude, duration);
+        effect.Tick(owner, magnitude, duration, durationRemaining);
 
         durationRemaining--;
 
