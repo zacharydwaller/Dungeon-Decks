@@ -427,4 +427,41 @@ public class Player : Entity
             CollectCard(other.GetComponent<CardPickup>());
         }
     }
+
+    public int GetStat(StatType stat)
+    {
+        switch(stat)
+        {
+            case StatType.Strength: return strength;
+            case StatType.Magic: return magic;
+            case StatType.Dexterity: return dexterity;
+            case StatType.Enhancement: return enhancement;
+            default: return -1;
+        }
+    }
+
+    public int SetStat(StatType stat, int value)
+    {
+        switch(stat)
+        {
+            case StatType.Strength:
+                strength = value;
+                return strength;
+            case StatType.Magic:
+                magic = value;
+                return magic;
+            case StatType.Dexterity:
+                dexterity = value;
+                return dexterity;
+            case StatType.Enhancement:
+                enhancement = value;
+                return enhancement;
+            default: return -1;
+        }
+    }
+
+    public int ModifyStat(StatType stat, int amount)
+    {
+        return SetStat(stat, GetStat(stat) + amount);
+    }
 }

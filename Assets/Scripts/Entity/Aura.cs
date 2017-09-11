@@ -45,13 +45,6 @@ public class Aura
 
     public string GetTooltipDescription()
     {
-        string ret = effect.tooltipDescription;
-
-        ret = ret.Replace("%m", magnitude.ToString());
-        ret = ret.Replace("%s", duration.ToString());
-        ret = ret.Replace("%d", durationRemaining.ToString());
-        ret = ret.Replace("%r", Mathf.RoundToInt(magnitude / duration).ToString());
-
-        return ret;
+        return effect.GetTooltip();
     }
 }

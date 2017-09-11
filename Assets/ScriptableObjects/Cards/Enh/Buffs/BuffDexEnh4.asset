@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
+  m_Name: BuffDexEnh4
+  m_EditorClassIdentifier: 
+  cardName: Buff
+  color: {r: 0, g: 0.584, b: 0.334, a: 1}
+  image: {fileID: 21300002, guid: f8bd570a5fb6ff34bafadf7abc46c74b, type: 3}
+  effects:
+  - {fileID: 11400000, guid: 32edef4ae3e3d784dbc04b1a131e7df6, type: 2}
+  - {fileID: 11400000, guid: 8bc847aeb8b117b4ca127ce0826f602a, type: 2}
+  magnitudes: 0400000004000000
+  secondaries: 0600000006000000
+  descOverride: +%m DEX and ENH for %s Turns
+  bonusesList:
+  - bonuses:
+    - type: 3
+      weight: 0.5
+  - bonuses:
+    - type: 3
+      weight: 0.5
+  isConsumable: 0
