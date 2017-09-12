@@ -30,7 +30,7 @@ public abstract class AuraEffect : ScriptableObject
         ret = ret.Replace("%m", aura.magnitude.ToString());
         ret = ret.Replace("%s", aura.duration.ToString());
         ret = ret.Replace("%d", aura.durationRemaining.ToString());
-        ret = ret.Replace("%r", Mathf.RoundToInt(aura.magnitude / aura.duration).ToString());
+        ret = ret.Replace("%r", Mathf.RoundToInt((float) aura.magnitude / aura.duration).ToString());
 
         return ret;
     }

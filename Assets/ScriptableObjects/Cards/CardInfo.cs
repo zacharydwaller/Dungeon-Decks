@@ -79,7 +79,7 @@ public class CardInfo : DBItem
         if(secondaries.Length > index)
         {
             ret = ret.Replace("%s", GetSecondary(index).ToString());
-            ret = ret.Replace("%r", Mathf.RoundToInt(GetMagnitude(index) / Mathf.Max(1, GetSecondary(index))).ToString());
+            ret = ret.Replace("%r", Mathf.RoundToInt((float) GetMagnitude(index) / Mathf.Max(1, GetSecondary(index))).ToString());
         }
 
         return ret;
