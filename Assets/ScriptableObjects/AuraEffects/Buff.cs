@@ -33,13 +33,4 @@ public class Buff : AuraEffect
 
         player.ModifyStat(stat, -aura.magnitude);
     }
-
-    public override string GetTooltip()
-    {
-        string ret = base.GetTooltip();
-
-        ret = ret.Replace("%stat", stat.ToString());
-
-        return ret;
-    }
 }
