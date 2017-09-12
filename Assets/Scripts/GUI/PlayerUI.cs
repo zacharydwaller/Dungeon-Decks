@@ -25,7 +25,7 @@ public class PlayerUI : MonoBehaviour
 
     public GameObject auraIconRef;
 
-    private float updateDelay = 0.33f;
+    private float updateDelay = 0.1f;
     private float nextUpdate;
 
     private Player player;
@@ -36,7 +36,7 @@ public class PlayerUI : MonoBehaviour
         apText.text         = "0";
 
         strText.text        = "0";
-        magText.text         = "0";
+        magText.text        = "0";
         dexText.text        = "0";
         enhText.text        = "0";
 
@@ -44,8 +44,11 @@ public class PlayerUI : MonoBehaviour
         graveyardText.text  = "0";
         scoreText.text      = "0";
 
-        healthSlider.maxValue   = 0;
+        healthSlider.maxValue   = 10;
         armorSlider.maxValue    = 0;
+
+        healthSlider.value = 10;
+        armorSlider.value = 0;
 
         nextUpdate = 0f;
     }
