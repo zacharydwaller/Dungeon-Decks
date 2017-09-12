@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class AuraIcon : MonoBehaviour
 {
-    private Aura aura;
-
-    public void SetAura(Aura newAura)
-    {
-        aura = newAura;
-        GetComponent<TooltipCreatorUILayer>().SetItem(aura);
-        GetComponent<Image>().sprite = aura.effect.icon;
-    }
-
     public Aura GetAura()
     {
-        return aura;
+        int slot = transform.GetSiblingIndex();
+        return GameManager.singleton.player.GetAura(slot);
+    }
+
+    public void UpdateIcon()
+    {
+        Aura aura = GetAura();
+        GetComponent<TooltipCreatorUILayer>().SetItem(aura);
+        GetComponent<Image>().sprite = aura.effect.icon;
     }
 }

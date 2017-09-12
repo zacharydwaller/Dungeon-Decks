@@ -21,14 +21,17 @@ public class PlayerUI : MonoBehaviour
     public Slider healthSlider;
     public Slider armorSlider;
 
-    public GameObject auraPanel;
+    public GameObject auraPanelObj;
 
     public GameObject auraIconRef;
 
     private float updateDelay = 0.1f;
     private float nextUpdate;
 
-    private Player player;
+    [HideInInspector]
+    public Player player;
+
+    private AuraPanel auraPanel;
 
     private void Start()
     {
@@ -51,6 +54,8 @@ public class PlayerUI : MonoBehaviour
         armorSlider.value = 0;
 
         nextUpdate = 0f;
+
+        auraPanel = new AuraPanel(this);
     }
 
     private void Update()
@@ -75,13 +80,16 @@ public class PlayerUI : MonoBehaviour
             UpdateSlider(healthSlider, player.health);
             UpdateSlider(armorSlider, player.armor);
 
-            UpdateAuraPanel();
+            auraPanel.Update();
         }
         else
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             if(playerObj)
+            {
                 player = playerObj.GetComponent<Player>();
+                auraPanel.SetPlayer(player);
+            }
             else
             {
                 hpText.text = "0";
@@ -100,49 +108,6 @@ public class PlayerUI : MonoBehaviour
             }
 
             slider.value = stat;
-        }
-    }
-
-    private void UpdateAuraPanel()
-    {
-        for(int i = auraPanel.transform.childCount - 1; i >= 0; i--)
-        {
-            bool auraExists = false;
-
-            foreach(Aura aura in player.auras)
-            {
-                if(aura == auraPanel.transform.GetChild(i).GetComponent<AuraIcon>().GetAura())
-                {
-                    auraExists = true;
-                    break;
-                }
-            }
-
-            if(!auraExists)
-            {
-                Destroy(auraPanel.transform.GetChild(i).gameObject);
-            }
-        }
-
-        foreach(Aura aura in player.auras)
-        {
-            bool iconExists = false;
-
-            for(int i = 0; i < auraPanel.transform.childCount; i++)
-            {
-                if(aura == auraPanel.transform.GetChild(i).GetComponent<AuraIcon>().GetAura())
-                {
-                    iconExists = true;
-                    break;
-                }
-            }
-
-            if(!iconExists)
-            {
-                GameObject icon = Instantiate(auraIconRef);
-                icon.transform.SetParent(auraPanel.transform);
-                icon.GetComponent<AuraIcon>().SetAura(aura);
-            }
         }
     }
 }

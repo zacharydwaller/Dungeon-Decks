@@ -27,8 +27,9 @@ public abstract class Entity : MonoBehaviour
 
     public int health;
 
-    public List<Aura> auras;
-    private int maxAuras;
+    private List<Aura> auras;
+    public int auraCount { get { return auras.Count; } }
+    public int maxAuras { get { return 16; } }
 
     public float moveTime = 0.1f;
     public bool isMoving = false;
@@ -60,8 +61,23 @@ public abstract class Entity : MonoBehaviour
 
     public void ApplyAura(Aura newAura)
     {
+        // If too many auras, remove the oldest aura
+        if(auras.Count == maxAuras)
+        {
+            Aura oldAura = GetAura(0);
+            oldAura.OnRemove();
+            auras.RemoveAt(0);
+        }
+
         auras.Add(newAura);
         newAura.OnAdd();
+    }
+
+    public Aura GetAura(int index)
+    {
+        if(index >= maxAuras || index >= auras.Count) return null;
+
+        return auras[index];
     }
 
     public void TickAuras()

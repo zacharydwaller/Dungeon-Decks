@@ -2627,9 +2627,10 @@ MonoBehaviour:
   scoreText: {fileID: 1286816157}
   healthSlider: {fileID: 1459217481}
   armorSlider: {fileID: 1080737222}
-  auraPanel: {fileID: 106300009}
+  auraPanelObj: {fileID: 106300009}
   auraIconRef: {fileID: 1495693363970574, guid: 1b8b65453a28ea24ea9ac9156e98af09,
     type: 2}
+  player: {fileID: 0}
 --- !u!82 &1010498330
 AudioSource:
   m_ObjectHideFlags: 0
