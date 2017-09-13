@@ -15,7 +15,7 @@ MonoBehaviour:
   color: {r: 0.29411766, g: 0.41176474, b: 0.18431373, a: 1}
   image: {fileID: 21300006, guid: 50abcbb2625113e44ac9a1bc45b09080, type: 3}
   effects:
-  - {fileID: 11400000, guid: 9b4a7635e2a59a74c960b013ba3400e8, type: 2}
+  - {fileID: 11400000, guid: 5efdf44a42c2b4f4f918d11227b90453, type: 2}
   magnitudes: 0b000000
   secondaries: 05000000
   descOverride: 

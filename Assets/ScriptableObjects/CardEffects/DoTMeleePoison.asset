@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15d7590fe4687664abae63341e9757ad, type: 3}
-  m_Name: DoTMelee
+  m_Name: DoTMeleePoison
   m_EditorClassIdentifier: 
   isSelfCast: 0
   isRanged: 0
   rawDescription: '%r DMG for %s Turns'
-  auraEffect: {fileID: 11400000, guid: 57c9124d124821949b084f34c5af3142, type: 2}
+  auraEffect: {fileID: 11400000, guid: d611db5f5e8dc964baa98b090323e9b5, type: 2}
