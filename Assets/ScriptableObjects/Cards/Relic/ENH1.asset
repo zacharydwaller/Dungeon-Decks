@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
   m_Name: ENH1
   m_EditorClassIdentifier: 
-  cardName: Book of Alchemy
+  cardName: Book of Ages
   color: {r: 0.9843138, g: 0.9490197, b: 0.21176472, a: 1}
   image: {fileID: 21300028, guid: 17cc7e27a9f36c544b20ab4d048b5fde, type: 3}
   effects:
@@ -19,5 +19,5 @@ MonoBehaviour:
   magnitudes: 01000000
   secondaries: 
   descOverride: 
-  bonusTypes: 
+  bonusesList: []
   isConsumable: 1

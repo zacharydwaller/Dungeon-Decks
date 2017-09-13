@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
   m_Name: DEX1
   m_EditorClassIdentifier: 
-  cardName: Amulet of Protection
+  cardName: Amulet of Quickness
   color: {r: 0.9843138, g: 0.9490197, b: 0.21176472, a: 1}
   image: {fileID: 21300014, guid: 7026f227d102e354eac77d09d62e00bd, type: 3}
   effects:
@@ -19,5 +19,5 @@ MonoBehaviour:
   magnitudes: 01000000
   secondaries: 
   descOverride: 
-  bonusTypes: 
+  bonusesList: []
   isConsumable: 1
