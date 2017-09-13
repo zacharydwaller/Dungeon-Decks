@@ -40,6 +40,8 @@ public class Player : Entity
         enhancement = 0;
         score = 0;
 
+        maxAuras = 12;
+
         primaryStats = new StatType[2];
         primaryStats[0] = StatType.Strength;
         primaryStats[1] = StatType.Enhancement;
@@ -186,7 +188,7 @@ public class Player : Entity
             TickAuras();
             GameManager.singleton.EndPlayerTurn();
         }
-    } 
+    }
 
     public override void TakeDamage(int amount)
     {

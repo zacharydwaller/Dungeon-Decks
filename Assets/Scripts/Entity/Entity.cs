@@ -27,9 +27,9 @@ public abstract class Entity : MonoBehaviour
 
     public int health;
 
-    private List<Aura> auras;
+    protected List<Aura> auras;
     public int auraCount { get { return auras.Count; } }
-    public int maxAuras { get { return 12; } }
+    public int maxAuras;
 
     public float moveTime = 0.1f;
     public bool isMoving = false;
@@ -92,6 +92,14 @@ public abstract class Entity : MonoBehaviour
             }
 
             if(health <= 0) break;
+        }
+    }
+
+    public virtual void AttackedByEnemy(Entity attackedBy)
+    {
+        foreach(Aura aura in auras)
+        {
+            aura.effect.OnAttacked(attackedBy);
         }
     }
 
@@ -190,5 +198,10 @@ public abstract class Entity : MonoBehaviour
 
         isMoving = false;
         GameManager.singleton.somethingMoving = false;
+    }
+
+    public List<Aura> GetAuras()
+    {
+        return auras;
     }
 }

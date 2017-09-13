@@ -7,6 +7,7 @@ public class Enemy : Entity
 {
     public EnemyInfo info;
 
+    bool takingTurn;
     TooltipCreator tooltipCreator;
 
     protected override void Awake()
@@ -23,6 +24,8 @@ public class Enemy : Entity
         base.Start();
 
         health = info.maxHealth;
+        maxAuras = 6;
+        takingTurn = false;
     }
 
     public override void SetData(Data newData)
@@ -47,6 +50,8 @@ public class Enemy : Entity
 
     public override void DoTurn()
     {
+        takingTurn = true;
+
         TickAuras();
         if(health <= 0) return;
 
@@ -123,10 +128,12 @@ public class Enemy : Entity
             {
                 DoAttackAnimation(dir);
                 info.attackEffect.DoEffect(gameObject, dir, info.magnitude, info.secondary);
+                rayHit.transform.GetComponent<Player>().AttackedByEnemy(this);
             }
         }
 
         GameManager.singleton.EndEnemyTurn();
+        takingTurn = false;
     }
 
     public override void TakeDamage(int amount)
@@ -145,6 +152,18 @@ public class Enemy : Entity
         base.Die();
 
         GameManager.singleton.EnemyKilled(this);
+
+        if(takingTurn)
+        {
+            takingTurn = false;
+            GameManager.singleton.EndEnemyTurn();
+
+            if(isMoving)
+            {
+                GameManager.singleton.somethingMoving = false;
+            }
+        }
+
         Destroy(gameObject);
     }
 }
