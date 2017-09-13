@@ -2537,7 +2537,6 @@ GameObject:
   - component: {fileID: 702665175}
   - component: {fileID: 702665177}
   - component: {fileID: 702665176}
-  - component: {fileID: 702665178}
   m_Layer: 5
   m_Name: Armor
   m_TagString: Untagged
@@ -2605,18 +2604,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 702665174}
---- !u!114 &702665178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 702665174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dce0e2868c21dfb40910fa0a95026542, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipRef: {fileID: 1752985740928238, guid: d06d2fde48a5ce340b211102065ab45b, type: 2}
 --- !u!1 &743292818
 GameObject:
   m_ObjectHideFlags: 0
@@ -7637,6 +7624,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2125658762}
   - component: {fileID: 2125658763}
+  - component: {fileID: 2125658764}
+  - component: {fileID: 2125658766}
+  - component: {fileID: 2125658765}
   m_Layer: 5
   m_Name: StatFields
   m_TagString: Untagged
@@ -7688,3 +7678,48 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
+--- !u!114 &2125658764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2125658761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce0e2868c21dfb40910fa0a95026542, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipRef: {fileID: 1752985740928238, guid: d06d2fde48a5ce340b211102065ab45b, type: 2}
+--- !u!114 &2125658765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2125658761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &2125658766
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2125658761}
