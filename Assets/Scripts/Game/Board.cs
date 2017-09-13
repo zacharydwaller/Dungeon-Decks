@@ -26,7 +26,7 @@ public class Board
         coord = newCoord;
         tilesetIndex = Random.Range(0, numTilesets);
 
-        width = 20;
+        width = 15;
         height = 11;
 
         tiles = new Tile[width * height];

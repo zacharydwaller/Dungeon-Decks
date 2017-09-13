@@ -129,19 +129,20 @@ public class GameManager : MonoBehaviour
         boardManager.SwitchBoard(newCoord);
 
         // Put player in correct position
+        Board board = boardManager.currentBoard;
         if(direction.x == 0)
         {
             if(direction.y == 1)
-                player.transform.position = new Vector3(10, 1);
+                player.transform.position = new Vector3(board.Width() / 2, 1);
             else
-                player.transform.position = new Vector3(10, 9);
+                player.transform.position = new Vector3(board.Width() / 2, board.Height() - 2);
         }
         else
         {
             if(direction.x == 1)
-                player.transform.position = new Vector3(1, 5);
+                player.transform.position = new Vector3(1, board.Height() / 2);
             else
-                player.transform.position = new Vector3(18, 5);
+                player.transform.position = new Vector3(board.Width() - 2, board.Height() / 2);
         }
     }
 

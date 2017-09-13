@@ -29,7 +29,7 @@ public abstract class Entity : MonoBehaviour
 
     private List<Aura> auras;
     public int auraCount { get { return auras.Count; } }
-    public int maxAuras { get { return 16; } }
+    public int maxAuras { get { return 12; } }
 
     public float moveTime = 0.1f;
     public bool isMoving = false;

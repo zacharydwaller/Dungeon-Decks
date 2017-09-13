@@ -126,7 +126,7 @@ public class BoardManager : MonoBehaviour
         // Place entities
         // foreach currentboard.entityData place entity
 
-        Camera.main.transform.position = new Vector3(currentBoard.Width() / 2, 3.2f, -10);
+        //Camera.main.transform.position = new Vector3(currentBoard.Width() / 2, 3.2f, -10);
     }
 
     // Called the first time a room is visited

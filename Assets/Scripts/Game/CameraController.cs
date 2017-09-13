@@ -7,14 +7,13 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         /*
-        GameObject player = GameManager.singleton.player.gameObject;
+        Vector3 newPos = transform.position;
+        Board board = GameManager.singleton.boardManager.currentBoard;
 
-        if(player)
-        {
-            Vector3 newPos = player.transform.position;
-            newPos.z = -10;
-            //transform.position = newPos;
-        }
+        newPos.x = board.Width() / 2;
+        newPos.y = board.Height() / 2;
+
+        transform.position = newPos;
         */
     }
 }

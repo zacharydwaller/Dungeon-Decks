@@ -18,9 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject[] hand;
 
     private CanvasScaler cScalar;
-
-    private float currentWidth;
-    private float defaultWidth = 1280;
+    private float defaultWidth = 800.0f;
 
     private void Start()
     {
@@ -38,11 +36,6 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if(Screen.width != currentWidth)
-        {
-            FixUIScale();
-        }
-
         if(GameManager.singleton.player != null)
         {
             UpdateHand();
@@ -147,9 +140,6 @@ public class UIManager : MonoBehaviour
 
     private void FixUIScale()
     {
-        float ratio = Screen.width / defaultWidth;
-
-        cScalar.scaleFactor = ratio;
-        currentWidth = Screen.width;
+        cScalar.scaleFactor = Screen.width / defaultWidth;
     }
 }
