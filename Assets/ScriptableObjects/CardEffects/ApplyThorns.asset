@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d981d4afeb2fb4495d1bd93c37225b, type: 3}
+  m_Name: ApplyThorns
+  m_EditorClassIdentifier: 
+  isSelfCast: 1
+  isRanged: 0
+  rawDescription: Thorns %m DMG for %s Turns
+  auraEffect: {fileID: 11400000, guid: c322e3f9bcbce10498ac03da24213459, type: 2}
