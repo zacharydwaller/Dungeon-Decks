@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public abstract class AuraEffect : ScriptableObject
 {
+    public enum DamageType
+    {
+        None, Burn, Poison
+    }
+
+    public DamageType damageType;
+
     /*
      * Tooltip Description Tags
      * %m - Magnitude
@@ -22,4 +29,5 @@ public abstract class AuraEffect : ScriptableObject
     public virtual void Tick() { }
     public virtual void OnAdd() { }
     public virtual void OnRemove() { }
+    public virtual void OnAttacked(Entity attackedBy) { }
 }
