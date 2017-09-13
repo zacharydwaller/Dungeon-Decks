@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
 
         if(!isPlayerTurn)
         {
+            if(entityTurn > entities.Count) entityTurn = entities.Count;
+
             if(entityTurn != entities.Count)
             {
                 if(((Entity) entities[entityTurn]).data.type == Entity.Type.Enemy)
