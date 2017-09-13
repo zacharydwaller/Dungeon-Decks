@@ -13,14 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiers:
   - cards:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: adbef528de957d248a5578e77f94eea4, type: 2}
   - cards:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: adbef528de957d248a5578e77f94eea4, type: 2}
   - cards:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 0c3c8dbce22d3f745a805444ba1a6d7e, type: 2}
   - cards:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 0c3c8dbce22d3f745a805444ba1a6d7e, type: 2}
   - cards:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: d8ef9d09344a08741b171a5b61f0730a, type: 2}
   - cards:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: d8ef9d09344a08741b171a5b61f0730a, type: 2}

@@ -14,13 +14,19 @@ MonoBehaviour:
   tiers:
   - cards:
     - {fileID: 11400000, guid: 857c2dc8273a6da4682b19c8eff425cd, type: 2}
+    - {fileID: 11400000, guid: 75ca503100a5cbc4489ecfcd96933ffa, type: 2}
   - cards:
     - {fileID: 11400000, guid: 857c2dc8273a6da4682b19c8eff425cd, type: 2}
+    - {fileID: 11400000, guid: 42af204d530f87c4f925f8f2e192a6cc, type: 2}
   - cards:
     - {fileID: 11400000, guid: b7cf131462adef149bd035e810fb95f8, type: 2}
+    - {fileID: 11400000, guid: 531252b1d13c13d4c96102fb070ed46f, type: 2}
   - cards:
     - {fileID: 11400000, guid: b7cf131462adef149bd035e810fb95f8, type: 2}
+    - {fileID: 11400000, guid: 53db6184d0ae811428c5517d7478b390, type: 2}
   - cards:
     - {fileID: 11400000, guid: 14d6d0576a70c3448b98e153d00ef36d, type: 2}
+    - {fileID: 11400000, guid: 11592fdb898f68b45a96cdbf410cf299, type: 2}
   - cards:
     - {fileID: 11400000, guid: 14d6d0576a70c3448b98e153d00ef36d, type: 2}
+    - {fileID: 11400000, guid: 73048c780e1754749803288cffc7f79e, type: 2}
