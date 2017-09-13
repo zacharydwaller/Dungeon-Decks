@@ -7,6 +7,15 @@ public class AuraIcon : MonoBehaviour
 {
     public Sprite defaultIcon;
 
+    TooltipCreatorUILayer tooltipCreator;
+    Image icon;
+
+    private void Awake()
+    {
+        tooltipCreator = GetComponent<TooltipCreatorUILayer>();
+        icon = GetComponent<Image>();
+    }
+
     public Aura GetAura()
     {
         int slot = transform.GetSiblingIndex();
@@ -19,12 +28,14 @@ public class AuraIcon : MonoBehaviour
 
         if(aura != null)
         {
-            GetComponent<TooltipCreatorUILayer>().SetItem(aura);
-            GetComponent<Image>().sprite = aura.effect.icon;
+            tooltipCreator.enabled = true;
+            tooltipCreator.SetItem(aura);
+            icon.sprite = aura.effect.icon;
         }
         else
         {
-            GetComponent<Image>().sprite = defaultIcon;
+            tooltipCreator.enabled = false;
+            icon.sprite = defaultIcon;
         }
     }
 }
