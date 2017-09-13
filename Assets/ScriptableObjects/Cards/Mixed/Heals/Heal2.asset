@@ -25,4 +25,4 @@ MonoBehaviour:
       weight: 1
     - type: 1
       weight: 0.5
-  isConsumable: 0
+  isConsumable: 1
