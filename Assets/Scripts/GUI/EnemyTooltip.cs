@@ -9,6 +9,8 @@ public class EnemyTooltip : Tooltip
     public Text hpText;
     public Text damageText;
 
+    public Transform auraPanel;
+
     Enemy enemy;
 
     private void Update()
@@ -16,6 +18,16 @@ public class EnemyTooltip : Tooltip
         if(enemy)
         {
             hpText.text = enemy.health.ToString();
+
+            //Update Auras
+            for(int i = 0; i < enemy.maxAuras; i++)
+            {
+                AuraIcon icon = auraPanel.GetChild(i).GetComponent<AuraIcon>();
+
+                if(icon.owner == null) icon.SetOwner(enemy);
+
+                icon.UpdateIcon();
+            }
         }
     }
 
