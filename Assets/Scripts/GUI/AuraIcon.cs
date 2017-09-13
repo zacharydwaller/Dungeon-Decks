@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class AuraIcon : MonoBehaviour
 {
     public Sprite defaultIcon;
+    public Entity owner;
 
     TooltipCreatorUILayer tooltipCreator;
     Image icon;
@@ -18,10 +19,15 @@ public class AuraIcon : MonoBehaviour
         durText = GetComponentInChildren<Text>();
     }
 
+    public void SetOwner(Entity newOwner)
+    {
+        owner = newOwner;
+    }
+
     public Aura GetAura()
     {
         int slot = transform.GetSiblingIndex();
-        return GameManager.singleton.player.GetAura(slot);
+        return owner.GetAura(slot);
     }
 
     public void UpdateIcon()
@@ -33,8 +39,15 @@ public class AuraIcon : MonoBehaviour
             tooltipCreator.enabled = true;
             tooltipCreator.SetItem(aura);
 
-            durText.enabled = true;
-            durText.text = aura.durationRemaining.ToString();
+            if(aura.durationRemaining <= 20)
+            {
+                durText.enabled = true;
+                durText.text = aura.durationRemaining.ToString();
+            }
+            else
+            {
+                durText.enabled = false;
+            }
 
             icon.sprite = aura.effect.icon;
         }

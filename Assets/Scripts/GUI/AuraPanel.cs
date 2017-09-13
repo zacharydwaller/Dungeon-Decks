@@ -24,7 +24,11 @@ public class AuraPanel
         // Update each icon
         for(int i = 0; i < player.maxAuras; i++)
         {
-            GetAuraIcon(i).UpdateIcon();
+            AuraIcon icon = GetAuraIcon(i);
+
+            if(icon.owner == null) icon.SetOwner(player);
+
+            icon.UpdateIcon();
         }
     }
 
