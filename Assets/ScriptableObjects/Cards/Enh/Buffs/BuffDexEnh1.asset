@@ -18,8 +18,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32edef4ae3e3d784dbc04b1a131e7df6, type: 2}
   - {fileID: 11400000, guid: 8bc847aeb8b117b4ca127ce0826f602a, type: 2}
   magnitudes: 0100000001000000
-  secondaries: 0600000006000000
-  descOverride: +%m DEX and ENH for %s Turns
+  secondaries: 0500000005000000
+  descOverride: +%m DEX/ENH for %s Turns
   bonusesList:
   - bonuses:
     - type: 3

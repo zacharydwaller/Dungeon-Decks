@@ -18,8 +18,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bfe49dfdcc8afd24eb0fe1f2f3d4f957, type: 2}
   - {fileID: 11400000, guid: f0cf4cffa8215104b80158c39ae4925a, type: 2}
   magnitudes: 0100000001000000
-  secondaries: 0600000006000000
-  descOverride: +%m STR and MAG for %s Turns
+  secondaries: 0500000005000000
+  descOverride: +%m STR/MAG for %s Turns
   bonusesList:
   - bonuses:
     - type: 3

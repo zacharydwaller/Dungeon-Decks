@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Dagger6
   m_EditorClassIdentifier: 
   cardName: Dagger
-  color: {r: 0.29411766, g: 0.41176474, b: 0.18431373, a: 1}
+  color: {r: 0.32115054, g: 0.39705884, b: 0.33109716, a: 1}
   image: {fileID: 21300012, guid: 50abcbb2625113e44ac9a1bc45b09080, type: 3}
   effects:
   - {fileID: 11400000, guid: 14e26aeefedbff7429207b3a156c3631, type: 2}
