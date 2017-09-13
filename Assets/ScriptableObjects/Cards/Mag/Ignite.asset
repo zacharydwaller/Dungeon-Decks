@@ -9,18 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: Burn17
+  m_Name: Ignite
   m_EditorClassIdentifier: 
-  cardName: Conflag
-  color: {r: 0.6745098, g: 0.19607845, b: 0.19607845, a: 1}
-  image: {fileID: 21300128, guid: 17cc7e27a9f36c544b20ab4d048b5fde, type: 3}
+  cardName: Ignite
+  color: {r: 0.9852941, g: 0.59197587, b: 0.0941825, a: 1}
+  image: {fileID: 21300006, guid: c9d8733b8886ba24ea030a063bfd467b, type: 3}
   effects:
-  - {fileID: 11400000, guid: 9b4a7635e2a59a74c960b013ba3400e8, type: 2}
-  magnitudes: 11000000
-  secondaries: 07000000
+  - {fileID: 11400000, guid: 49c094c4c904226429009d6f98f36b1d, type: 2}
+  magnitudes: 00000000
+  secondaries: 00000000
   descOverride: 
-  bonusesList:
-  - bonuses:
-    - type: 1
-      weight: 1
+  bonusesList: []
   isConsumable: 0

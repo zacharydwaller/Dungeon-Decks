@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
   m_Name: Burn14
   m_EditorClassIdentifier: 
-  cardName: Ignite
+  cardName: Combust
   color: {r: 0.6745098, g: 0.19607845, b: 0.19607845, a: 1}
   image: {fileID: 21300128, guid: 17cc7e27a9f36c544b20ab4d048b5fde, type: 3}
   effects:
