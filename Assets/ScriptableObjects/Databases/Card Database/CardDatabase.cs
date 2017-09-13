@@ -17,9 +17,9 @@ public class CardDatabase : ScriptableObject
 
     /* Gets a card of a selected tier
      * Card Choice is weighted by item type and main/off stat
-     * Spec:        70%
+     * Spec:        75%
      * Potions:     20%
-     * Relics:      10%
+     * Relics:      5%
      * 
      * Type of Spec card chosen is weighted 45/35/20 for Primary/Secondary/Mixed Decks
      * Type of Relic chosen is weighted 50/40/10 for Primary/Secondary/Other stats
@@ -35,7 +35,7 @@ public class CardDatabase : ScriptableObject
         poolRoll = Random.Range(0, 100);
 
         // Spec
-        if(poolRoll < 70)
+        if(poolRoll < 75)
         {
             poolRoll = Random.Range(0, 100);
 
@@ -54,7 +54,7 @@ public class CardDatabase : ScriptableObject
             }
         }
         // Potion
-        else if(poolRoll < 90)
+        else if(poolRoll < 95)
         {
             pool = potionPool;
         }
