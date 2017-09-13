@@ -3622,8 +3622,8 @@ MonoBehaviour:
   enemyDatabase: {fileID: 11400000, guid: ed77080a962e03a459cdee170aa83b79, type: 2}
   boardCounter: 0
   killCounter: 0
-  enemyTierDelayRange: {x: 4, y: 4}
-  cardTierDelayRange: {x: 6, y: 6}
+  enemyTierDelayRange: {x: 3, y: 3}
+  cardTierDelayRange: {x: 8, y: 8}
   enemyTierDelay: 0
   cardTierDelay: 0
   enemyTier: 0
@@ -6544,11 +6544,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 114612431959402180, guid: 1b8b65453a28ea24ea9ac9156e98af09,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b8b65453a28ea24ea9ac9156e98af09, type: 2}
