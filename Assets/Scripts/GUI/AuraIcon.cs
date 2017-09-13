@@ -9,11 +9,13 @@ public class AuraIcon : MonoBehaviour
 
     TooltipCreatorUILayer tooltipCreator;
     Image icon;
+    Text durText;
 
     private void Awake()
     {
         tooltipCreator = GetComponent<TooltipCreatorUILayer>();
         icon = GetComponent<Image>();
+        durText = GetComponentInChildren<Text>();
     }
 
     public Aura GetAura()
@@ -30,11 +32,16 @@ public class AuraIcon : MonoBehaviour
         {
             tooltipCreator.enabled = true;
             tooltipCreator.SetItem(aura);
+
+            durText.enabled = true;
+            durText.text = aura.durationRemaining.ToString();
+
             icon.sprite = aura.effect.icon;
         }
         else
         {
             tooltipCreator.enabled = false;
+            durText.enabled = false;
             icon.sprite = defaultIcon;
         }
     }
