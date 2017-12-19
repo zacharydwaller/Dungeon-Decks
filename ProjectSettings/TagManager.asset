@@ -9,6 +9,7 @@ TagManager:
   - Card
   - Canvas
   - Door
+  - SettingsManager
   layers:
   - Default
   - TransparentFX

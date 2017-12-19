@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -12,12 +13,20 @@ public class MainMenu : MonoBehaviour
     public GameObject[] instructionText;
     private int instructionIndex = 0;
 
+    public ClassDatabase classDB;
+    public Image classSprite;
+    public Text classNameText;
+    public Text classStatsText;
+    public Text classDescText;
+
     private void Start()
     {
         ShowMainMenu();
 
         instructionIndex = 1;
         ToggleMoreInstructions();
+
+        UpdateClassDescription();
     }
 
     public void ShowMainMenu()
@@ -25,9 +34,32 @@ public class MainMenu : MonoBehaviour
         SwitchToPanel(mainMenuUI);
     }
 
-    public void CharacterCreationUI()
+    public void ShowCharacterCreationUI()
     {
         SwitchToPanel(characterCreationUI);
+    }
+
+    public void SelectPrimaryStat(string stat)
+    {
+        SettingsManager.GetScript.primaryStat = StatTypes.GetStat(stat);
+        UpdateClassDescription();
+    }
+
+    public void SelectOffStat(string stat)
+    {
+        SettingsManager.GetScript.offStat = StatTypes.GetStat(stat);
+        UpdateClassDescription();
+    }
+
+    public void UpdateClassDescription()
+    {
+        var settings = SettingsManager.GetScript;
+        var cClass = classDB.GetClass(settings.primaryStat, settings.offStat);
+
+        classSprite.sprite = cClass.sprite;
+        classNameText.text = cClass.className;
+        classStatsText.text = StatTypes.GetString(cClass.primaryStat) + "/" + StatTypes.GetString(cClass.offStat);
+        classDescText.text = cClass.description;
     }
 
     public void ShowInstructions()
@@ -50,6 +82,7 @@ public class MainMenu : MonoBehaviour
     public void HideAllPanels()
     {
         mainMenuUI.SetActive(false);
+        characterCreationUI.SetActive(false);
         instructionsUI.SetActive(false);
         creditsUI.SetActive(false);
     }

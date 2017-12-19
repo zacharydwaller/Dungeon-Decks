@@ -7,9 +7,9 @@ public enum StatType
     Strength, Magic, Dexterity, Enhancement
 }
 
-public class StatTypes
+public static class StatTypes
 {
-    public string strDesc
+    public static string strDesc
     {
         get
         {
@@ -17,7 +17,7 @@ public class StatTypes
         }
     }
 
-    public string magDesc
+    public static string magDesc
     {
         get
         {
@@ -25,7 +25,7 @@ public class StatTypes
         }
     }
 
-    public string dexDesc
+    public static string dexDesc
     {
         get
         {
@@ -33,11 +33,69 @@ public class StatTypes
         }
     }
 
-    public string enhDesc
+    public static string enhDesc
     {
         get
         {
             return "Enhancement powers up defensive spell cards such as heals and buffs. Enhancement also gives you straight damage reduction, applied to the damage that AP did not block.";
         }
+    }
+
+    public static List<StatType> GetOtherStats(IEnumerable<StatType> primaryStats)
+    {
+        var list = new List<StatType>();
+        for(int i = 0; i < 4; i++)
+        {
+            list.Add((StatType) i);
+        }
+
+        foreach(var stat in primaryStats)
+        {
+            list.Remove(stat);
+        }
+
+        return list;
+    }
+
+    public static StatType GetStat(string statName)
+    {
+        var comp = System.StringComparer.Create(System.Globalization.CultureInfo.InvariantCulture, true);
+
+        if(comp.Compare(statName, "Strength") == 0
+            || comp.Compare(statName, "Str") == 0)
+        {
+            return StatType.Strength;
+        }
+        if(comp.Compare(statName, "Magic") == 0
+            || comp.Compare(statName, "Mag") == 0)
+        {
+            return StatType.Magic;
+        }
+        if(comp.Compare(statName, "Dexterity") == 0
+            || comp.Compare(statName, "Dex") == 0)
+        {
+            return StatType.Dexterity;
+        }
+        if(comp.Compare(statName, "Enhancement") == 0
+            || comp.Compare(statName, "Enhance") == 0
+            || comp.Compare(statName, "Enh") == 0)
+        {
+            return StatType.Enhancement;
+        }
+
+        return StatType.Strength;
+    }
+
+    public static string GetString(StatType stat)
+    {
+        switch(stat)
+        {
+            case StatType.Strength: return "Strength";
+            case StatType.Dexterity: return "Dexterity";
+            case StatType.Magic: return "Magic";
+            case StatType.Enhancement: return "Enhancement";
+        }
+
+        return "Strength";
     }
 }

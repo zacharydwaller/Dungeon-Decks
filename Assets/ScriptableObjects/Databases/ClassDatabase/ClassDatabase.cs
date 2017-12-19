@@ -11,6 +11,8 @@ public class ClassDatabase : ScriptableObject
     {
         return pools[(int) primary].classes[(int) secondary];
     }
+
+
 }
 
 [System.Serializable]

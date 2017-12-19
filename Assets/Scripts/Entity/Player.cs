@@ -43,12 +43,26 @@ public class Player : Entity
         maxAuras = 12;
 
         primaryStats = new StatType[2];
-        primaryStats[0] = StatType.Strength;
-        primaryStats[1] = StatType.Enhancement;
-
         otherStats = new StatType[2];
-        otherStats[0] = StatType.Dexterity;
-        otherStats[1] = StatType.Magic;
+
+        var settingsObj= GameObject.FindGameObjectWithTag("SettingsManager");
+        if(settingsObj != null)
+        {
+            var settings = settingsObj.GetComponent<SettingsManager>();
+            primaryStats[0] = settings.primaryStat;
+            primaryStats[1] = settings.offStat;
+
+            var offStats = StatTypes.GetOtherStats(primaryStats);
+            otherStats[0] = offStats[0];
+            otherStats[1] = offStats[1];
+        }
+        else
+        {
+            primaryStats[0] = StatType.Strength;
+            primaryStats[1] = StatType.Enhancement;
+            otherStats[0] = StatType.Dexterity;
+            otherStats[1] = StatType.Magic;
+        }
 
         GameManager.singleton.cardDatabase.LoadSpecPool(primaryStats[0], primaryStats[1]);
 
