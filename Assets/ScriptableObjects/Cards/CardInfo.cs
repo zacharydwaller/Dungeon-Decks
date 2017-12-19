@@ -10,7 +10,7 @@ public class CardInfo : DBItem
     public Color color;
     public Sprite image;
     public CardEffect[] effects;
-    public int[] magnitudes;
+    public float[] magnitudes;
     public int[] secondaries;
     public string descOverride;
     public Bonuses[] bonusesList;
@@ -85,32 +85,32 @@ public class CardInfo : DBItem
         return ret;
     }
 
-    private int GetMagnitude(int index)
+    private float GetMagnitude(int index)
     {
         Player player = GameManager.singleton.player;
 
         if(player != null && bonusesList.Length > index)
         {
-            int bonusMag = 0;
+           float bonusMag = 0;
 
             foreach(Bonus bonus in bonusesList[index].bonuses)
             {
                 switch(bonus.type)
                 {
                     case BonusType.Str:
-                        bonusMag += Mathf.RoundToInt(player.strength * bonus.weight);
+                        bonusMag += player.strength * bonus.weight;
                         break;
                     case BonusType.Mag:
-                        bonusMag += Mathf.RoundToInt(player.magic * bonus.weight);
+                        bonusMag += player.magic * bonus.weight;
                         break;
                     case BonusType.Dex:
-                        bonusMag += Mathf.RoundToInt(player.dexterity * bonus.weight);
+                        bonusMag += player.dexterity * bonus.weight;
                         break;
                     case BonusType.Enh:
-                        bonusMag += Mathf.RoundToInt(player.enhancement * bonus.weight);
+                        bonusMag += player.enhancement * bonus.weight;
                         break;
                     case BonusType.Potion:
-                        bonusMag += Mathf.RoundToInt(player.bonusPotion * bonus.weight);
+                        bonusMag += player.bonusPotion * bonus.weight;
                         break;
                 }
             }

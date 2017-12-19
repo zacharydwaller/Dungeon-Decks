@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Database/CardEffect/RangedAttack")]
 public class RangedAttack : CardEffect
 {
-    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), int damage = 0, int ignore = 0)
+    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), float damage = 0, int ignore = 0)
     {
         if(direction == default(Vector2)) return;
 

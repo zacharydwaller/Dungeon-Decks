@@ -8,7 +8,7 @@ public class ApplyAuraMelee : CardEffect
 {
     public AuraEffect auraEffect;
     
-    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), int magnitude = 0, int duration = 0)
+    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), float magnitude = 0, int duration = 0)
     {
         if(direction == default(Vector2)) return;
 

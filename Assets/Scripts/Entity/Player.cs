@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    public int armor;
+    public float armor;
     public int strength;
     public int magic;
     public int dexterity;
     public int enhancement;
     public int score;
 
+    public float staggerDamage;
+    public int staggerDuration;
+    public float staggerTickDamage { get { return staggerDamage / staggerDuration; } }
+    public const int maxStaggerDuration = 10;
+
     public StatType[] primaryStats;
     public StatType[] otherStats;
 
-    public int bonusDmgBlock    { get { return strength; } }
-    public int bonusAPSave      { get { return dexterity; } }
-    public int bonusDR          { get { return enhancement / 2; } }
+    public float bonusDmgBlock    { get { return strength; } }
+    public float bonusAPSave      { get { return dexterity; } }
+    public float bonusDR          { get { return enhancement / 2; } }
     public int bonusPotion      { get { return magic; } }
 
     public CardInfo punchCard;
@@ -204,9 +209,9 @@ public class Player : Entity
         }
     }
 
-    public override void TakeDamage(int amount)
+    public override void TakeDamage(float amount)
     {
-        int apBlocked, apBroken, dmgTaken;
+        float apBlocked, apBroken, dmgTaken;
 
         apBlocked = Mathf.Min(amount, Mathf.Min(armor, (amount / 2) + bonusDmgBlock));
         apBroken = apBlocked - bonusAPSave;

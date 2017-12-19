@@ -7,7 +7,7 @@ public class Ignite : CardEffect
 {
     public Sprite dotIcon;
 
-    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), int magnitude = 0, int secondaryMagnitude = 0)
+    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), float magnitude = 0, int ignore = 0)
     {
         if(direction == default(Vector2)) return;
 

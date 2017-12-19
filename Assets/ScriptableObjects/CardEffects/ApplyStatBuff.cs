@@ -8,7 +8,7 @@ public class ApplyStatBuff : CardEffect
     public StatType stat;
     public Sprite icon;
 
-    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), int magnitude = 0, int duration = 0)
+    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), float magnitude = 0, int duration = 0)
     {
         Entity ent = user.GetComponent<Entity>();
         Aura aura = new Aura(ent, CreateBuff(), magnitude, duration);

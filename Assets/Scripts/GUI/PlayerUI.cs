@@ -98,7 +98,7 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    private void UpdateSlider(Slider slider, int stat)
+    private void UpdateSlider(Slider slider, float stat)
     {
         if(slider.value != stat)
         {

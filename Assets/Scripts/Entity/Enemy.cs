@@ -136,7 +136,7 @@ public class Enemy : Entity
         takingTurn = false;
     }
 
-    public override void TakeDamage(int amount)
+    public override void TakeDamage(float amount)
     {
         health -= amount;
         data.health = health;

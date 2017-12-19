@@ -15,5 +15,5 @@ public abstract class CardEffect : ScriptableObject
      */
     public string rawDescription;
 
-    public abstract void DoEffect(GameObject user, Vector2 direction = default(Vector2), int magnitude = 0, int secondaryMagnitude = 0);
+    public abstract void DoEffect(GameObject user, Vector2 direction = default(Vector2), float magnitude = 0, int secondaryMagnitude = 0);
 }

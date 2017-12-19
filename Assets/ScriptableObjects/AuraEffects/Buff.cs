@@ -24,13 +24,13 @@ public class Buff : AuraEffect
     {
         Player player = (Player) aura.owner;
 
-        player.ModifyStat(stat, aura.magnitude);
+        player.ModifyStat(stat, (int) aura.magnitude);
     }
 
     public override void OnRemove()
     {
         Player player = (Player) aura.owner;
 
-        player.ModifyStat(stat, -aura.magnitude);
+        player.ModifyStat(stat, (int) -aura.magnitude);
     }
 }

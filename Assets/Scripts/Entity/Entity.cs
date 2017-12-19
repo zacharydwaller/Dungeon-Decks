@@ -16,7 +16,7 @@ public abstract class Entity : MonoBehaviour
         public Type type;
 
         // For enemies
-        public int health;
+        public float health;
 
         public DBItem info;
     };
@@ -25,7 +25,7 @@ public abstract class Entity : MonoBehaviour
 
     public Data data;
 
-    public int health;
+    public float health;
 
     protected List<Aura> auras;
     public int auraCount { get { return auras.Count; } }
@@ -57,7 +57,7 @@ public abstract class Entity : MonoBehaviour
 
 
     public abstract void DoTurn();
-    public abstract void TakeDamage(int amount);
+    public abstract void TakeDamage(float amount);
 
     public void ApplyAura(Aura newAura)
     {

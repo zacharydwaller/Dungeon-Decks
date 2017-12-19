@@ -13,7 +13,7 @@ public class StatIncrease : CardEffect
 
     public Stat stat;
 
-    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), int amount = 0, int ignore = 0)
+    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), float amount = 0, int ignore = 0)
     {
         switch(stat)
         {
@@ -24,16 +24,16 @@ public class StatIncrease : CardEffect
                 user.GetComponent<Player>().armor += amount;
                 break;
             case Stat.Str:
-                user.GetComponent<Player>().strength += amount;
+                user.GetComponent<Player>().strength += (int) amount;
                 break;
             case Stat.Mag:
-                user.GetComponent<Player>().magic += amount;
+                user.GetComponent<Player>().magic += (int) amount;
                 break;
             case Stat.Dex:
-                user.GetComponent<Player>().dexterity += amount;
+                user.GetComponent<Player>().dexterity += (int) amount;
                 break;
             case Stat.Enh:
-                user.GetComponent<Player>().enhancement += amount;
+                user.GetComponent<Player>().enhancement += (int) amount;
                 break;
         }
         

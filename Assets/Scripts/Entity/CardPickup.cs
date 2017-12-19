@@ -48,5 +48,5 @@ public class CardPickup : Entity
     }
 
     public override void DoTurn() { }
-    public override void TakeDamage(int amount) { }
+    public override void TakeDamage(float amount) { }
 }

@@ -7,12 +7,12 @@ public class Aura
     public AuraEffect effect;
 
     public Entity owner;
-    public int magnitude;
+    public float magnitude;
     public int duration;
 
     public int durationRemaining;
 
-    public Aura(Entity newOwner, AuraEffect newEffect, int newMagnitude, int newDuration)
+    public Aura(Entity newOwner, AuraEffect newEffect, float newMagnitude, int newDuration)
     {
         owner = newOwner;
         effect = newEffect;
