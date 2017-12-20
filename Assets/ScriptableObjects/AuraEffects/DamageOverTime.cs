@@ -7,7 +7,7 @@ public class DamageOverTime : AuraEffect
 {
     public override void Tick()
     {
-        int tickMagnitude = Mathf.RoundToInt((float) aura.magnitude / aura.duration);
+        float tickMagnitude = aura.magnitude / aura.duration;
 
         aura.owner.TakeDamage(tickMagnitude);
     }
