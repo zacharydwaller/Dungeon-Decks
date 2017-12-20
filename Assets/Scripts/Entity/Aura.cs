@@ -47,10 +47,10 @@ public class Aura
     {
         string ret = effect.tooltipDescription;
 
-        ret = ret.Replace("%m", magnitude.ToString());
+        ret = ret.Replace("%m", magnitude.ToString("N2"));
         ret = ret.Replace("%s", duration.ToString());
         ret = ret.Replace("%d", durationRemaining.ToString());
-        ret = ret.Replace("%r", Mathf.RoundToInt((float) magnitude / duration).ToString());
+        ret = ret.Replace("%r", (magnitude / duration).ToString("N2"));
 
         if(effect.GetType() == typeof(Buff))
         {

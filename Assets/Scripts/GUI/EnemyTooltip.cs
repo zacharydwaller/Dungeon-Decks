@@ -17,7 +17,7 @@ public class EnemyTooltip : Tooltip
     {
         if(enemy)
         {
-            hpText.text = enemy.health.ToString();
+            hpText.text = enemy.health.ToString("N2");
 
             //Update Auras
             for(int i = 0; i < enemy.maxAuras; i++)

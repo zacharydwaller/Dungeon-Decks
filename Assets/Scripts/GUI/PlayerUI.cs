@@ -65,8 +65,8 @@ public class PlayerUI : MonoBehaviour
 
         if(player)
         {
-            hpText.text         = player.health.ToString();
-            apText.text         = player.armor.ToString();
+            hpText.text         = player.health.ToString("N2");
+            apText.text         = player.armor.ToString("N2");
 
             strText.text        = player.strength.ToString();
             magText.text        = player.magic.ToString();
