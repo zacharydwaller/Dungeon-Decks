@@ -113,7 +113,10 @@ public class Player : Entity
 
     public override void DoTurn()
     {
-        if(health <= 0) return;
+        if(health <= 0)
+        {
+            GameManager.singleton.PlayerKilled();
+        }
 
         bool playerActed = false;
         Vector2 input;
@@ -211,20 +214,35 @@ public class Player : Entity
 
     public override void TakeDamage(float amount)
     {
-        float apBlocked, apBroken, dmgTaken;
+        armor -= GetApBroken(amount);
 
-        apBlocked = Mathf.Min(amount, Mathf.Min(armor, (amount / 2) + bonusDmgBlock));
-        apBroken = apBlocked - bonusAPSave;
-
-        dmgTaken = amount - apBlocked;
-
-        armor -= apBroken;
-        health -= (dmgTaken - bonusDR);
-
-        if(health <= 0)
+        if(staggerDuration <= 0)
         {
-            GameManager.singleton.PlayerKilled();
+            health -= GetDamageTaken(amount);
         }
+
+        if(health < 0) health = 0;
+    }
+
+    public void TakeStaggerDamage()
+    {
+        health -= staggerTickDamage;
+        if(health < 0) health = 0;
+    }
+
+    public float GetDamageTaken(float damageAmount)
+    {
+        return damageAmount - GetApBlocked(damageAmount) - bonusDR;
+    }
+
+    public float GetApBlocked(float damageAmount)
+    {
+        return Mathf.Min(damageAmount, Mathf.Min(armor, (damageAmount / 2) + bonusDmgBlock));
+    }
+
+    public float GetApBroken(float damageAmount)
+    {
+        return GetApBlocked(damageAmount) - bonusAPSave;
     }
 
     public void SelectCard(int num)
