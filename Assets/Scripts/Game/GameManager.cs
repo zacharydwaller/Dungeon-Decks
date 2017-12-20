@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public CardDatabase cardDatabase;
     public Database enemyDatabase;
+    public ClassDatabase classDatabase;
 
     public int boardCounter; // Incremented every board generation, used for generating higher level monsters
     public int killCounter; // Incremented every monster kill, used for generating higher level cards

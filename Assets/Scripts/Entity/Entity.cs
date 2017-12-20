@@ -97,7 +97,7 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void AttackedByEnemy(Entity attackedBy)
     {
-        foreach(Aura aura in auras)
+        foreach(Aura aura in auras.ToArray())
         {
             aura.effect.OnAttacked(attackedBy);
         }

@@ -16,3 +16,4 @@ MonoBehaviour:
   primaryStat: 3
   offStat: 3
   description: Test Description
+  specialCard: {fileID: 11400000, guid: 93d7c2a126873604cbc449f2441efa69, type: 2}

@@ -39,7 +39,7 @@ public class AuraIcon : MonoBehaviour
             tooltipCreator.enabled = true;
             tooltipCreator.SetItem(aura);
 
-            if(aura.durationRemaining <= 20)
+            if(aura.durationRemaining > 0 && aura.durationRemaining <= 20)
             {
                 durText.enabled = true;
                 durText.text = aura.durationRemaining.ToString();

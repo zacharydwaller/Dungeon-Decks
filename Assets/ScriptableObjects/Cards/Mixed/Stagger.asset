@@ -9,21 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: Counter5
+  m_Name: Stagger
   m_EditorClassIdentifier: 
-  cardName: Hidden Blade
-  color: {r: 0.5461181, g: 0.8161765, b: 0.7491275, a: 1}
-  image: {fileID: 21300016, guid: 50abcbb2625113e44ac9a1bc45b09080, type: 3}
+  cardName: Stagger
+  color: {r: 0.32017732, g: 0.9264706, b: 0.6254147, a: 1}
+  image: {fileID: 21300004, guid: 55b391c2efb4c5d4390c3828a69782b8, type: 3}
   effects:
-  - {fileID: 11400000, guid: 46834c40658d00f418e7e2b439f2ab84, type: 2}
+  - {fileID: 11400000, guid: b42dfd56c2a728443b1ec22f0517c649, type: 2}
   magnitudes:
-  - 5
+  - 0
   secondaries: ffffffff
   descOverride: 
-  bonusesList:
-  - bonuses:
-    - type: 0
-      weight: 0.5
-    - type: 2
-      weight: 0.5
-  isConsumable: 0
+  bonusesList: []
+  isConsumable: 1

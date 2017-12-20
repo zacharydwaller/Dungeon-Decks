@@ -43,6 +43,12 @@ public class Aura
         effect.OnRemove();
     }
 
+    /*
+     * m - Magnitude
+     * s - Max Duration
+     * d - Duration Remaining
+     * r - Ratio magnitude/damage
+     */
     public string GetTooltipDescription()
     {
         string ret = effect.tooltipDescription;

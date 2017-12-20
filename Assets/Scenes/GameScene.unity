@@ -3624,6 +3624,7 @@ MonoBehaviour:
   uiManager: {fileID: 1354777316}
   cardDatabase: {fileID: 11400000, guid: d589c345d392465489eee9bfd0d0cd2b, type: 2}
   enemyDatabase: {fileID: 11400000, guid: ed77080a962e03a459cdee170aa83b79, type: 2}
+  classDatabase: {fileID: 11400000, guid: 6fc3a6fba28215449a98c023d677a83a, type: 2}
   boardCounter: 0
   killCounter: 0
   enemyTierDelayRange: {x: 3, y: 3}

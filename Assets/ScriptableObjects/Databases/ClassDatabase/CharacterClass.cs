@@ -11,4 +11,5 @@ public class CharacterClass : ScriptableObject
     public StatType primaryStat;
     public StatType offStat;
     public string description;
+    public CardInfo specialCard;
 }
