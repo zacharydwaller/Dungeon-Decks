@@ -16,7 +16,8 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 50abcbb2625113e44ac9a1bc45b09080, type: 3}
   effects:
   - {fileID: 11400000, guid: 47e40cf17ac5d894e8965a7b2935682c, type: 2}
-  magnitudes: 0a000000
+  magnitudes:
+  - 10
   secondaries: 03000000
   descOverride: 
   bonusesList:

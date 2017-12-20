@@ -19,7 +19,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32edef4ae3e3d784dbc04b1a131e7df6, type: 2}
   - {fileID: 11400000, guid: f0cf4cffa8215104b80158c39ae4925a, type: 2}
   - {fileID: 11400000, guid: 8bc847aeb8b117b4ca127ce0826f602a, type: 2}
-  magnitudes: 06000000060000000600000006000000
+  magnitudes:
+  - 6
+  - 6
+  - 6
+  - 6
   secondaries: 03000000030000000300000003000000
   descOverride: +%m All Stats for %s Turns
   bonusesList:
