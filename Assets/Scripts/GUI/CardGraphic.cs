@@ -66,7 +66,7 @@ public class CardGraphic : Tooltip
         nameText.text = card.cardName;
         baseGraphic.color = card.color;
         image.sprite = card.image;
-        effectText.text = card.description;
+        effectText.text = card.GetDescription();
 
         consumableText.enabled = card.isConsumable;
         rangedText.enabled = card.isRanged;

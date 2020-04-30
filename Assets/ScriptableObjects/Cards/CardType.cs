@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum CardType
+﻿public enum CardType
 {
-    Strength, Magic, Dexterity, Enhancement, Potion, Relic
+    Core,
+    Consumable,
+    Relic,
+    NoType
 }

@@ -1,10 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public enum StatType
 {
-    Strength, Magic, Dexterity, Enhancement
+    Strength,
+    Magic,
+    Dexterity,
+    Enhancement,
+    NoStat
 }
 
 public static class StatTypes
@@ -84,18 +86,5 @@ public static class StatTypes
         }
 
         return StatType.Strength;
-    }
-
-    public static string GetString(StatType stat)
-    {
-        switch(stat)
-        {
-            case StatType.Strength: return "Strength";
-            case StatType.Dexterity: return "Dexterity";
-            case StatType.Magic: return "Magic";
-            case StatType.Enhancement: return "Enhancement";
-        }
-
-        return "Strength";
     }
 }

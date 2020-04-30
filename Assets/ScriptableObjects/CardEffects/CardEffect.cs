@@ -13,7 +13,27 @@ public abstract class CardEffect : ScriptableObject
      * %s - Secondary Magnitude
      * %r - Ratio, Magnitude / Secondary
      */
+
+    /// <summary>
+    /// Description Tags:
+    /// %m - Magnitude.
+    /// %d - Duration.
+    /// %r - Ratio, Magnitude / Duration.
+    /// </summary>
     public string rawDescription;
 
     public abstract void DoEffect(GameObject user, Vector2 direction = default(Vector2), float magnitude = 0, int secondaryMagnitude = 0);
+
+    public string MakeDescription(float magnitude, int duration)
+    {
+        string ret = rawDescription;
+
+        ret = ret.Replace("%m", magnitude.ToString());
+        ret = ret.Replace("%d", duration.ToString());
+
+        var ratio = Mathf.RoundToInt(magnitude / Mathf.Max(1, duration));
+        ret = ret.Replace("%r", ratio.ToString());
+
+        return ret;
+    }
 }

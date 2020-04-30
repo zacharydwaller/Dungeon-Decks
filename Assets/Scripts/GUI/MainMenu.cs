@@ -58,7 +58,7 @@ public class MainMenu : MonoBehaviour
 
         classSprite.sprite = cClass.sprite;
         classNameText.text = cClass.className;
-        classStatsText.text = StatTypes.GetString(cClass.primaryStat) + "/" + StatTypes.GetString(cClass.offStat);
+        classStatsText.text = cClass.primaryStat + "/" + cClass.offStat;
         classDescText.text = cClass.description;
     }
 
