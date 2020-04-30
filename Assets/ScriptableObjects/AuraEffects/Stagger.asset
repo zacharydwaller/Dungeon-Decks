@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -15,4 +16,4 @@ MonoBehaviour:
   tooltipDescription: Staggers incoming attacks
   isHarmful: 0
   icon: {fileID: 21300004, guid: 55b391c2efb4c5d4390c3828a69782b8, type: 3}
-  staggerDot: {fileID: 11400000, guid: a94da3b03e1a2e340801c5d488c806b0, type: 2}
+  StaggerDot: {fileID: 11400000, guid: a94da3b03e1a2e340801c5d488c806b0, type: 2}

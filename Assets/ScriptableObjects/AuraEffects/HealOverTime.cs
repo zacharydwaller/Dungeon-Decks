@@ -7,7 +7,7 @@ public class HealOverTime : AuraEffect
 {
     public override void Tick()
     {
-        float tickMagnitude = aura.magnitude / aura.duration;
+        float tickMagnitude = aura.magnitude / aura.initialDuration;
 
         aura.owner.health += tickMagnitude;
     }

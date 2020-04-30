@@ -1,25 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Database/AuraEffect/Stagger")]
 public class Stagger : AuraEffect
 {
-    public AuraEffect staggerDot;
+    public AuraEffect StaggerDot;
 
-    public override void OnAttacked(Entity attackedBy)
+    public const int MaxStaggerDuration = 10;
+
+    public override void OnTakenDamage(float amount)
     {
-        Enemy enemy = (Enemy) attackedBy;
-        Player player = (Player) aura.owner;
+        var player = aura.owner as Player;
+        player.incomingDamage = 0;
 
-        if(player.staggerDuration == 0)
+        var existingStagger = player.GetAura<StaggerDot>();
+
+        if (existingStagger != null)
         {
-            Aura staggerDotAura = new Aura(player, staggerDot, 0, 10);
-            player.ApplyAura(staggerDotAura);
+            existingStagger.AddStack(amount);
         }
-
-        player.staggerDamage += player.GetDamageTaken(enemy.info.magnitude);
-
-        player.staggerDuration = Player.maxStaggerDuration;
+        else
+        {
+            player.ApplyAura(new Aura(aura.owner, StaggerDot, amount, MaxStaggerDuration));
+        }
     }
 }

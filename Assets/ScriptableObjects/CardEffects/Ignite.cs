@@ -40,7 +40,7 @@ public class Ignite : CardEffect
                 {
                     if(aura.effect.damageType == AuraEffect.DamageType.Burn)
                     {
-                        totalDamage += Mathf.RoundToInt((float) aura.magnitude / aura.duration) * aura.durationRemaining;
+                        totalDamage += Mathf.RoundToInt((float) aura.magnitude / aura.initialDuration) * aura.durationRemaining;
                         avgDuration += aura.durationRemaining;
                         numBurns++;
 
@@ -58,7 +58,5 @@ public class Ignite : CardEffect
                 ent.TakeDamage(totalDamage / 2);
             }
         }
-
-        
     }
 }

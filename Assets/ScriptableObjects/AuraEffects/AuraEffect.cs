@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public abstract class AuraEffect : ScriptableObject
 {
@@ -30,4 +27,10 @@ public abstract class AuraEffect : ScriptableObject
     public virtual void OnAdd() { }
     public virtual void OnRemove() { }
     public virtual void OnAttacked(Entity attackedBy) { }
+    public virtual void OnTakenDamage(float amount) { }
+
+    public virtual void AddStack(float amount)
+    {
+        aura.RefreshDuration();
+    }
 }

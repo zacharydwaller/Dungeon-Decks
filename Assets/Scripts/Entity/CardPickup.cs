@@ -46,7 +46,4 @@ public class CardPickup : Entity
         data.info = card;
         tooltipCreator.SetItem(card);
     }
-
-    public override void DoTurn() { }
-    public override void TakeDamage(float amount) { }
 }

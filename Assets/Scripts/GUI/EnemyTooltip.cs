@@ -20,7 +20,7 @@ public class EnemyTooltip : Tooltip
             hpText.text = enemy.health.ToString("N2");
 
             //Update Auras
-            for(int i = 0; i < enemy.maxAuras; i++)
+            for(int i = 0; i < enemy.auraCount; i++)
             {
                 AuraIcon icon = auraPanel.GetChild(i).GetComponent<AuraIcon>();
 

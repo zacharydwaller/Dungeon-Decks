@@ -24,7 +24,7 @@ public class Enemy : Entity
         base.Start();
 
         health = info.maxHealth;
-        maxAuras = 6;
+        //maxAuras = 6;
         takingTurn = false;
     }
 
@@ -136,15 +136,19 @@ public class Enemy : Entity
         takingTurn = false;
     }
 
-    public override void TakeDamage(float amount)
+    public override float TakeDamage(float amount, bool sendEvents = true)
     {
-        health -= amount;
+        var damage = base.TakeDamage(amount, sendEvents);
+
+        health -= damage;
         data.health = health;
 
         if(health <= 0)
         {
             Die();
         }
+
+        return damage;
     }
 
     protected override void Die()

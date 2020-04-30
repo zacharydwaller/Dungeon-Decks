@@ -9,6 +9,8 @@ public class AuraPanel
     Transform panel;
     GameObject auraIconRef;
 
+    private const int auraSlots = 12;
+
     public AuraPanel(PlayerUI newUI)
     {
         ui = newUI;
@@ -22,7 +24,7 @@ public class AuraPanel
         if(!player) return;
 
         // Update each icon
-        for(int i = 0; i < player.maxAuras; i++)
+        for(int i = 0; i < auraSlots; i++)
         {
             AuraIcon icon = GetAuraIcon(i);
 

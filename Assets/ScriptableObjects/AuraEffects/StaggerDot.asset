@@ -3,15 +3,16 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 682170c70a219a24ca7c6c0db7db9326, type: 3}
   m_Name: StaggerDot
-  m_EditorClassIdentifier: Assembly-CSharp::StaggerDot
+  m_EditorClassIdentifier: 
   damageType: 0
-  tooltipDescription: Deals %r for %d turns
+  tooltipDescription: Staggering %m DMG
   isHarmful: 1
-  icon: {fileID: 21300042, guid: dee2fd82c29c5bd4dbb5c28715eb9b32, type: 3}
+  icon: {fileID: 21300004, guid: 55b391c2efb4c5d4390c3828a69782b8, type: 3}

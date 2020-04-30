@@ -11,10 +11,10 @@ public class Player : Entity
     public int enhancement;
     public int score;
 
-    public float staggerDamage;
-    public int staggerDuration;
-    public float staggerTickDamage { get { return staggerDamage / staggerDuration; } }
-    public const int maxStaggerDuration = 10;
+    //public float staggerDamage;
+    //public int staggerDuration;
+    //public float staggerTickDamage { get { return staggerDamage / staggerDuration; } }
+    //public const int maxStaggerDuration = 10;
 
     public StatType[] primaryStats;
     public StatType[] otherStats;
@@ -45,7 +45,7 @@ public class Player : Entity
         enhancement = 0;
         score = 0;
 
-        maxAuras = 12;
+        //maxAuras = 12;
 
         primaryStats = new StatType[2];
         otherStats = new StatType[2];
@@ -219,22 +219,16 @@ public class Player : Entity
         }
     }
 
-    public override void TakeDamage(float amount)
+    public override float TakeDamage(float amount, bool sendEvents = true)
     {
-        armor -= GetApBroken(amount);
+        var damage = base.TakeDamage(amount, sendEvents);
 
-        if(staggerDuration <= 0)
-        {
-            health -= GetDamageTaken(amount);
-        }
+        armor -= GetApBroken(damage);
+        health -= GetDamageTaken(damage);
 
         if(health < 0) health = 0;
-    }
 
-    public void TakeStaggerDamage()
-    {
-        health -= staggerTickDamage;
-        if(health < 0) health = 0;
+        return damage;
     }
 
     public float GetDamageTaken(float damageAmount)

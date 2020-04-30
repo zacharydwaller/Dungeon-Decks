@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -26,17 +28,17 @@ public abstract class Entity : MonoBehaviour
     public Data data;
 
     public float health;
+    public float incomingDamage;
 
     protected List<Aura> auras;
-    public int auraCount { get { return auras.Count; } }
-    public int maxAuras;
+    public int auraCount { get => auras.Count; }
+    //public int maxAuras;
 
-    public float moveTime = 0.1f;
+    public float moveSpeed = 20.0f;
     public bool isMoving = false;
 
     new private BoxCollider2D collider;
     new private Rigidbody2D rigidbody;
-    private float inverseMoveTime;
 
     protected virtual void Awake()
     {
@@ -52,22 +54,31 @@ public abstract class Entity : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
 
-        inverseMoveTime = 1f / moveTime;
     }
 
+    public virtual void DoTurn() { }
 
-    public abstract void DoTurn();
-    public abstract void TakeDamage(float amount);
+    public virtual float TakeDamage(float amount, bool sendEvents = true)
+    {
+        incomingDamage = amount;
+
+        if(sendEvents)
+        {
+            TakingDamage?.Invoke(this, amount);
+        }
+
+        return incomingDamage;
+    }
 
     public void ApplyAura(Aura newAura)
     {
         // If too many auras, remove the oldest aura
-        if(auras.Count == maxAuras)
-        {
-            Aura oldAura = GetAura(0);
-            oldAura.OnRemove();
-            auras.RemoveAt(0);
-        }
+        //if(auras.Count == maxAuras)
+        //{
+        //    Aura oldAura = GetAura(0);
+        //    oldAura.OnRemove();
+        //    auras.RemoveAt(0);
+        //}
 
         auras.Add(newAura);
         newAura.OnAdd();
@@ -75,9 +86,15 @@ public abstract class Entity : MonoBehaviour
 
     public Aura GetAura(int index)
     {
-        if(index >= maxAuras || index >= auras.Count) return null;
+        //if(index >= maxAuras || index >= auras.Count) return null;
+        if (index >= auras.Count) return null;
 
         return auras[index];
+    }
+
+    public Aura GetAura<T>()
+    {
+        return auras.FirstOrDefault(a => a.effect.GetType() == typeof(T));
     }
 
     public void TickAuras()
@@ -156,7 +173,7 @@ public abstract class Entity : MonoBehaviour
         GameManager.singleton.somethingMoving = true;
         while(sqrDistance > float.Epsilon)
         {
-            Vector3 newPosition = Vector3.MoveTowards(rigidbody.position, dest, inverseMoveTime * Time.deltaTime);
+            Vector3 newPosition = Vector3.MoveTowards(rigidbody.position, dest, moveSpeed * Time.deltaTime);
             rigidbody.MovePosition(newPosition);
             sqrDistance = (base.transform.position - dest).sqrMagnitude;
 
@@ -172,12 +189,13 @@ public abstract class Entity : MonoBehaviour
         Vector3 start = transform.position;
         Vector3 dest = start + dir * 0.5f;
         float sqrDistance = (start - dest).sqrMagnitude;
+        float attackSpeed = moveSpeed / 2.0f;
 
         isMoving = true;
         GameManager.singleton.somethingMoving = true;
         while(sqrDistance > float.Epsilon)
         {
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, dest, inverseMoveTime * Time.deltaTime);
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, dest, attackSpeed * Time.deltaTime);
             transform.position = newPosition;
 
             sqrDistance = (transform.position - dest).sqrMagnitude;
@@ -188,7 +206,7 @@ public abstract class Entity : MonoBehaviour
         sqrDistance = (transform.position - start).sqrMagnitude;
         while(sqrDistance > float.Epsilon)
         {
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, start, inverseMoveTime * Time.deltaTime);
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, start, attackSpeed * Time.deltaTime);
             transform.position = newPosition;
 
             sqrDistance = (transform.position - start).sqrMagnitude;
@@ -204,4 +222,6 @@ public abstract class Entity : MonoBehaviour
     {
         return auras;
     }
+
+    public event EventHandler<float> TakingDamage;
 }

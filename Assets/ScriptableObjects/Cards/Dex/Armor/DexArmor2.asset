@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -16,7 +17,8 @@ MonoBehaviour:
   image: {fileID: 21300060, guid: 53fdb3f247e1e614b9b457bd58df510d, type: 3}
   effects:
   - {fileID: 11400000, guid: f115ed8770bcfb54e86829ab8b264e46, type: 2}
-  magnitudes: 02000000
+  magnitudes:
+  - 2
   secondaries: 
   descOverride: 
   bonusesList:

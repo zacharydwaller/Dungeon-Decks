@@ -19,6 +19,9 @@ public class CardPool : ScriptableObject
 
     public CardInfo GetCard(int tier, int index)
     {
+        if (tier >= tiers.Length) tier = tiers.Length - 1;
+        if (index >= NumCards(tier)) index = NumCards(tier) - 1;
+
         return tiers[tier].cards[index];
     }
 }
