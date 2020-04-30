@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+///     Ignite adds up all of the remaining Burn damage on the target.
+///     Applies half that damage immediately and the other half as a DoT over the average remaining Burn duration.
+/// </summary>
 [CreateAssetMenu(menuName = "Database/CardEffect/Ignite")]
 public class Ignite : CardEffect
 {
     public Sprite dotIcon;
 
-    public override void DoEffect(GameObject user, Vector2 direction = default(Vector2), float magnitude = 0, int ignore = 0)
+    public override void DoEffect(GameObject user, Vector2 direction = default, float magnitude = 0, int ignore = 0)
     {
-        if(direction == default(Vector2)) return;
+        if(direction == default) return;
 
         Collider2D collider = user.GetComponent<Collider2D>();
         RaycastHit2D rayHit;
@@ -32,30 +36,30 @@ public class Ignite : CardEffect
                 List<Aura> auras = ent.GetAuras();
                 DamageOverTime dot = CreateInstance<DamageOverTime>();
 
-                int totalDamage = 0;
-                int avgDuration = 0;
+                float totalDamage = 0;
+                int totalDuration = 0;
                 int numBurns = 0;
 
                 foreach(Aura aura in auras)
                 {
                     if(aura.effect.damageType == AuraEffect.DamageType.Burn)
                     {
-                        totalDamage += Mathf.RoundToInt((float) aura.magnitude / aura.initialDuration) * aura.durationRemaining;
-                        avgDuration += aura.durationRemaining;
+                        totalDamage += (aura.magnitude / aura.initialDuration) * aura.durationRemaining;
+                        totalDuration += aura.durationRemaining;
                         numBurns++;
 
                         aura.durationRemaining = 1;
                     }
                 }
 
-                totalDamage = Mathf.RoundToInt((float) totalDamage / 2);
-                avgDuration = avgDuration / numBurns;
+                var halfDamage = totalDamage * 0.5f;
+                var avgDuration = totalDuration / numBurns;
 
                 dot.damageType = AuraEffect.DamageType.Burn;
                 dot.icon = dotIcon;
 
-                ent.ApplyAura(new Aura(ent, dot, totalDamage / 2, avgDuration));
-                ent.TakeDamage(totalDamage / 2);
+                ent.ApplyAura(new Aura(ent, dot, halfDamage, avgDuration));
+                ent.TakeDamage(halfDamage);
             }
         }
     }
