@@ -1,22 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Database/ClassDB/Database")]
-public class ClassDatabase : ScriptableObject
+public static class ClassDatabase
 {
-    public ClassPool[] pools;
+    public static List<CharacterClass> CharacterClasses;
 
-    public CharacterClass GetClass(StatType primary, StatType secondary)
+    static ClassDatabase()
     {
-        return pools[(int) primary].classes[(int) secondary];
+        var objectArray = Resources.LoadAll("Classes", typeof(CharacterClass));
+        var objectList = new List<Object>(objectArray);
+
+        CharacterClasses = objectList.Select(o => o as CharacterClass).ToList();
     }
 
-
-}
-
-[System.Serializable]
-public class ClassPool
-{
-    public CharacterClass[] classes;
+    public static CharacterClass GetClass(StatType primary, StatType secondary)
+    {
+        return CharacterClasses.FirstOrDefault(c => c.primaryStat == primary && c.offStat == secondary);
+    }
 }

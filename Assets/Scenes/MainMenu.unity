@@ -455,9 +455,9 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e64ee1942ccadc343902a7b562acd1cd, type: 3}
-    m_FontSize: 18
+    m_FontSize: 16
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 84
     m_Alignment: 0
@@ -466,7 +466,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Magic/Magic
+  m_Text: Dexterity/Dexterity
 --- !u!222 &232520716
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5107,7 +5107,6 @@ MonoBehaviour:
   instructionText:
   - {fileID: 1502349663}
   - {fileID: 1747175908}
-  classDB: {fileID: 11400000, guid: 6fc3a6fba28215449a98c023d677a83a, type: 2}
   classSprite: {fileID: 1995071101}
   classNameText: {fileID: 133296347}
   classStatsText: {fileID: 232520715}

@@ -84,7 +84,7 @@ public class Player : Entity
         selectedCard = punchIndex;
 
         // Put class' special card in hand
-        CardInfo specialCard = GameManager.singleton.classDatabase.GetClass(primaryStats[0], primaryStats[1]).specialCard;
+        CardInfo specialCard = ClassDatabase.GetClass(primaryStats[0], primaryStats[1]).specialCard;
         if(specialCard)
         {
             PutCardInHand(specialCard);

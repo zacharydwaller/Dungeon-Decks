@@ -13,7 +13,6 @@ public class MainMenu : MonoBehaviour
     public GameObject[] instructionText;
     private int instructionIndex = 0;
 
-    public ClassDatabase classDB;
     public Image classSprite;
     public Text classNameText;
     public Text classStatsText;
@@ -27,6 +26,8 @@ public class MainMenu : MonoBehaviour
         instructionIndex = 1;
         ToggleMoreInstructions();
 
+        SettingsManager.GetScript.primaryStat = StatType.Strength;
+        SettingsManager.GetScript.offStat = StatType.Strength;
         UpdateClassDescription();
     }
 
@@ -55,7 +56,7 @@ public class MainMenu : MonoBehaviour
     public void UpdateClassDescription()
     {
         var settings = SettingsManager.GetScript;
-        var cClass = classDB.GetClass(settings.primaryStat, settings.offStat);
+        var cClass = ClassDatabase.GetClass(settings.primaryStat, settings.offStat);
 
         classSprite.sprite = cClass.sprite;
         classNameText.text = cClass.className;
