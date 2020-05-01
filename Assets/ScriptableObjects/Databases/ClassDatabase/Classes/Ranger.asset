@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 103e2fd2e502ba84fbe8d93472dc0a1a, type: 3}
-  m_Name: DexDex
+  m_Name: Ranger
   m_EditorClassIdentifier: 
-  className: Hunter
-  sprite: {fileID: 21300036, guid: 13597a1c2577a6c4faf3fffd79e4d752, type: 3}
+  className: Ranger
+  sprite: {fileID: 21300042, guid: 13597a1c2577a6c4faf3fffd79e4d752, type: 3}
   primaryStat: 2
-  offStat: 2
-  description: Test Description
+  offStat: 1
+  description: A survivalist gifted with the powers of nature. Can call upon the
+    power of wind to Bound, leaping several tiles in one direction - ignoring enemies
+    and obstacles in the path.
   specialCard: {fileID: 0}

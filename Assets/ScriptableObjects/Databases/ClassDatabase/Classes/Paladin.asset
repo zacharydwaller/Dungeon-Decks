@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 103e2fd2e502ba84fbe8d93472dc0a1a, type: 3}
-  m_Name: DexStr
+  m_Name: Paladin
   m_EditorClassIdentifier: 
-  className: Rogue
-  sprite: {fileID: 21300072, guid: 13597a1c2577a6c4faf3fffd79e4d752, type: 3}
-  primaryStat: 2
-  offStat: 0
-  description: Test Description
+  className: Paladin
+  sprite: {fileID: 21300076, guid: 13597a1c2577a6c4faf3fffd79e4d752, type: 3}
+  primaryStat: 0
+  offStat: 1
+  description: A righteous fighter mixing physical blows with powerful magic. Able
+    to call upon the light to heal even his most grievous wounds.
   specialCard: {fileID: 0}

@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -16,19 +17,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ed0274e249e111b4cbbdfd23b9250c12, type: 2}
     - {fileID: 11400000, guid: a1c04ffb4c5004c4482aebf1795d677a, type: 2}
     - {fileID: 11400000, guid: 472f9acb5a480b34a93ad9a477e45587, type: 2}
-    - {fileID: 11400000, guid: abba2e90566bed746ab242e98bee5b37, type: 2}
   - classes:
     - {fileID: 11400000, guid: bcf32bbc522c21d41993b0870eed9218, type: 2}
     - {fileID: 11400000, guid: 6a0eeac32bac62b4d84096e3003055bb, type: 2}
     - {fileID: 11400000, guid: b5a250ae7d7b8d8438377dd3173d3137, type: 2}
-    - {fileID: 11400000, guid: 1b3efc5cfba9e604e9be2d874ab29219, type: 2}
   - classes:
     - {fileID: 11400000, guid: 642954111ac141e4e9156dee3fceb956, type: 2}
     - {fileID: 11400000, guid: 2527649e4c656d84198e7c4c44d6161f, type: 2}
     - {fileID: 11400000, guid: 29f88b97f9b09d74887ea453d8ceaa34, type: 2}
-    - {fileID: 11400000, guid: 5e48ef2e6ed816b449e52d41c311d746, type: 2}
-  - classes:
-    - {fileID: 11400000, guid: d887647ec713aa946a6c20fa3fb1f951, type: 2}
-    - {fileID: 11400000, guid: 9e1aef65fa99e9c4bbde390059fa3b01, type: 2}
-    - {fileID: 11400000, guid: 3c0c670ddee3c8d4d95c24fe035d789a, type: 2}
-    - {fileID: 11400000, guid: d6aef64f9d2af2b41a8ac1c6c001b932, type: 2}

@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 103e2fd2e502ba84fbe8d93472dc0a1a, type: 3}
-  m_Name: MagDex
+  m_Name: Nightblade
   m_EditorClassIdentifier: 
-  className: Witch Hunter
+  className: Nightblade
   sprite: {fileID: 21300072, guid: 13597a1c2577a6c4faf3fffd79e4d752, type: 3}
   primaryStat: 1
   offStat: 2
-  description: Test Description
+  description: A devious trickster using all manner of magic, poisons, and ranged
+    attacks to lay waste to his foes. May use Dispatch, an ability that lets melee
+    attacks be used at a range for several turns.
   specialCard: {fileID: 0}
