@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 103e2fd2e502ba84fbe8d93472dc0a1a, type: 3}
-  m_Name: MagMag
+  m_Name: Mage
   m_EditorClassIdentifier: 
   className: Mage
   sprite: {fileID: 21300044, guid: 13597a1c2577a6c4faf3fffd79e4d752, type: 3}
   primaryStat: 1
   offStat: 1
-  description: Test Description
+  description: A pure magical class that deals sustained damage over time with Burns
+    and bursts enemies down with large Nuke spells. Can Ignite the burns on the enemy,
+    coalescing all Burns on the target into a single large blast.
   specialCard: {fileID: 11400000, guid: d2a6e0ef70145004cbcc6d9bf945f637, type: 2}

@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: Armor1
+  m_Name: Armor2
   m_EditorClassIdentifier: 
-  cardName: Leather Helm
+  cardName: Helm
   color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
-  image: {fileID: 21300012, guid: 36ef1b50b1a41034cb26b35ee65edde1, type: 3}
+  image: {fileID: 21300014, guid: 36ef1b50b1a41034cb26b35ee65edde1, type: 3}
   cardType: 1
   StatTiers:
   - StatType: 0
-    Tier: 0
+    Tier: 1
   - StatType: 2
     Tier: 1
   - StatType: 1
-    Tier: 1
+    Tier: 2
   effectSlots:
   - CardEffect: {fileID: 11400000, guid: f115ed8770bcfb54e86829ab8b264e46, type: 2}
-    Magnitude: 1
+    Magnitude: 2
     Duration: 0
     Bonuses:
     - StatType: 0
@@ -34,7 +34,5 @@ MonoBehaviour:
       Coefficient: 0.5
     - StatType: 1
       Coefficient: 0.25
-    - StatType: 3
-      Coefficient: 0
   descOverride: 
   isConsumable: 1

@@ -27,12 +27,16 @@ public class CardGraphic : Tooltip
 
     private void Start()
     {
-        player = GameManager.singleton.player;
+        player = GameManager.singleton?.player;
     }
     
+    /// <summary>
+    ///     TODO: Does this stuff need to be in Update?
+    ///     Can we just update graphic and outline as needed?
+    /// </summary>
     private void Update()
     {
-        if(player.selectedCard == handIndex)
+        if(player?.selectedCard == handIndex)
         {
             selectedOutline.enabled = true;
         }
@@ -62,7 +66,10 @@ public class CardGraphic : Tooltip
 
     public override void SetItem(object newCard)
     {
-        card = (CardInfo) newCard;
+        card = newCard as CardInfo;
+
+        if (card == null) return;
+
         nameText.text = card.cardName;
         baseGraphic.color = card.color;
         image.sprite = card.image;

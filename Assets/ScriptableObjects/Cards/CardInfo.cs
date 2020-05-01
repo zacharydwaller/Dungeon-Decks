@@ -10,16 +10,21 @@ public class CardInfo : DBItem
     public Color color;
     public Sprite image;
     public CardType cardType;
-    public StatType[] statTypes = new StatType[2];
-    public CardEffectSlot[] effectSlots = new CardEffectSlot[1];
 
+    public StatTier[] StatTiers = new StatTier[]
+    {
+        new StatTier(StatType.Strength),
+        new StatTier(StatType.Dexterity),
+        new StatTier(StatType.Magic)
+    };
+
+    public CardEffectSlot[] effectSlots = new CardEffectSlot[1];
     public string descOverride;
-    
     public bool isConsumable;
 
     // Ranged or self cast cards with multiple effects must have ranged/selfcast effect first in effect list
-    public bool isSelfCast { get { return effectSlots[0].CardEffect.isSelfCast; } }
-    public bool isRanged { get { return effectSlots[0].CardEffect.isRanged; } }
+    public bool isSelfCast { get { return effectSlots[0]?.CardEffect?.isSelfCast ?? false; } }
+    public bool isRanged { get { return effectSlots[0]?.CardEffect?.isRanged ?? false; } }
 
     public string GetDescription()
     {
@@ -66,5 +71,18 @@ public class CardInfo : DBItem
     public CardEffect GetEffect(int index)
     {
         return GetEffectSlot(index).CardEffect;
+    }
+}
+
+[System.Serializable]
+public class StatTier
+{
+    public StatType StatType;
+    public int Tier;
+
+    public StatTier(StatType statType)
+    {
+        StatType = statType;
+        Tier = 0;
     }
 }

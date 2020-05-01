@@ -3,16 +3,18 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 103e2fd2e502ba84fbe8d93472dc0a1a, type: 3}
-  m_Name: EnhStr
+  m_Name: EnhEnh
   m_EditorClassIdentifier: 
-  className: Cleric
-  sprite: {fileID: 21300048, guid: 13597a1c2577a6c4faf3fffd79e4d752, type: 3}
+  className: Monk
+  sprite: {fileID: 21300100, guid: 13597a1c2577a6c4faf3fffd79e4d752, type: 3}
   primaryStat: 3
-  offStat: 0
+  offStat: 3
   description: Test Description
+  specialCard: {fileID: 11400000, guid: 93d7c2a126873604cbc449f2441efa69, type: 2}

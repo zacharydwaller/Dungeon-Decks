@@ -11,19 +11,21 @@ public class CardEffectSlot
     {
         new Bonus(StatType.Strength),
         new Bonus(StatType.Dexterity),
-        new Bonus(StatType.Magic),
-        new Bonus(StatType.Enhancement)
+        new Bonus(StatType.Magic)
     };
 
     public string GetDescription()
     {
+        if (CardEffect == null) return string.Empty;
+
         return CardEffect.MakeDescription(Magnitude, Duration);
     }
 
     public void DoEffect(GameObject user, Vector2 direction = default)
     {
-        var calculatedMagnitude = CalculateMagnitude();
+        if (CardEffect == null) return;
 
+        var calculatedMagnitude = CalculateMagnitude();
         CardEffect.DoEffect(user, direction, calculatedMagnitude, Duration);
     }
 

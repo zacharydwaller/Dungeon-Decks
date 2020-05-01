@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -14,11 +15,12 @@ MonoBehaviour:
   cardName: Ignite
   color: {r: 0.9852941, g: 0.59197587, b: 0.0941825, a: 1}
   image: {fileID: 21300006, guid: c9d8733b8886ba24ea030a063bfd467b, type: 3}
-  effects:
-  - {fileID: 11400000, guid: 49c094c4c904226429009d6f98f36b1d, type: 2}
-  magnitudes:
-  - 0
-  secondaries: 00000000
-  descOverride: 
-  bonusesList: []
+  cardType: 0
+  StatTiers: []
+  effectSlots:
+  - CardEffect: {fileID: 11400000, guid: 49c094c4c904226429009d6f98f36b1d, type: 2}
+    Magnitude: 0
+    Duration: 0
+    Bonuses: []
+  descOverride: Flares up all Burns on the target
   isConsumable: 0

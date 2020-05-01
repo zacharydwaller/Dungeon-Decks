@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -14,11 +15,12 @@ MonoBehaviour:
   cardName: Stagger
   color: {r: 0.32017732, g: 0.9264706, b: 0.6254147, a: 1}
   image: {fileID: 21300004, guid: 55b391c2efb4c5d4390c3828a69782b8, type: 3}
-  effects:
-  - {fileID: 11400000, guid: b42dfd56c2a728443b1ec22f0517c649, type: 2}
-  magnitudes:
-  - 0
-  secondaries: ffffffff
+  cardType: 0
+  StatTiers: []
+  effectSlots:
+  - CardEffect: {fileID: 11400000, guid: b42dfd56c2a728443b1ec22f0517c649, type: 2}
+    Magnitude: 0
+    Duration: 0
+    Bonuses: []
   descOverride: 
-  bonusesList: []
   isConsumable: 1

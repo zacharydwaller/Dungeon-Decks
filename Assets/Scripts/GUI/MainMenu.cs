@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
     public Text classNameText;
     public Text classStatsText;
     public Text classDescText;
+    public CardGraphic classSignatureCard;
 
     private void Start()
     {
@@ -60,6 +61,7 @@ public class MainMenu : MonoBehaviour
         classNameText.text = cClass.className;
         classStatsText.text = cClass.primaryStat + "/" + cClass.offStat;
         classDescText.text = cClass.description;
+        classSignatureCard.SetItem(cClass.specialCard);
     }
 
     public void ShowInstructions()
