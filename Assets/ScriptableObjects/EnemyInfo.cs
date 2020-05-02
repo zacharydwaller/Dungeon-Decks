@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyInfo : DBItem
 {
     public string enemyName;
+    public int tier = 1;
     public Sprite sprite;
     public int maxHealth;
     public int magnitude;

@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,6 +13,7 @@ MonoBehaviour:
   m_Name: Wasp
   m_EditorClassIdentifier: 
   enemyName: Wasp
+  tier: 2
   sprite: {fileID: 21300080, guid: 42d09340f51147541afb6efe730ae722, type: 3}
   maxHealth: 2
   magnitude: 5

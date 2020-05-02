@@ -30,9 +30,16 @@ public class BoardManager : MonoBehaviour
         prevCard = null;
     }
 
-    public Vector3 GetRandomLocation(int padding = 0)
+    public Vector3 GetRandomLocation(int padding, List<Vector3> prevLocations)
     {
-        return currentBoard.GetRandomLocation(padding);
+        Vector3 location;
+
+        do
+        {
+            location = currentBoard.GetRandomLocation(padding);
+        } while (prevLocations.Contains(location));
+
+        return location;
     }
 
     public void GenerateStartingBoard()
@@ -146,9 +153,14 @@ public class BoardManager : MonoBehaviour
         List<CardInfo> prevCards = new List<CardInfo>();
         prevCards.Add(prevCard);
 
+        var prevLocations = new List<Vector3>();
+
         for(int i = 0; i < numEntities; i++)
         {
-            CardPickup card = Instantiate(cardPickupRef, GetRandomLocation(2), Quaternion.identity).GetComponent<CardPickup>();
+            var location = GetRandomLocation(2, prevLocations);
+            prevLocations.Add(location);
+
+            CardPickup card = Instantiate(cardPickupRef, location, Quaternion.identity).GetComponent<CardPickup>();
             CardInfo newCard;
 
             int maxIterations = max * 2;
@@ -171,12 +183,17 @@ public class BoardManager : MonoBehaviour
     public void GenerateEnemies(int min = 3, int max = 4)
     {
         // 3-4 enemies
+        GameManager gm = GameManager.singleton;
         int numEntities = Random.Range(min, max + 1);
+        var prevLocations = new List<Vector3>();
+
         for(int i = 0; i < numEntities; i++)
         {
-            GameManager gm = GameManager.singleton;
-            Enemy enemy = Instantiate(enemyRef, GetRandomLocation(3), Quaternion.identity).GetComponent<Enemy>();
-            enemy.SetEnemy((EnemyInfo) gm.enemyDatabase.GetItemOfTier(gm.enemyTier));
+            var location = GetRandomLocation(3, prevLocations);
+            prevLocations.Add(location);
+
+            Enemy enemy = Instantiate(enemyRef, location, Quaternion.identity).GetComponent<Enemy>();
+            enemy.SetEnemy(EnemyDatabase.GetEnemyOfTier(gm.enemyTier));
             GameManager.singleton.RegisterEntity(enemy);
         }
     }
