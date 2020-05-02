@@ -1,123 +1,117 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Database/CardDB/Database")]
-public class CardDatabase : ScriptableObject
+public static class CardDatabase
 {
-    public CardPool primaryPool;
-    public CardPool secondaryPool;
-    public CardPool mixedPool;
-    public CardPool potionPool;
-    public CardPool relicPool;
+    public static List<CardInfo> CorePool;
+    public static List<CardInfo> ConsumablePool;
+    public static List<CardInfo> RelicPool;
 
-    public CardPool[] statPools;
+    public const int CoreChance = 70;
+    public const int ConsumableChance = 25;
 
+    public const int CorePrimaryChance = 60;
 
+    public const int ConsumablePrimaryChance = 60;
 
-    /* Gets a card of a selected tier
+    public const int RelicPrimaryChance = 60;
+    public const int RelicSecondaryChance = 30;
+
+    static CardDatabase()
+    {
+        CorePool = Resources.LoadAll("Cards/Core", typeof(CardInfo)).Cast<CardInfo>().ToList();
+        ConsumablePool = Resources.LoadAll("Cards/Consumable", typeof(CardInfo)).Cast<CardInfo>().ToList();
+        RelicPool = Resources.LoadAll("Cards/Relic", typeof(CardInfo)).Cast<CardInfo>().ToList();
+    }
+
+    /* 
+     * Gets a card of a selected tier
      * Card Choice is weighted by item type and main/off stat
-     * Spec:        75%
-     * Potions:     20%
-     * Relics:      5%
+     * Core: 65%
+     * Consumable: 25%
+     * Relics: 10%
      * 
-     * Type of Spec card chosen is weighted 45/35/20 for Primary/Secondary/Mixed Decks
-     * Type of Relic chosen is weighted 50/40/10 for Primary/Secondary/Other stats
+     * Type of Spec card chosen is weighted 60/40 for Primary/Secondary Decks
+     * Type of Relic chosen is weighted 60/30/10 for Primary/Secondary/Mixed stats
      */
-    public CardInfo GetCardOfTier(int tier)
+    public static CardInfo GetCardOfStatTier(StatType primary, StatType secondary, int tier)
     {
         Player player = GameManager.singleton.player;
-        int poolRoll, cardRoll;
-        CardPool pool;
+        List<CardInfo> pool;
+        StatType stat;
 
-        tier = Mathf.Min(tier, statPools[0].tiers.Length - 1);
+        int poolRoll = Random.Range(0, 100);
+        int statRoll = Random.Range(0, 100);
 
-        poolRoll = Random.Range(0, 100);
-
-        // Spec
-        if(poolRoll < 75)
+        // Core
+        if (poolRoll < CoreChance)
         {
-            poolRoll = Random.Range(0, 100);
+            pool = CorePool;
 
-            // Primary
-            if(poolRoll < 45)
-            {
-                pool = primaryPool;
-            }
-            else if(poolRoll < 80)
-            {
-                pool = secondaryPool;
-            }
-            else
-            {
-                pool = mixedPool;
-            }
+            if(statRoll < CorePrimaryChance) stat = primary;
+            else stat = secondary;
         }
-        // Potion
-        else if(poolRoll < 95)
+        // Consumable
+        else if(poolRoll < CoreChance + ConsumableChance)
         {
-            pool = potionPool;
+            pool = ConsumablePool;
+
+            if (statRoll < ConsumablePrimaryChance) stat = primary;
+            else stat = secondary;
         }
         // Relic
         else
         {
-            StatType stat;
-            poolRoll = Random.Range(0, 100);
-            pool = relicPool;
+            pool = RelicPool;
 
-            // Main Stat
-            if(poolRoll < 50)
-            {
-               stat = player.primaryStats[0];
-            }
-            // Off Stat
-            else if(poolRoll < 90)
-            {
-                stat = player.primaryStats[1];
-            }
-            // Other Stat 1
-            else if(poolRoll < 95)
-            {
-                stat = player.otherStats[0];
-            }
-            // Other Stat 2
-            else
-            {
-                stat = player.otherStats[1];
-            }
-
-            return relicPool.GetCard(0, (int) stat);
+            if (statRoll < RelicPrimaryChance) stat = primary;
+            else if (statRoll < RelicPrimaryChance + RelicSecondaryChance) stat = secondary;
+            else stat = StatType.NoStat;
         }
 
-        cardRoll = Random.Range(0, pool.NumCards(tier));
-        CardInfo ret = pool.GetCard(tier, cardRoll);
+        var cardInfo = GetRandomCard(pool, stat, tier);
 
-        Debug.Log("Roll: " + poolRoll.ToString() + ". Card: " + ret.cardName);
-        return ret;
+        Debug.Log($"PoolRoll: {poolRoll}; StatRoll: {statRoll}; Tier: {tier}; Card: {cardInfo?.cardName}");
+
+        // If GetRandomCard couldn't find a card, roll again
+        if(cardInfo == null)
+        {
+            Debug.Log("Couldn't find card! Rerolling.");
+            cardInfo = GetCardOfStatTier(primary, secondary, tier);
+        }
+
+        return cardInfo;
     }
 
-    public void LoadSpecPool(StatType stat1, StatType stat2)
+    public static CardInfo GetRandomCard(List<CardInfo> pool, StatType stat, int tier)
     {
-        primaryPool = statPools[(int) stat1];
-        secondaryPool = statPools[(int) stat2];
+        // If selecting relic, ignore tier and just pick one by stat
+        if(pool.Equals(RelicPool))
+        {
+            if (stat != StatType.NoStat) pool = pool.Where(c => c.HasStat(stat)).ToList();
+            // if NoStat, then select a mixed relic
+            else pool = pool.Where(c => c.StatTiers.Length > 1).ToList();
+        }
+        else
+        {
+            do
+            {
+                pool = pool.Where(c => c.IsInStatTier(stat, tier)).ToList();
 
-        // StrMag
-        if((stat1 == StatType.Strength && stat2 == StatType.Magic) ||
-           (stat2 == StatType.Strength && stat1 == StatType.Magic))
-        {
-            mixedPool = statPools[(int) CardPool.Type.StrMag];
+                // May have to lower tier
+                tier--;
+            } while (pool.Count == 0 && tier > 0);
         }
-        // StrDex
-        if((stat1 == StatType.Strength && stat2 == StatType.Dexterity) ||
-           (stat2 == StatType.Strength && stat1 == StatType.Dexterity))
+
+        // Return null in case we can't find a card
+        if(pool.Count == 0)
         {
-            mixedPool = statPools[(int) CardPool.Type.StrDex];
+            return null;
         }
-        // MagDex
-        if((stat1 == StatType.Magic && stat2 == StatType.Dexterity) ||
-           (stat2 == StatType.Magic && stat1 == StatType.Dexterity))
-        {
-            mixedPool = statPools[(int) CardPool.Type.MagDex];
-        }
+
+        int cardRoll = Random.Range(0, pool.Count);
+        return pool[cardRoll];
     }
 }

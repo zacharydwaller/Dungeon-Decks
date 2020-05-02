@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,15 +11,9 @@ public class CardInfo : DBItem
     public Color color;
     public Sprite image;
     public CardType cardType;
-
-    public StatTier[] StatTiers = new StatTier[]
-    {
-        new StatTier(StatType.Strength),
-        new StatTier(StatType.Dexterity),
-        new StatTier(StatType.Magic)
-    };
-
+    public StatTier[] StatTiers = new StatTier[1];
     public CardEffectSlot[] effectSlots = new CardEffectSlot[1];
+
     public string descOverride;
     public bool isConsumable;
 
@@ -71,6 +66,16 @@ public class CardInfo : DBItem
     public CardEffect GetEffect(int index)
     {
         return GetEffectSlot(index).CardEffect;
+    }
+
+    public bool HasStat(StatType stat)
+    {
+        return StatTiers.Any(s => s.StatType == stat);
+    }
+
+    public bool IsInStatTier(StatType stat, int tier)
+    {
+        return StatTiers.Any(s => s.StatType == stat && s.Tier == tier);
     }
 }
 

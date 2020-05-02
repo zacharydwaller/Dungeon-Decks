@@ -41,7 +41,6 @@ public class PlayerUI : MonoBehaviour
         strText.text = "0";
         magText.text = "0";
         dexText.text = "0";
-        enhText.text = "0";
 
         deckText.text = "0";
         graveyardText.text = "0";

@@ -18,21 +18,23 @@ public class CardEffectSlot
     {
         if (CardEffect == null) return string.Empty;
 
-        return CardEffect.MakeDescription(Magnitude, Duration);
+        return CardEffect.MakeDescription(MagnitudeWithBonus(), Duration);
     }
 
     public void DoEffect(GameObject user, Vector2 direction = default)
     {
         if (CardEffect == null) return;
 
-        var calculatedMagnitude = CalculateMagnitude();
+        var calculatedMagnitude = MagnitudeWithBonus();
         CardEffect.DoEffect(user, direction, calculatedMagnitude, Duration);
     }
 
-    public float CalculateMagnitude()
+    public float MagnitudeWithBonus()
     {
         var newMagnitude = Magnitude;
-        Player player = GameManager.singleton.player;
+        Player player = GameManager.singleton?.player;
+
+        if (player == null) return Magnitude;
 
         foreach(var bonus in Bonuses)
         {

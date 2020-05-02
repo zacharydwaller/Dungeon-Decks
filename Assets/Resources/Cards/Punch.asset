@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -14,16 +15,18 @@ MonoBehaviour:
   cardName: Punch
   color: {r: 0.4509804, g: 0.4509804, b: 0.4509804, a: 1}
   image: {fileID: 21300002, guid: 533b7967cf3ab2a4ca3a73da77c28b2c, type: 3}
-  effects:
-  - {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}
-  magnitudes:
-  - 1
-  secondaries: 
+  cardType: 0
+  StatTiers: []
+  effectSlots:
+  - CardEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}
+    Magnitude: 1
+    Duration: 0
+    Bonuses:
+    - StatType: 0
+      Coefficient: 1
+    - StatType: 2
+      Coefficient: 0.5
+    - StatType: 1
+      Coefficient: 0.25
   descOverride: 
-  bonusesList:
-  - bonuses:
-    - type: 0
-      weight: 0.5
-    - type: 2
-      weight: 0.35
   isConsumable: 0

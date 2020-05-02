@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,10 +8,8 @@ public static class ClassDatabase
 
     static ClassDatabase()
     {
-        var objectArray = Resources.LoadAll("Classes", typeof(CharacterClass));
-        var objectList = new List<Object>(objectArray);
-
-        CharacterClasses = objectList.Select(o => o as CharacterClass).ToList();
+        var ccArray = Resources.LoadAll("Classes", typeof(CharacterClass)).Cast<CharacterClass>();
+        CharacterClasses = ccArray.ToList();
     }
 
     public static CharacterClass GetClass(StatType primary, StatType secondary)

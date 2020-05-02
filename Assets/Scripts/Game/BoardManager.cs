@@ -141,6 +141,7 @@ public class BoardManager : MonoBehaviour
         // 2-3 cards
         int numEntities = Random.Range(min, max + 1);
         GameManager gm = GameManager.singleton;
+        Player player = gm.player;
 
         List<CardInfo> prevCards = new List<CardInfo>();
         prevCards.Add(prevCard);
@@ -154,7 +155,7 @@ public class BoardManager : MonoBehaviour
             int iteration = 0;
             do
             {
-                newCard = gm.cardDatabase.GetCardOfTier(gm.cardTier);
+                newCard = CardDatabase.GetCardOfStatTier(player.primaryStats[0], player.primaryStats[1], gm.cardTier);
                 iteration++;
             } while(prevCards.Contains(newCard) && iteration < maxIterations);
 

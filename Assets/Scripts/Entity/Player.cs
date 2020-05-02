@@ -61,8 +61,6 @@ public class Player : Entity
             otherStats[1] = StatType.Magic;
         }
 
-        GameManager.singleton.cardDatabase.LoadSpecPool(primaryStats[0], primaryStats[1]);
-
         data.type = Entity.Type.Player;
 
         hand = new CardInfo[5];

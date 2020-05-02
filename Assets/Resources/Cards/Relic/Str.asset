@@ -3,22 +3,26 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: STR1
+  m_Name: Str
   m_EditorClassIdentifier: 
   cardName: Troll's Blood
   color: {r: 0.9843138, g: 0.9490197, b: 0.21176472, a: 1}
   image: {fileID: 21300028, guid: 956c7cb63db6dd340bf033ae13e4c95e, type: 3}
-  effects:
-  - {fileID: 11400000, guid: 8708c0b001951ed49bdc52d3f9cfd985, type: 2}
-  magnitudes:
-  - 1
-  secondaries: 
+  cardType: 2
+  StatTiers:
+  - StatType: 0
+    Tier: 0
+  effectSlots:
+  - CardEffect: {fileID: 11400000, guid: 8708c0b001951ed49bdc52d3f9cfd985, type: 2}
+    Magnitude: 1
+    Duration: 0
+    Bonuses: []
   descOverride: 
-  bonusesList: []
   isConsumable: 1

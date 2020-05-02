@@ -3,25 +3,32 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa80d21b6916046b5c8f00050036f0, type: 3}
-  m_Name: Sword6
+  m_Name: Sword2
   m_EditorClassIdentifier: 
   cardName: Arming Sword
   color: {r: 0.5176471, g: 0.49411768, b: 0.5294118, a: 1}
   image: {fileID: 21300000, guid: a921d99a555490e49bb073f25081ac45, type: 3}
-  effects:
-  - {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}
-  magnitudes:
-  - 6
-  secondaries: 
+  cardType: 0
+  StatTiers:
+  - StatType: 0
+    Tier: 2
+  effectSlots:
+  - CardEffect: {fileID: 11400000, guid: f541c0d451341894dac9a2e3b6dbc977, type: 2}
+    Magnitude: 5
+    Duration: 0
+    Bonuses:
+    - StatType: 0
+      Coefficient: 1
+    - StatType: 2
+      Coefficient: 0.5
+    - StatType: 1
+      Coefficient: 0.25
   descOverride: 
-  bonusesList:
-  - bonuses:
-    - type: 0
-      weight: 1
   isConsumable: 0

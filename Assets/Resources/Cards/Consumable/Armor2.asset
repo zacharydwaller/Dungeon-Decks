@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Armor2
   m_EditorClassIdentifier: 
   cardName: Helm
-  color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+  color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   image: {fileID: 21300014, guid: 36ef1b50b1a41034cb26b35ee65edde1, type: 3}
   cardType: 1
   StatTiers:
   - StatType: 0
     Tier: 1
   - StatType: 2
-    Tier: 1
-  - StatType: 1
     Tier: 2
+  - StatType: 1
+    Tier: 3
   effectSlots:
   - CardEffect: {fileID: 11400000, guid: f115ed8770bcfb54e86829ab8b264e46, type: 2}
     Magnitude: 2

@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
 
     public UIManager uiManager;
 
-    public CardDatabase cardDatabase;
     public Database enemyDatabase;
 
     public int boardCounter; // Incremented every board generation, used for generating higher level monsters
@@ -24,7 +23,7 @@ public class GameManager : MonoBehaviour
     public int cardTierDelay;
 
     public int enemyTier = 0;
-    public int cardTier = 0;
+    public int cardTier = 1;
 
     public GameObject playerRef;
 
