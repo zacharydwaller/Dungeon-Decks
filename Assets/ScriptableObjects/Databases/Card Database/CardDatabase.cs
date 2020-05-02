@@ -113,29 +113,11 @@ public class CardDatabase : ScriptableObject
         {
             mixedPool = statPools[(int) CardPool.Type.StrDex];
         }
-        // StrEnh
-        if((stat1 == StatType.Strength && stat2 == StatType.Enhancement) ||
-           (stat2 == StatType.Strength && stat1 == StatType.Enhancement))
-        {
-            mixedPool = statPools[(int) CardPool.Type.StrEnh];
-        }
         // MagDex
         if((stat1 == StatType.Magic && stat2 == StatType.Dexterity) ||
            (stat2 == StatType.Magic && stat1 == StatType.Dexterity))
         {
             mixedPool = statPools[(int) CardPool.Type.MagDex];
-        }
-        // MagEnh
-        if((stat1 == StatType.Magic && stat2 == StatType.Enhancement) ||
-           (stat2 == StatType.Magic && stat1 == StatType.Enhancement))
-        {
-            mixedPool = statPools[(int) CardPool.Type.MagEnh];
-        }
-        // DexEnh
-        if((stat1 == StatType.Dexterity && stat2 == StatType.Enhancement) ||
-           (stat2 == StatType.Dexterity && stat1 == StatType.Enhancement))
-        {
-            mixedPool = statPools[(int) CardPool.Type.DexEnh];
         }
     }
 }

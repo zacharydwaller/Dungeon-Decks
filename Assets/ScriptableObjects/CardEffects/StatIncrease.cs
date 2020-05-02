@@ -8,7 +8,7 @@ public class StatIncrease : CardEffect
 {
     public enum Stat
     {
-        HP, AP, Str, Mag, Dex, Enh
+        HP, AP, Str, Mag, Dex
     }
 
     public Stat stat;
@@ -31,9 +31,6 @@ public class StatIncrease : CardEffect
                 break;
             case Stat.Dex:
                 user.GetComponent<Player>().dexterity += (int) amount;
-                break;
-            case Stat.Enh:
-                user.GetComponent<Player>().enhancement += (int) amount;
                 break;
         }
         

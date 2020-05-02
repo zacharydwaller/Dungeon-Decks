@@ -8,7 +8,6 @@ public class Player : Entity
     public int strength;
     public int magic;
     public int dexterity;
-    public int enhancement;
     public int score;
 
     //public float staggerDamage;
@@ -18,11 +17,6 @@ public class Player : Entity
 
     public StatType[] primaryStats;
     public StatType[] otherStats;
-
-    public float bonusDmgBlock    { get { return strength; } }
-    public float bonusAPSave      { get { return dexterity; } }
-    public float bonusDR          { get { return enhancement / 2; } }
-    public int bonusPotion      { get { return magic; } }
 
     public CardInfo punchCard;
     public int selectedCard;
@@ -38,11 +32,10 @@ public class Player : Entity
         base.Awake();
 
         health = 10;
-        armor = 0;
+        armor = 5;
         strength = 0;
         magic = 0;
         dexterity = 0;
-        enhancement = 0;
         score = 0;
 
         //maxAuras = 12;
@@ -64,7 +57,6 @@ public class Player : Entity
         else
         {
             primaryStats[0] = StatType.Strength;
-            primaryStats[1] = StatType.Enhancement;
             otherStats[0] = StatType.Dexterity;
             otherStats[1] = StatType.Magic;
         }
@@ -221,29 +213,28 @@ public class Player : Entity
 
     public override float TakeDamage(float amount, bool sendEvents = true)
     {
-        var damage = base.TakeDamage(amount, sendEvents);
+        // Send events - auras may alter amount of damage taken
+        amount = base.TakeDamage(amount, sendEvents);
 
-        armor -= GetApBroken(damage);
-        health -= GetDamageTaken(damage);
+        var apBlocked = GetApBlocked(amount);
+        var remainingDamage = amount - apBlocked;
+
+        armor -= apBlocked;
+        health -= remainingDamage;
 
         if(health < 0) health = 0;
 
-        return damage;
-    }
-
-    public float GetDamageTaken(float damageAmount)
-    {
-        return damageAmount - GetApBlocked(damageAmount) - bonusDR;
+        return amount;
     }
 
     public float GetApBlocked(float damageAmount)
     {
-        return Mathf.Min(damageAmount, Mathf.Min(armor, (damageAmount / 2) + bonusDmgBlock));
-    }
+        float halfDamage = damageAmount / 2.0f;
+        
+        // Reduced damage may be less if there isn't enough AP
+        float apBlocked = Mathf.Min(armor, halfDamage);
 
-    public float GetApBroken(float damageAmount)
-    {
-        return GetApBlocked(damageAmount) - bonusAPSave;
+        return apBlocked;
     }
 
     public void SelectCard(int num)
@@ -475,7 +466,6 @@ public class Player : Entity
             case StatType.Strength: return strength;
             case StatType.Magic: return magic;
             case StatType.Dexterity: return dexterity;
-            case StatType.Enhancement: return enhancement;
             default: return -1;
         }
     }
@@ -493,9 +483,6 @@ public class Player : Entity
             case StatType.Dexterity:
                 dexterity = value;
                 return dexterity;
-            case StatType.Enhancement:
-                enhancement = value;
-                return enhancement;
             default: return -1;
         }
     }

@@ -35,23 +35,23 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
-        hpText.text         = "0";
-        apText.text         = "0";
+        hpText.text = "0";
+        apText.text = "0";
 
-        strText.text        = "0";
-        magText.text        = "0";
-        dexText.text        = "0";
-        enhText.text        = "0";
+        strText.text = "0";
+        magText.text = "0";
+        dexText.text = "0";
+        enhText.text = "0";
 
-        deckText.text       = "0";
-        graveyardText.text  = "0";
-        scoreText.text      = "0";
+        deckText.text = "0";
+        graveyardText.text = "0";
+        scoreText.text = "0";
 
-        healthSlider.maxValue   = 10;
-        armorSlider.maxValue    = 0;
+        healthSlider.maxValue = 10;
+        armorSlider.maxValue = 5;
 
         healthSlider.value = 10;
-        armorSlider.value = 0;
+        armorSlider.value = 5;
 
         nextUpdate = 0f;
 
@@ -65,17 +65,16 @@ public class PlayerUI : MonoBehaviour
 
         if(player)
         {
-            hpText.text         = player.health.ToString("N2");
-            apText.text         = player.armor.ToString("N2");
+            hpText.text = player.health.ToString("N1");
+            apText.text = player.armor.ToString("N1");
 
-            strText.text        = player.strength.ToString();
-            magText.text        = player.magic.ToString();
-            dexText.text        = player.dexterity.ToString();
-            enhText.text        = player.enhancement.ToString();
+            strText.text = player.strength.ToString();
+            magText.text = player.magic.ToString();
+            dexText.text = player.dexterity.ToString();
 
-            deckText.text       = player.deck.Count.ToString();
-            graveyardText.text  = player.graveyard.Count.ToString();
-            scoreText.text      = player.score.ToString();
+            deckText.text = player.deck.Count.ToString();
+            graveyardText.text = player.graveyard.Count.ToString();
+            scoreText.text = player.score.ToString();
 
             UpdateSlider(healthSlider, player.health);
             UpdateSlider(armorSlider, player.armor);

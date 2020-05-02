@@ -5,7 +5,6 @@ public enum StatType
     Strength,
     Magic,
     Dexterity,
-    Enhancement,
     NoStat
 }
 
@@ -32,14 +31,6 @@ public static class StatTypes
         get
         {
             return "Dexterity increases the power of ranged weapon cards, cards with Bleed damage such as Daggers, and poison cards. Dexterity also allows you to save AP when it blocks damage.";
-        }
-    }
-
-    public static string enhDesc
-    {
-        get
-        {
-            return "Enhancement powers up defensive spell cards such as heals and buffs. Enhancement also gives you straight damage reduction, applied to the damage that AP did not block.";
         }
     }
 
@@ -78,13 +69,7 @@ public static class StatTypes
         {
             return StatType.Dexterity;
         }
-        if(comp.Compare(statName, "Enhancement") == 0
-            || comp.Compare(statName, "Enhance") == 0
-            || comp.Compare(statName, "Enh") == 0)
-        {
-            return StatType.Enhancement;
-        }
 
-        return StatType.Strength;
+        return StatType.NoStat;
     }
 }
