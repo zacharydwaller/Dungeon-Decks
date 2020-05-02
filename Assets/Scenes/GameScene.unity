@@ -3813,14 +3813,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardManager: {fileID: 0}
   uiManager: {fileID: 1354777316}
-  enemyDatabase: {fileID: 11400000, guid: ed77080a962e03a459cdee170aa83b79, type: 2}
   boardCounter: 0
   killCounter: 0
   enemyTierDelayRange: {x: 3, y: 3}
   cardTierDelayRange: {x: 8, y: 8}
   enemyTierDelay: 0
   cardTierDelay: 0
-  enemyTier: 0
+  enemyTier: 1
   cardTier: 1
   playerRef: {fileID: 1396861231011984, guid: 50cb1ea6d39f77c4b9d63c744734b559, type: 3}
   playerUI: {fileID: 1150329069}

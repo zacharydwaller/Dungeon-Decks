@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public int enemyTier = 1;
     public int cardTier = 1;
 
+    // Tier in which the Dragon appears
+    public const int bossTier = 7;
+
     public GameObject playerRef;
 
     public GameObject playerUI;

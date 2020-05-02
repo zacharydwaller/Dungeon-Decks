@@ -143,9 +143,9 @@ public class BoardManager : MonoBehaviour
         GenerateEnemies();
     }
 
-    public void GenerateCards(int min = 2, int max = 3)
+    public void GenerateCards(int min = 1, int max = 3)
     {
-        // 2-3 cards
+        // 1-3 cards
         int numEntities = Random.Range(min, max + 1);
         GameManager gm = GameManager.singleton;
         Player player = gm.player;
@@ -180,11 +180,17 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void GenerateEnemies(int min = 3, int max = 4)
+    public void GenerateEnemies(int min = 2, int max = 6)
     {
-        // 3-4 enemies
         GameManager gm = GameManager.singleton;
+
+        // 2-6 enemies - unless facing the singular Dragon
         int numEntities = Random.Range(min, max + 1);
+        if (gm.enemyTier == GameManager.bossTier)
+        {
+            numEntities = 1;
+        }
+
         var prevLocations = new List<Vector3>();
 
         for(int i = 0; i < numEntities; i++)
@@ -192,9 +198,18 @@ public class BoardManager : MonoBehaviour
             var location = GetRandomLocation(3, prevLocations);
             prevLocations.Add(location);
 
-            Enemy enemy = Instantiate(enemyRef, location, Quaternion.identity).GetComponent<Enemy>();
-            enemy.SetEnemy(EnemyDatabase.GetEnemyOfTier(gm.enemyTier));
-            GameManager.singleton.RegisterEntity(enemy);
+            var enemyInfo = EnemyDatabase.GetEnemyOfTier(gm.enemyTier);
+
+            if(enemyInfo != null)
+            {
+                Enemy enemy = Instantiate(enemyRef, location, Quaternion.identity).GetComponent<Enemy>();
+                enemy.SetEnemy(enemyInfo);
+                GameManager.singleton.RegisterEntity(enemy);
+            }
+            else
+            {
+                Debug.Log($"Enemy info null. Tier {gm.enemyTier}");
+            }
         }
     }
 
