@@ -36,7 +36,7 @@ public class AuraIcon : MonoBehaviour
 
         if(aura != null)
         {
-            tooltipCreator.enabled = true;
+            tooltipCreator.SetShowTooltip(true);
             tooltipCreator.SetItem(aura);
 
             if(aura.durationRemaining > 0 && aura.durationRemaining <= 20)
@@ -53,7 +53,7 @@ public class AuraIcon : MonoBehaviour
         }
         else
         {
-            tooltipCreator.enabled = false;
+            tooltipCreator.SetShowTooltip(false);
             durText.enabled = false;
             icon.sprite = defaultIcon;
         }

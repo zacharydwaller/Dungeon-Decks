@@ -11,9 +11,12 @@ public class TooltipCreatorUILayer : MonoBehaviour, IPointerEnterHandler, IPoint
     object item;
     GameObject tooltipObj;
     bool mouseOver = false;
+    bool showTooltip = true;
 
     private void Update()
     {
+        if (!showTooltip) return;
+
         if(mouseOver)
         {
             MoveTooltip();
@@ -30,14 +33,33 @@ public class TooltipCreatorUILayer : MonoBehaviour, IPointerEnterHandler, IPoint
         item = newItem;
     }
 
+    public void SetShowTooltip(bool show)
+    {
+        if(show)
+        {
+            showTooltip = true;
+        }
+        else
+        {
+            showTooltip = false;
+            mouseOver = false;
+            
+            if(tooltipObj)
+            {
+                Destroy(tooltipObj);
+            }
+        }
+    }
+
     private void MoveTooltip()
     {
+        if (!showTooltip) return;
+
         RectTransform rect = tooltipObj.GetComponent<RectTransform>();
 
         Vector2 anchorMin = rect.anchorMin;
         Vector2 anchorMax = rect.anchorMax;
         Vector2 pivot = rect.pivot;
-
 
         if(Camera.main.pixelHeight - Input.mousePosition.y < rect.sizeDelta.y)
         {
@@ -76,6 +98,8 @@ public class TooltipCreatorUILayer : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerEnter(PointerEventData e)
     {
+        if (!showTooltip) return;
+
         mouseOver = true;
         tooltipObj = Instantiate(tooltipRef, GameObject.FindGameObjectWithTag("Canvas").transform);
 
@@ -84,6 +108,8 @@ public class TooltipCreatorUILayer : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerExit(PointerEventData e)
     {
+        if (!showTooltip) return;
+
         mouseOver = false;
         Destroy(tooltipObj);
     }

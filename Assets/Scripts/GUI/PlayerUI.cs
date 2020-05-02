@@ -11,7 +11,6 @@ public class PlayerUI : MonoBehaviour
     public Text strText;
     public Text magText;
     public Text dexText;
-    public Text enhText;
 
     public Text deckText;
     public Text graveyardText;
