@@ -3256,7 +3256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 803787066}
   m_Layer: 0
-  m_Name: Board
+  m_Name: Dungeon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3741,8 +3741,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1010498327}
-  - component: {fileID: 1010498326}
   - component: {fileID: 1010498328}
+  - component: {fileID: 1010498326}
   - component: {fileID: 1010498329}
   - component: {fileID: 1010498331}
   - component: {fileID: 1010498330}
@@ -3762,29 +3762,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1010498325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e71e28e0f7faa4caf0a37e3819e9dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 77da5d5cc7b6fb1429352d01d3910972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardTransf: {fileID: 803787066}
-  floorRef: {fileID: 1098128246713114, guid: ae695902b2a070840a738074d24f8adc, type: 3}
-  wallRef: {fileID: 1053325058214422, guid: 51607bcb5a53cdf44bdc025bb92dd7e9, type: 3}
-  doorRef: {fileID: 1605573548966988, guid: 51f569c80ff8ca1418af58f813b8868c, type: 3}
-  enemyRef: {fileID: 1268540640179328, guid: df655121a2fdbed46b9d8329607d4926, type: 3}
-  cardPickupRef: {fileID: 1377029881270294, guid: 8ae3efa6e1df5614893f1e16d04bae1d,
+  DungeonTransform: {fileID: 803787066}
+  FloorPrefab: {fileID: 1098128246713114, guid: ae695902b2a070840a738074d24f8adc,
     type: 3}
-  floorTiles:
-  - {fileID: 21300096, guid: 51fb8212b8201f444b60c55d95d1c5e7, type: 3}
-  - {fileID: 21300124, guid: 51fb8212b8201f444b60c55d95d1c5e7, type: 3}
+  WallPrefab: {fileID: 1053325058214422, guid: 51607bcb5a53cdf44bdc025bb92dd7e9, type: 3}
+  DoorPrefab: {fileID: 1605573548966988, guid: 51f569c80ff8ca1418af58f813b8868c, type: 3}
+  EnemyPrefab: {fileID: 1268540640179328, guid: df655121a2fdbed46b9d8329607d4926,
+    type: 3}
+  CardPrefab: {fileID: 1377029881270294, guid: 8ae3efa6e1df5614893f1e16d04bae1d, type: 3}
+  RoomPrefab: {fileID: 1963917504134256433, guid: d75d09c644e224f45a782137abf423b1,
+    type: 3}
+  FloorTiles:
   - {fileID: 21300192, guid: 51fb8212b8201f444b60c55d95d1c5e7, type: 3}
-  - {fileID: 21300288, guid: 51fb8212b8201f444b60c55d95d1c5e7, type: 3}
-  - {fileID: 21300384, guid: 51fb8212b8201f444b60c55d95d1c5e7, type: 3}
-  wallTiles:
-  - {fileID: 21300064, guid: 4cdbfb04d46c85541b9077cc16141a44, type: 3}
-  - {fileID: 21300074, guid: 4cdbfb04d46c85541b9077cc16141a44, type: 3}
-  - {fileID: 21300142, guid: 4cdbfb04d46c85541b9077cc16141a44, type: 3}
+  WallTiles:
   - {fileID: 21300298, guid: 4cdbfb04d46c85541b9077cc16141a44, type: 3}
-  - {fileID: 21300464, guid: 4cdbfb04d46c85541b9077cc16141a44, type: 3}
-  doorTile: {fileID: 21300002, guid: 51fb8212b8201f444b60c55d95d1c5e7, type: 3}
+  DoorTile: {fileID: 21300010, guid: 51fb8212b8201f444b60c55d95d1c5e7, type: 3}
+  MaxRoomCount: 25
+  MinSideLength: 3
+  MaxSideLength: 50
+  SideLengthMean: 10
+  SideLengthStd: 3
+  GenCircleRadius: 20
+  MainRoomThreshold: 10
+  TogglePhysics: 0
+  Rooms: []
 --- !u!4 &1010498327
 Transform:
   m_ObjectHideFlags: 0
@@ -3812,6 +3816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardManager: {fileID: 0}
+  dungeonGenerator: {fileID: 1010498326}
   uiManager: {fileID: 1354777316}
   boardCounter: 0
   killCounter: 0
@@ -3845,7 +3850,6 @@ MonoBehaviour:
   strText: {fileID: 854230264}
   magText: {fileID: 1597967790}
   dexText: {fileID: 2125327873}
-  enhText: {fileID: 0}
   deckText: {fileID: 2083417068}
   graveyardText: {fileID: 1576439138}
   scoreText: {fileID: 1286816157}
@@ -5240,7 +5244,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1354777311}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}

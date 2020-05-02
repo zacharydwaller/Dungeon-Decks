@@ -6,8 +6,11 @@ public class GameManager : MonoBehaviour
 {
     [HideInInspector]
     public static GameManager singleton;
+
     [HideInInspector]
     public BoardManager boardManager;
+
+    public DungeonGenerator dungeonGenerator;
 
     public UIManager uiManager;
 
@@ -59,13 +62,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // Start first cardTier to be the lowest, first enemyTier to be the highest delay
         cardTierDelay = (int) cardTierDelayRange.x;
         enemyTierDelay = (int) enemyTierDelayRange.y;
 
         GameObject playerObj = Instantiate(playerRef);
         player = playerObj.GetComponent<Player>();
 
-        InitLevel();
+        entities = new ArrayList();
+
+        //InitLevel();
+        dungeonGenerator.GenerateDungeon();
     }
 
     private void Update()
@@ -107,7 +114,6 @@ public class GameManager : MonoBehaviour
     // Init first level
     public void InitLevel()
     {
-        entities = new ArrayList();
         boardManager.GenerateStartingBoard();
 
         player.GetComponent<Transform>().position = new Vector3(boardManager.currentBoard.Width() / 2, boardManager.currentBoard.Height() / 2, 0);
