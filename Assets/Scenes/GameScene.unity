@@ -3787,7 +3787,8 @@ MonoBehaviour:
   SideLengthStd: 3
   GenCircleRadius: 20
   MainRoomThreshold: 10
-  TogglePhysics: 0
+  GenerationTimescale: 1
+  GenerationDuration: 5
   Rooms: []
 --- !u!4 &1010498327
 Transform:

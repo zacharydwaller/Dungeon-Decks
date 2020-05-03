@@ -31,31 +31,32 @@ public class DungeonGenerator : MonoBehaviour
     public float GenCircleRadius;
     public int MainRoomThreshold;
 
-    public bool TogglePhysics;
-    private bool SimulatingPhysics = false;
+    public float GenerationTimescale;
+    public float GenerationDuration;
+
+    private float GenerationStart;
+    private bool FinishedSeparation = false;
 
     public List<DungeonRoom> Rooms;
 
     public void Update()
     {
-        if(TogglePhysics)
+        if(!FinishedSeparation && Time.time > GenerationStart + (GenerationDuration * Time.timeScale))
         {
-            TogglePhysics = false;
-            SimulatingPhysics = !SimulatingPhysics;
-
-            foreach (var room in Rooms)
-            {
-                room.GetComponent<Rigidbody2D>().simulated = SimulatingPhysics;
-            }
+            FinishSeparation();
         }
     }
 
     public void GenerateDungeon()
     {
+        Time.timeScale = GenerationTimescale;
+        GenerationStart = Time.time;
+
+        Debug.Log($"Dungeon Generator Starting");
+
         for(int i = 0; i < MaxRoomCount; i++)
         {
             var roomObj = Instantiate(RoomPrefab, DungeonTransform);
-            roomObj.GetComponent<Rigidbody2D>().simulated = SimulatingPhysics;
 
             Vector2 location = UnityEngine.Random.insideUnitCircle * new Vector2(GenCircleRadius, GenCircleRadius);
             roomObj.transform.position = location;
@@ -80,8 +81,36 @@ public class DungeonGenerator : MonoBehaviour
         }
     }
 
+    private void FinishSeparation()
+    {
+        FinishedSeparation = true;
+        Time.timeScale = 1.0f;
+
+        float elapsed = (Time.time - GenerationStart) / GenerationTimescale * 1000.0f;
+        Debug.Log($"Dungeon Generator Finished in {elapsed} ms");
+
+        foreach (var room in Rooms)
+        {
+            room.GetComponent<Rigidbody2D>().simulated = false;
+
+            // Round position 
+            Vector2 position = room.transform.position;
+            float x = Mathf.Round(position.x) + 0.5f;
+            float y = Mathf.Round(position.y) + 0.5f;
+
+            room.transform.position = new Vector2(x, y);
+        }
+    }
+
     private System.Random rand = new System.Random();
 
+    /// <summary>
+    ///     Box-Muller Transform fast Gaussian distribution
+    ///     Implemented by Jarrett Meyer
+    /// </summary>
+    /// <param name="mean"></param>
+    /// <param name="stdDev"></param>
+    /// <returns></returns>
     private int GaussianRandom(int mean, float stdDev)
     {
         double u1 = 1.0 - rand.NextDouble(); //uniform(0,1] random doubles
@@ -90,8 +119,6 @@ public class DungeonGenerator : MonoBehaviour
         double randNormal = mean + stdDev * randStdNormal;
 
         float randFloat = (float) randNormal;
-
-        Debug.Log(randFloat);
 
         return Mathf.RoundToInt(randFloat);
     }
