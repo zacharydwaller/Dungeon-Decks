@@ -35,7 +35,7 @@ public class Enemy : Entity
         health = data.health;
 
         info = (EnemyInfo) data.info;
-        GetComponent<SpriteRenderer>().sprite = info.sprite;
+        GetComponentInChildren<SpriteRenderer>().sprite = info.sprite;
         tooltipCreator.SetItem(this);
     }
 
@@ -43,7 +43,7 @@ public class Enemy : Entity
     {
         info = newInfo;
         data.info = info;
-        GetComponent<SpriteRenderer>().sprite = info.sprite;
+        GetComponentInChildren<SpriteRenderer>().sprite = info.sprite;
         health = info.maxHealth;
         tooltipCreator.SetItem(this);
     }

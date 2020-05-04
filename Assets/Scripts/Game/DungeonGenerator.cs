@@ -69,14 +69,14 @@ public class DungeonGenerator : MonoBehaviour
             Rooms.Add(roomScr);
             roomScr.RoomId = i;
 
-            if(width >= MainRoomThreshold && height >= MainRoomThreshold)
+            if(width >= MainRoomThreshold || height >= MainRoomThreshold)
             {
                 roomScr.IsMainRoom = true;
-                roomObj.GetComponent<SpriteRenderer>().color = Color.red;
+                roomScr.PlaceholderGraphic.color = Color.red;
             }
             else
             {
-                roomObj.GetComponent<SpriteRenderer>().color = Color.blue;
+                roomScr.PlaceholderGraphic.color = Color.blue;
             }
         }
     }
@@ -95,8 +95,8 @@ public class DungeonGenerator : MonoBehaviour
 
             // Round position 
             Vector2 position = room.transform.position;
-            float x = Mathf.Round(position.x) + 0.5f;
-            float y = Mathf.Round(position.y) + 0.5f;
+            float x = Mathf.Round(position.x);
+            float y = Mathf.Round(position.y);
 
             room.transform.position = new Vector2(x, y);
         }

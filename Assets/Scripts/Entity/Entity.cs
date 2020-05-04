@@ -151,8 +151,8 @@ public abstract class Entity : MonoBehaviour
 
     protected void Move(Vector3 dir)
     {
-        data.position = base.transform.position + dir;
-        StartCoroutine(SmoothMoveTo(base.transform.position + dir));
+        data.position = transform.position + dir;
+        StartCoroutine(SmoothMoveTo(transform.position + dir));
     }
 
     public void DoAttackAnimation(Vector2 dir)

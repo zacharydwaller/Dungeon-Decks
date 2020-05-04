@@ -1709,7 +1709,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &525593609
 PrefabInstance:
@@ -3269,12 +3269,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 803787065}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &854230262
 GameObject:
@@ -3780,15 +3780,15 @@ MonoBehaviour:
   WallTiles:
   - {fileID: 21300298, guid: 4cdbfb04d46c85541b9077cc16141a44, type: 3}
   DoorTile: {fileID: 21300010, guid: 51fb8212b8201f444b60c55d95d1c5e7, type: 3}
-  MaxRoomCount: 25
+  MaxRoomCount: 35
   MinSideLength: 3
   MaxSideLength: 50
-  SideLengthMean: 10
+  SideLengthMean: 8
   SideLengthStd: 3
   GenCircleRadius: 20
   MainRoomThreshold: 10
-  GenerationTimescale: 1
-  GenerationDuration: 5
+  GenerationTimescale: 5
+  GenerationDuration: 1
   Rooms: []
 --- !u!4 &1010498327
 Transform:
@@ -5278,7 +5278,7 @@ RectTransform:
   - {fileID: 974264136}
   - {fileID: 242418661}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
