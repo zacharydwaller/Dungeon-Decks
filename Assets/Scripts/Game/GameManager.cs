@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
         enemyTierDelay = (int) enemyTierDelayRange.y;
 
         GameObject playerObj = Instantiate(playerRef);
+        playerObj.transform.position = new Vector3();
         player = playerObj.GetComponent<Player>();
 
         entities = new ArrayList();

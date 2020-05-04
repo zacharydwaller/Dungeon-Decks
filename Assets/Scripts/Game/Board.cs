@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Tile
+public enum TileType
 {
     Floor, Wall, Door
 }
@@ -16,7 +16,7 @@ public class Board
 
     public Coordinate coord;
 
-    private Tile[] tiles;
+    private TileType[] tiles;
 
     // id, entityData
     public SortedList<int, Entity.Data> entityData;
@@ -29,7 +29,7 @@ public class Board
         width = 15;
         height = 11;
 
-        tiles = new Tile[width * height];
+        tiles = new TileType[width * height];
         entityData = new SortedList<int, Entity.Data>();
 
         SetRoomTiles();
@@ -59,7 +59,7 @@ public class Board
         {
             ret.x = Random.Range(0 + padding, width - padding);
             ret.y = Random.Range(0 + padding, height - padding);
-        } while(GetTile((int) ret.y, (int) ret.x) != Tile.Floor);
+        } while(GetTile((int) ret.y, (int) ret.x) != TileType.Floor);
 
         return ret;
     }
@@ -74,31 +74,31 @@ public class Board
         // Top/Bottom wall
         for(int col = 0; col < width; col++)
         {
-            SetTile(0, col, Tile.Wall);
-            SetTile(height - 1, col, Tile.Wall);
+            SetTile(0, col, TileType.Wall);
+            SetTile(height - 1, col, TileType.Wall);
 
             if(col == width / 2)
             {
-                SetTile(0, col, Tile.Door);
-                SetTile(height - 1, col, Tile.Door);
+                SetTile(0, col, TileType.Door);
+                SetTile(height - 1, col, TileType.Door);
             }
         }
 
         // Left/Right wall
         for(int row = 0; row < height; row++)
         {
-            SetTile(row, 0, Tile.Wall);
-            SetTile(row, width - 1, Tile.Wall);
+            SetTile(row, 0, TileType.Wall);
+            SetTile(row, width - 1, TileType.Wall);
 
             if(row == height / 2)
             {
-                SetTile(row, 0, Tile.Door);
-                SetTile(row, width - 1, Tile.Door);
+                SetTile(row, 0, TileType.Door);
+                SetTile(row, width - 1, TileType.Door);
             }
         }
     }
 
-    public Tile SetTile(int row, int col, Tile newValue)
+    public TileType SetTile(int row, int col, TileType newValue)
     {
         if(row < height && col < width)
         {
@@ -107,11 +107,11 @@ public class Board
         }
         else
         {
-            return Tile.Wall;
+            return TileType.Wall;
         }
     }
 
-    public Tile GetTile(int row, int col)
+    public TileType GetTile(int row, int col)
     {
         if(row < height && col < width)
         {
@@ -119,7 +119,7 @@ public class Board
         }
         else
         {
-            return Tile.Wall;
+            return TileType.Wall;
         }
     }
 

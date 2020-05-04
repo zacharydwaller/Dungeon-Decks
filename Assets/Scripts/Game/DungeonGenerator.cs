@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    public Transform DungeonTransform;
-
     public GameObject FloorPrefab;
     public GameObject WallPrefab;
     public GameObject DoorPrefab;
@@ -17,9 +17,7 @@ public class DungeonGenerator : MonoBehaviour
 
     public GameObject RoomPrefab;
 
-    public Sprite[] FloorTiles;
-    public Sprite[] WallTiles;
-    public Sprite DoorTile;
+    public Tile[] FloorTiles;
 
     public int MaxRoomCount;
     public int MinSideLength;
@@ -43,12 +41,15 @@ public class DungeonGenerator : MonoBehaviour
     {
         if(!FinishedSeparation && Time.time > GenerationStart + (GenerationDuration * Time.timeScale))
         {
-            FinishSeparation();
+            LockLocations();
+            BuildRooms();
         }
     }
 
     public void GenerateDungeon()
     {
+        Rooms = new List<DungeonRoom>();
+
         Time.timeScale = GenerationTimescale;
         GenerationStart = Time.time;
 
@@ -56,7 +57,7 @@ public class DungeonGenerator : MonoBehaviour
 
         for(int i = 0; i < MaxRoomCount; i++)
         {
-            var roomObj = Instantiate(RoomPrefab, DungeonTransform);
+            var roomObj = Instantiate(RoomPrefab, transform);
 
             Vector2 location = UnityEngine.Random.insideUnitCircle * new Vector2(GenCircleRadius, GenCircleRadius);
             roomObj.transform.position = location;
@@ -65,23 +66,22 @@ public class DungeonGenerator : MonoBehaviour
             int height = Mathf.Max(MinSideLength, GaussianRandom(SideLengthMean, SideLengthStd));
             roomObj.transform.localScale = new Vector3(width, height);
 
-            var roomScr = roomObj.GetComponent<DungeonRoom>();
-            Rooms.Add(roomScr);
-            roomScr.RoomId = i;
+            var room = new DungeonRoom(i, roomObj.transform);
+            Rooms.Add(room);
 
-            if(width >= MainRoomThreshold || height >= MainRoomThreshold)
+            if(width >= MainRoomThreshold && height >= MainRoomThreshold)
             {
-                roomScr.IsMainRoom = true;
-                roomScr.PlaceholderGraphic.color = Color.red;
+                room.IsMainRoom = true;
+                room.PlaceholderGraphic.color = Color.red;
             }
             else
             {
-                roomScr.PlaceholderGraphic.color = Color.blue;
+                room.PlaceholderGraphic.color = Color.blue;
             }
         }
     }
 
-    private void FinishSeparation()
+    private void LockLocations()
     {
         FinishedSeparation = true;
         Time.timeScale = 1.0f;
@@ -91,15 +91,43 @@ public class DungeonGenerator : MonoBehaviour
 
         foreach (var room in Rooms)
         {
-            room.GetComponent<Rigidbody2D>().simulated = false;
-
-            // Round position 
-            Vector2 position = room.transform.position;
-            float x = Mathf.Round(position.x);
-            float y = Mathf.Round(position.y);
-
-            room.transform.position = new Vector2(x, y);
+            //room.ObjectTransform.GetComponent<Rigidbody2D>().simulated = false;
         }
+    }
+
+    private void BuildRooms()
+    {
+        var tilemap = GameObject.Find("TilemapBase").GetComponent<Tilemap>();
+        var mainRooms = GetMainRooms();
+
+        // Build connection rooms
+        foreach(var room in mainRooms)
+        {
+            // Place main room tiles
+            room.PlaceTiles(FloorTiles[0]);
+
+            // Place connecting lines
+            var connections = room.FindConnections(Rooms);
+            foreach(var connection in connections)
+            {
+                // Fill connecting rooms
+                if(!connection.IsMainRoom)
+                {
+                    connection.PlaceTiles(FloorTiles[1]);
+                }
+            }
+
+        }
+    }
+
+    private List<DungeonRoom> GetMainRooms()
+    {
+        return Rooms.Where(r => r.IsMainRoom).ToList();
+    }
+
+    private List<DungeonRoom> GetSideRooms()
+    {
+        return Rooms.Where(r => !r.IsMainRoom).ToList();
     }
 
     private System.Random rand = new System.Random();

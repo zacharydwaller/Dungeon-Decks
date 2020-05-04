@@ -110,15 +110,15 @@ public class BoardManager : MonoBehaviour
 
                 switch(board.GetTile(row, col))
                 {
-                    case Tile.Floor:
+                    case TileType.Floor:
                         tileRef = floorRef;
                         spriteRef = floorTiles[tIndex];
                         break;
-                    case Tile.Wall:
+                    case TileType.Wall:
                         tileRef = wallRef;
                         spriteRef = wallTiles[tIndex];
                         break;
-                    case Tile.Door:
+                    case TileType.Door:
                         tileRef = doorRef;
                         spriteRef = doorTile;
                         break;
