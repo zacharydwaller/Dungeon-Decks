@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager singleton;
 
     [HideInInspector]
-    public BoardManager boardManager;
+    public DungeonManager DungeonManager;
+    //public BoardManager boardManager;
 
-    public DungeonGenerator dungeonGenerator;
+    ///public DungeonGenerator dungeonGenerator;
 
     public UIManager uiManager;
 
@@ -57,7 +58,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        boardManager = GetComponent<BoardManager>();
+        //boardManager = GetComponent<BoardManager>();
+        DungeonManager = GetComponent<DungeonManager>();
     }
 
     private void Start()
@@ -66,14 +68,16 @@ public class GameManager : MonoBehaviour
         cardTierDelay = (int) cardTierDelayRange.x;
         enemyTierDelay = (int) enemyTierDelayRange.y;
 
+        isPlayerTurn = true;
+
         GameObject playerObj = Instantiate(playerRef);
         playerObj.transform.position = new Vector3();
         player = playerObj.GetComponent<Player>();
 
         entities = new ArrayList();
 
-        //InitLevel();
-        dungeonGenerator.GenerateDungeon();
+        InitLevel();
+        //dungeonGenerator.GenerateDungeon();
     }
 
     private void Update()
@@ -115,44 +119,43 @@ public class GameManager : MonoBehaviour
     // Init first level
     public void InitLevel()
     {
-        boardManager.GenerateStartingBoard();
+        DungeonManager.GenerateFloor();
 
-        player.GetComponent<Transform>().position = new Vector3(boardManager.currentBoard.Width() / 2, boardManager.currentBoard.Height() / 2, 0);
-
-        isPlayerTurn = true;
+        //boardManager.GenerateStartingBoard();
+        //player.GetComponent<Transform>().position = new Vector3(boardManager.currentBoard.Width() / 2, boardManager.currentBoard.Height() / 2, 0);
     }
 
     public void ChangeBoard(Vector2 direction)
     {
-        Coordinate curCoord = boardManager.currentBoard.coord;
-        Coordinate newCoord = new Coordinate(curCoord.x + (int) direction.x, curCoord.y + (int) direction.y);
+        //Coordinate curCoord = boardManager.currentBoard.coord;
+        //Coordinate newCoord = new Coordinate(curCoord.x + (int) direction.x, curCoord.y + (int) direction.y);
 
-        // Delete all entities
-        foreach(Entity ent in entities)
-        {
-            Destroy(ent.gameObject);
-        }
-        entities = new ArrayList();
+        //// Delete all entities
+        //foreach (Entity ent in entities)
+        //{
+        //    Destroy(ent.gameObject);
+        //}
+        //entities = new ArrayList();
 
-        // Load new board
-        boardManager.SwitchBoard(newCoord);
+        //// Load new board
+        //boardManager.SwitchBoard(newCoord);
 
-        // Put player in correct position
-        Board board = boardManager.currentBoard;
-        if(direction.x == 0)
-        {
-            if(direction.y == 1)
-                player.transform.position = new Vector3(board.Width() / 2, 1);
-            else
-                player.transform.position = new Vector3(board.Width() / 2, board.Height() - 2);
-        }
-        else
-        {
-            if(direction.x == 1)
-                player.transform.position = new Vector3(1, board.Height() / 2);
-            else
-                player.transform.position = new Vector3(board.Width() - 2, board.Height() / 2);
-        }
+        //// Put player in correct position
+        //Board board = boardManager.currentBoard;
+        //if (direction.x == 0)
+        //{
+        //    if (direction.y == 1)
+        //        player.transform.position = new Vector3(board.Width() / 2, 1);
+        //    else
+        //        player.transform.position = new Vector3(board.Width() / 2, board.Height() - 2);
+        //}
+        //else
+        //{
+        //    if (direction.x == 1)
+        //        player.transform.position = new Vector3(1, board.Height() / 2);
+        //    else
+        //        player.transform.position = new Vector3(board.Width() - 2, board.Height() / 2);
+        //}
     }
 
     // Called when board manager generates a new room
@@ -185,7 +188,7 @@ public class GameManager : MonoBehaviour
         if(!entities.Contains(entity))
         {
             entities.Add(entity);
-            boardManager.currentBoard.RegisterEntity(entity);
+            //boardManager.currentBoard.RegisterEntity(entity);
         }
     }
 
@@ -194,7 +197,7 @@ public class GameManager : MonoBehaviour
         if(entities.Contains(entity))
         {
             entities.Remove(entity);
-            boardManager.currentBoard.UnregisterEntity(entity);
+            //boardManager.currentBoard.UnregisterEntity(entity);
         }
     }
 

@@ -126,7 +126,7 @@ public class BoardManager : MonoBehaviour
 
                 GameObject tileObj = GameObject.Instantiate(tileRef, boardTransf);
                 tileObj.transform.localPosition = new Vector3(col, row, 0);
-                tileObj.GetComponent<SpriteRenderer>().sprite = spriteRef;
+                tileObj.GetComponentInChildren<SpriteRenderer>().sprite = spriteRef;
             }
         }
 
