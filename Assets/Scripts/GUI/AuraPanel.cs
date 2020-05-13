@@ -9,7 +9,7 @@ public class AuraPanel
     Transform panel;
     GameObject auraIconRef;
 
-    private const int auraSlots = 16;
+    private const int auraSlots = 12;
 
     public AuraPanel(PlayerUI newUI)
     {
