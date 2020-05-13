@@ -59,6 +59,13 @@ public class DungeonFloor
             id++;
         }
 
+        int extraConnections = Mathf.RoundToInt(numRooms * 0.15f);
+        Debug.Log($"DungeonGenerator: Adding {extraConnections} extra connections.");
+        for(int i = 0; i < extraConnections; i++)
+        {
+            AddRandomConnection();
+        }
+
         return this;
     }
 
@@ -97,6 +104,34 @@ public class DungeonFloor
         return newRoom;
     }
 
+    public void AddRandomConnection()
+    {
+        bool connectionMade = false;
+
+        do
+        { 
+            var room = GetRandomRoom();
+            var dir = DirectionUtility.GetRandom();
+
+            for(int i = 0; i < 4; i++)
+            {
+                var secondRoom = GetRoomInDirection(room, dir);
+                if (secondRoom != null && !room.Connections.ContainsKey(dir))
+                {
+                    room.AddConnection(dir, secondRoom.Id);
+                    secondRoom.AddConnection(dir.GetOpposite(), room.Id);
+
+                    connectionMade = true;
+                }
+                else
+                {
+                    dir = dir.GetClockwise();
+                }
+            }
+            
+        } while(!connectionMade);
+    }
+
     /// <summary>
     ///     Gets a random room capable of creating a new connected room
     ///     Require room to not be surrounded by other rooms
@@ -104,12 +139,7 @@ public class DungeonFloor
     /// <returns></returns>
     public DungeonRoom GetRandomParentRoom()
     {
-        if (Rooms.Count == 0) return null;
-
-        var rooms = Rooms.ToList();
-
-        int id = Rand.Next(0, rooms.Count - 1);
-        var room = rooms[id];
+        var room = GetRandomRoom();
 
         // if room is surrounded, pick a direction and run with it
         var dir = DirectionUtility.GetRandom();
@@ -117,6 +147,16 @@ public class DungeonFloor
         {
             room = GetRoomInDirection(room, dir);
         }
+
+        return room;
+    }
+
+    public DungeonRoom GetRandomRoom()
+    {
+        if (Rooms.Count == 0) return null;
+
+        int id = Rand.Next(0, Rooms.Count - 1);
+        var room = Rooms[id];
 
         return room;
     }
