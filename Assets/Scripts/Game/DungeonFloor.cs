@@ -11,12 +11,27 @@ public class DungeonFloor
     public List<DungeonRoom> Rooms;
 
     private System.Random Rand = new System.Random();
+    private DungeonManager DungeonManager;
+
+    private int RoomWidthMean = 15;
+    private int RoomWidthStd = 3;
+
+    private int RoomHeightMean = 11;
+    private int RoomHeightStd = 2;
 
     public DungeonFloor(int level)
     {
         Level = level;
         Rooms = new List<DungeonRoom>();
     }
+
+    public void DrawRoomAtCoord(Vector2Int coord)
+    {
+        var room = GetRoomAtCoordinate(coord);
+        room.DrawRoom();
+    }
+
+    #region DungeonGeneration
 
     public DungeonRoom AddRoom(DungeonRoom room)
     {
@@ -71,7 +86,10 @@ public class DungeonFloor
 
     public DungeonRoom AddStartingRoom()
     {
-        var room = new DungeonRoom(0, new Vector2Int(0, 0));
+        var width = Rand.NextGaussian(RoomWidthMean, RoomWidthStd);
+        var height = Rand.NextGaussian(RoomHeightMean, RoomHeightStd);
+
+        var room = new DungeonRoom(0, Level, new Vector2Int(0, 0), width, height);
         Rooms.Add(room);
 
         return room;
@@ -94,13 +112,15 @@ public class DungeonFloor
 
         // Create new room, connect newRoom to parentRoom
         var coord = parentRoom.Coordinate + dir.ToVector();
-        var newRoom = new DungeonRoom(id, coord);
+        var width = Rand.NextGaussian(RoomWidthMean, RoomWidthStd);
+        var height = Rand.NextGaussian(RoomHeightMean, RoomHeightStd);
+        var newRoom = new DungeonRoom(id, Level, coord, width, height);
 
         parentRoom.AddConnection(dir, id);
         newRoom.AddConnection(dir.GetOpposite(), parentRoom.Id);
 
         Rooms.Add(newRoom);
-        
+
         return newRoom;
     }
 
@@ -175,4 +195,6 @@ public class DungeonFloor
 
         return true;
     }
+
+    #endregion
 }

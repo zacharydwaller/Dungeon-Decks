@@ -4,66 +4,86 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
+    [HideInInspector]
+    public Transform BoardTransform;
+
     public int RoomsMean;
     public int RoomsStd;
 
+    public const int MaxColumns = 7;
+    public const int MaxRows = 5;
+
     public List<DungeonFloor> Floors;
-    public DungeonFloor CurrentFloor { get; private set; }
+    public DungeonFloor CurrentFloor { get => Floors[Level - 1]; }
     public int Level { get; private set; }
 
+    //public GameObject WallPrefab;
+    //public GameObject FloorPrefab;
+    //public GameObject DoorPrefab;
+
+    //public Sprite[] WallSprites;
+    //public Sprite[] FloorSprites;
+    //public Sprite DoorSprite;
+
     private System.Random Rand = new System.Random();
+
+    public void Start()
+    {
+        BoardTransform = GameObject.FindGameObjectWithTag("Board").transform;
+    }
 
     public DungeonManager()
     {
         Floors = new List<DungeonFloor>();
-        CurrentFloor = null;
         Level = 0;
     }
 
+    #region DungeonGeneration
+
     public DungeonFloor GenerateFloor()
     {
-        Level = Floors.Count + 1;
+        var level = Level + 1;
 
-        var floor = new DungeonFloor(Level);
+        var floor = new DungeonFloor(level);
         Floors.Add(floor);
-
-        if (CurrentFloor == null) CurrentFloor = floor;
 
         var numRooms = Rand.NextGaussian(RoomsMean, RoomsStd);
 
-        Debug.Log($"Generating Floor {Level} with {numRooms} rooms.");
+        Debug.Log($"Generating Floor {level} with {numRooms} rooms.");
 
         return floor.GenerateFloor(numRooms);
     }
 
-    public DungeonFloor IncrementFloor()
+    public DungeonFloor AdvanceFloor()
     {
-        Level++;
+        if(Level + 1 >= Floors.Count)
+        {
+            GenerateFloor();
+        }
 
-        if(Level >= Floors.Count)
-        {
-            CurrentFloor = GenerateFloor();
-        }
-        else
-        {
-            CurrentFloor = Floors[Level];
-        }
+        Level++;
+        CurrentFloor.DrawRoomAtCoord(new Vector2Int(0, 0));
 
         return CurrentFloor;
     }
 
     public DungeonFloor DecrementFloor()
     {
-        Level--;
-
-        if(Level <= 0)
+        if(Level <= 1)
         {
             Level = 1;
         }
+        else
+        {
+            Level--;
+        }
 
-        CurrentFloor = Floors[Level];
         return CurrentFloor;
     }
+
+    #endregion
+
+    #region Gizmos
 
     private void OnDrawGizmos()
     {
@@ -71,12 +91,12 @@ public class DungeonManager : MonoBehaviour
         {
             foreach(var room in CurrentFloor.Rooms)
             {
-                DrawRoom(room);
+                GizmosDrawRoom(room);
             }
         }
     }
 
-    private void DrawRoom(DungeonRoom room)
+    private void GizmosDrawRoom(DungeonRoom room)
     {
         var position = new Vector3(room.Coordinate.x, room.Coordinate.y);
 
@@ -85,11 +105,11 @@ public class DungeonManager : MonoBehaviour
 
         foreach (var connection in room.Connections)
         {
-            DrawConnection(room, CurrentFloor.GetRoomById(connection.Value));
+            GizmosDrawConnection(room, CurrentFloor.GetRoomById(connection.Value));
         }
     }
 
-    private void DrawConnection(DungeonRoom roomA, DungeonRoom roomB)
+    private void GizmosDrawConnection(DungeonRoom roomA, DungeonRoom roomB)
     {
         var positionA = new Vector3(roomA.Coordinate.x, roomA.Coordinate.y);
         var positionB = new Vector3(roomB.Coordinate.x, roomB.Coordinate.y);
@@ -97,4 +117,7 @@ public class DungeonManager : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawLine(positionA, positionB);
     }
+
+    #endregion
+
 }

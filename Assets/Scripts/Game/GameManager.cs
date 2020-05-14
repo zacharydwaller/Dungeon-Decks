@@ -9,9 +9,8 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public DungeonManager DungeonManager;
-    //public BoardManager boardManager;
 
-    ///public DungeonGenerator dungeonGenerator;
+    public Vector2Int CurrentRoomCoord;
 
     public UIManager uiManager;
 
@@ -58,7 +57,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //boardManager = GetComponent<BoardManager>();
         DungeonManager = GetComponent<DungeonManager>();
     }
 
@@ -77,7 +75,6 @@ public class GameManager : MonoBehaviour
         entities = new ArrayList();
 
         InitLevel();
-        //dungeonGenerator.GenerateDungeon();
     }
 
     private void Update()
@@ -119,12 +116,13 @@ public class GameManager : MonoBehaviour
     // Init first level
     public void InitLevel()
     {
-        DungeonManager.GenerateFloor();
+        CurrentRoomCoord = new Vector2Int(0, 0);
 
-        //boardManager.GenerateStartingBoard();
+        DungeonManager.AdvanceFloor();
+
         //player.GetComponent<Transform>().position = new Vector3(boardManager.currentBoard.Width() / 2, boardManager.currentBoard.Height() / 2, 0);
     }
-
+    
     public void ChangeBoard(Vector2 direction)
     {
         //Coordinate curCoord = boardManager.currentBoard.coord;

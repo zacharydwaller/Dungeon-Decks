@@ -10,6 +10,8 @@ TagManager:
   - Canvas
   - Door
   - SettingsManager
+  - Board
+  - Map
   layers:
   - Default
   - TransparentFX

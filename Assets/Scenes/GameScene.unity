@@ -3782,6 +3782,7 @@ GameObject:
   - component: {fileID: 1010498326}
   - component: {fileID: 1010498329}
   - component: {fileID: 1010498331}
+  - component: {fileID: 1010498332}
   - component: {fileID: 1010498330}
   m_Layer: 0
   m_Name: GameManager
@@ -3802,6 +3803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462c1af106821434c888ac525edac75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoardTransform: {fileID: 0}
   RoomsMean: 15
   RoomsStd: 3
 --- !u!4 &1010498327
@@ -3831,6 +3833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DungeonManager: {fileID: 0}
+  CurrentRoomCoord: {x: 0, y: 0}
   uiManager: {fileID: 1354777316}
   boardCounter: 0
   killCounter: 0
@@ -3989,6 +3992,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a110aad9db86fe44da8461d5054d7606, type: 3}
   - {fileID: 8300000, guid: 643a9af11ebc4f145bdee2732b841221, type: 3}
   minLength: 90
+--- !u!114 &1010498332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010498325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724e39cef6ad0e940aa1b4d95d12f51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MapTransf: {fileID: 0}
+  GameManager: {fileID: 0}
 --- !u!224 &1027117721 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2481225715229038938, guid: 7103ec6e539299440947ba4ee3f8d02b,
@@ -6884,7 +6901,7 @@ GameObject:
   - component: {fileID: 1635379081}
   m_Layer: 0
   m_Name: Board
-  m_TagString: Untagged
+  m_TagString: Board
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7433,7 +7450,7 @@ GameObject:
   - component: {fileID: 1844284187}
   m_Layer: 5
   m_Name: Map
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
