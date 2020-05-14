@@ -14,7 +14,7 @@ public class DungeonManager : MonoBehaviour
     public const int MaxRows = 5;
 
     public List<DungeonFloor> Floors;
-    public DungeonFloor CurrentFloor { get => Floors[Level - 1]; }
+
     public int Level { get; private set; }
 
     //public GameObject WallPrefab;
@@ -36,6 +36,16 @@ public class DungeonManager : MonoBehaviour
     {
         Floors = new List<DungeonFloor>();
         Level = 0;
+    }
+
+    public DungeonFloor CurrentFloor()
+    {
+        if(Level > Floors.Count || Level <= 0)
+        {
+            return null;
+        }
+
+        return Floors[Level - 1];
     }
 
     #region DungeonGeneration
@@ -62,9 +72,9 @@ public class DungeonManager : MonoBehaviour
         }
 
         Level++;
-        CurrentFloor.DrawRoomAtCoord(new Vector2Int(0, 0));
+        CurrentFloor().DrawRoomAtCoord(new Vector2Int(0, 0));
 
-        return CurrentFloor;
+        return CurrentFloor();
     }
 
     public DungeonFloor DecrementFloor()
@@ -78,7 +88,7 @@ public class DungeonManager : MonoBehaviour
             Level--;
         }
 
-        return CurrentFloor;
+        return CurrentFloor();
     }
 
     #endregion
@@ -87,9 +97,9 @@ public class DungeonManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (CurrentFloor != null)
+        if (CurrentFloor() != null)
         {
-            foreach(var room in CurrentFloor.Rooms)
+            foreach(var room in CurrentFloor().Rooms)
             {
                 GizmosDrawRoom(room);
             }
@@ -105,7 +115,7 @@ public class DungeonManager : MonoBehaviour
 
         foreach (var connection in room.Connections)
         {
-            GizmosDrawConnection(room, CurrentFloor.GetRoomById(connection.Value));
+            GizmosDrawConnection(room, CurrentFloor().GetRoomById(connection.Value));
         }
     }
 

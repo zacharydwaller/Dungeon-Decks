@@ -11,13 +11,15 @@ public class DungeonFloor
     public List<DungeonRoom> Rooms;
 
     private System.Random Rand = new System.Random();
-    private DungeonManager DungeonManager;
 
     private int RoomWidthMean = 15;
     private int RoomWidthStd = 3;
 
     private int RoomHeightMean = 11;
     private int RoomHeightStd = 2;
+
+    private const int MaxXCoord = 3;
+    private const int MaxYCoord = 2;
 
     public DungeonFloor(int level)
     {
@@ -161,11 +163,10 @@ public class DungeonFloor
     {
         var room = GetRandomRoom();
 
-        // if room is surrounded, pick a direction and run with it
-        var dir = DirectionUtility.GetRandom();
-        while (IsRoomSurounded(room))
+        // If room is surrounded, pick another room
+        while(IsRoomSurounded(room))
         {
-            room = GetRoomInDirection(room, dir);
+            room = GetRandomRoom();
         }
 
         return room;
@@ -183,17 +184,25 @@ public class DungeonFloor
 
     public bool IsRoomSurounded(DungeonRoom room)
     {
-        var directions = Enum.GetValues(typeof(Direction)).Cast<Direction>();
+        bool surroundedByRooms = true;
 
-        foreach (var dir in directions)
+        foreach (var dir in DirectionUtility.GetDirections())
         {
             if (GetRoomInDirection(room, dir) == null)
             {
-                return false;
+                surroundedByRooms = false;
             }
         }
 
-        return true;
+        bool onEdge = false;
+        var coord = room.Coordinate;
+        if(Mathf.Abs(coord.x) >= MaxXCoord
+            || Mathf.Abs(coord.y) >= MaxYCoord)
+        {
+            onEdge = true;
+        }
+
+        return surroundedByRooms || onEdge;
     }
 
     #endregion
