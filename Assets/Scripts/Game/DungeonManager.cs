@@ -7,6 +7,9 @@ public class DungeonManager : MonoBehaviour
     [HideInInspector]
     public Transform BoardTransform;
 
+    [HideInInspector]
+    public MapManager MapManager;
+
     public int RoomsMean;
     public int RoomsStd;
 
@@ -27,9 +30,10 @@ public class DungeonManager : MonoBehaviour
 
     private System.Random Rand = new System.Random();
 
-    public void Start()
+    public void Awake()
     {
         BoardTransform = GameObject.FindGameObjectWithTag("Board").transform;
+        MapManager = GetComponent<MapManager>();
     }
 
     public DungeonManager()
@@ -38,7 +42,7 @@ public class DungeonManager : MonoBehaviour
         Level = 0;
     }
 
-    public DungeonFloor CurrentFloor()
+    public DungeonFloor GetCurrentFloor()
     {
         if(Level > Floors.Count || Level <= 0)
         {
@@ -72,9 +76,12 @@ public class DungeonManager : MonoBehaviour
         }
 
         Level++;
-        CurrentFloor().DrawRoomAtCoord(new Vector2Int(0, 0));
 
-        return CurrentFloor();
+        var currentFloor = GetCurrentFloor();
+        currentFloor.DrawRoomAtCoord(new Vector2Int(0, 0));
+        MapManager.DrawMap(currentFloor);
+
+        return currentFloor;
     }
 
     public DungeonFloor DecrementFloor()
@@ -88,7 +95,7 @@ public class DungeonManager : MonoBehaviour
             Level--;
         }
 
-        return CurrentFloor();
+        return GetCurrentFloor();
     }
 
     #endregion
@@ -97,9 +104,9 @@ public class DungeonManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (CurrentFloor() != null)
+        if (GetCurrentFloor() != null)
         {
-            foreach(var room in CurrentFloor().Rooms)
+            foreach(var room in GetCurrentFloor().Rooms)
             {
                 GizmosDrawRoom(room);
             }
@@ -115,7 +122,7 @@ public class DungeonManager : MonoBehaviour
 
         foreach (var connection in room.Connections)
         {
-            GizmosDrawConnection(room, CurrentFloor().GetRoomById(connection.Value));
+            GizmosDrawConnection(room, GetCurrentFloor().GetRoomById(connection.Value));
         }
     }
 

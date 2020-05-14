@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         }
 
         DungeonManager = GetComponent<DungeonManager>();
+        entities = new ArrayList();
     }
 
     private void Start()
@@ -71,8 +72,6 @@ public class GameManager : MonoBehaviour
         GameObject playerObj = Instantiate(playerRef);
         playerObj.transform.position = new Vector3();
         player = playerObj.GetComponent<Player>();
-
-        entities = new ArrayList();
 
         InitLevel();
     }
